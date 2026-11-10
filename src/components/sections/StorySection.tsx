@@ -137,7 +137,7 @@ export default function StorySection() {
               data-story-trigger
               aria-label="Watch our story full screen with sound"
               onClick={openPlayer}
-              className="reel-button relative isolate flex h-[clamp(3.5rem,6.5vw,7.5rem)] w-[clamp(5.75rem,11vw,12.5rem)] shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-paper text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-paper"
+              className="reel-button relative isolate flex size-[clamp(4.25rem,5.5vw,6.125rem)] shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-paper/25 bg-ink/30 text-paper backdrop-blur-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-paper"
             >
               <span aria-hidden className="reel-button__fill absolute inset-0 -z-10 bg-blue" />
               {/* Full-screen corners. */}
@@ -149,7 +149,7 @@ export default function StorySection() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-[34%] w-auto"
+                className="h-[30%] w-auto"
               >
                 <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />
               </svg>
