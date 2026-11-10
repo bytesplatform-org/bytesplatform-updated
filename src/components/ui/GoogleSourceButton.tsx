@@ -1,3 +1,6 @@
+"use client";
+
+import type { MouseEvent } from "react";
 import { site } from "@/data/site";
 import styles from "./GoogleSourceButton.module.css";
 
@@ -11,17 +14,43 @@ const GoogleG = () => (
   </svg>
 );
 
+/** The API publisher.js (loaded in the root layout) puts on window.PREFERRED_SOURCE. */
+type PreferredSourceApi = { addPreferredSource: () => void };
+declare global {
+  interface Window {
+    PREFERRED_SOURCE?: unknown[] | { api?: PreferredSourceApi };
+  }
+}
+
+/** Opens Google's "Add as a preferred source" popup. False if the runtime isn't loaded. */
+function openGooglePopup() {
+  const runtime = window.PREFERRED_SOURCE;
+  const api = runtime && !Array.isArray(runtime) ? runtime.api : undefined;
+  if (!api) return false;
+  api.addPreferredSource();
+  return true;
+}
+
 /**
- * "Add to Preferred Sources": Google's preferred-source deeplink, dressed as the nav's
- * action pill. Hover turns it blue and swaps the dot for an outbound arrow.
+ * "Add to Preferred Sources", dressed as the nav's action pill. Clicking opens
+ * Google's own popup (same as Google's widget); if Google's script is blocked
+ * it falls back to the preferred-source page. Hover turns it blue and swaps
+ * the dot for an outbound arrow.
  */
 export default function GoogleSourceButton({ className = "" }: { className?: string }) {
+  const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    // Let modified clicks (new tab, etc.) follow the link as usual.
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (openGooglePopup()) event.preventDefault();
+  };
+
   return (
     <a
       href={site.links.googlePreferredSource}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Add BytesPlatform as a preferred source on Google (opens in a new tab)"
+      onClick={onClick}
+      aria-label="Add BytesPlatform as a preferred source on Google"
       className={`${styles.button} ${className}`.trim()}
     >
       <span className={styles.g} aria-hidden><GoogleG /></span>
