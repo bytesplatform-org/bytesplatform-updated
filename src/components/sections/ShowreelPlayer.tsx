@@ -1,15 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { lockScroll } from "@/lib/animation/scroll";
 import styles from "./ShowreelPlayer.module.css";
+
+type VideoSource = { src: string; type: string };
 
 type ShowreelPlayerProps = {
   open: boolean;
   initialPointer: { x: number; y: number };
   onClose: () => void;
+  /** The film to play; defaults to the BytesPlatform showreel. */
+  sources?: VideoSource[];
+  poster?: string;
+  /** Names the film in the dialog's labels ("showreel" → "Close showreel"). */
+  label?: string;
+  /** Selector for the button that opened the player, refocused on close. */
+  trigger?: string;
 };
+
+const SHOWREEL_SOURCES: VideoSource[] = [
+  { src: "/showreel/showreel-av1.webm", type: 'video/webm; codecs="av01,opus"' },
+  { src: "/showreel/showreel.mp4", type: "video/mp4" },
+];
 
 const formatTime = (seconds: number) => {
   if (!Number.isFinite(seconds)) return "0:00";
@@ -17,7 +31,16 @@ const formatTime = (seconds: number) => {
   return `${minutes}:${Math.floor(seconds % 60).toString().padStart(2, "0")}`;
 };
 
-export default function ShowreelPlayer({ open, initialPointer, onClose }: ShowreelPlayerProps) {
+export default function ShowreelPlayer({
+  open,
+  initialPointer,
+  onClose,
+  sources = SHOWREEL_SOURCES,
+  poster = "/showreel/player-poster.webp",
+  label = "showreel",
+  trigger = "[data-showreel-trigger]",
+}: ShowreelPlayerProps) {
+  const ringId = `${useId()}-close-ring`;
   const playerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -84,7 +107,7 @@ export default function ShowreelPlayer({ open, initialPointer, onClose }: Showre
     if (open) return;
     if (!wasOpenRef.current) return;
     wasOpenRef.current = false;
-    document.querySelector<HTMLButtonElement>("[data-showreel-trigger]")?.focus({ preventScroll: true });
+    document.querySelector<HTMLButtonElement>(trigger)?.focus({ preventScroll: true });
     const reset = window.setTimeout(() => {
       const video = videoRef.current;
       if (!video) return;
@@ -93,7 +116,7 @@ export default function ShowreelPlayer({ open, initialPointer, onClose }: Showre
       setCurrentTime(0);
     }, 800);
     return () => window.clearTimeout(reset);
-  }, [open]);
+  }, [open, trigger]);
 
   if (!mounted) return null;
 
@@ -133,7 +156,7 @@ export default function ShowreelPlayer({ open, initialPointer, onClose }: Showre
       style={playerStyle}
       role="dialog"
       aria-modal="true"
-      aria-label="BytesPlatform showreel"
+      aria-label={`BytesPlatform ${label}`}
       aria-hidden={!open}
       onClick={onClose}
       onPointerMove={(event) => {
@@ -145,7 +168,7 @@ export default function ShowreelPlayer({ open, initialPointer, onClose }: Showre
         className={styles.video}
         playsInline
         preload="none"
-        poster="/showreel/player-poster.webp"
+        poster={poster}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
@@ -156,20 +179,21 @@ export default function ShowreelPlayer({ open, initialPointer, onClose }: Showre
           onClose();
         }}
       >
-        <source src="/showreel/showreel-av1.webm" type='video/webm; codecs="av01,opus"' />
-        <source src="/showreel/showreel.mp4" type="video/mp4" />
+        {sources.map((source) => (
+          <source key={source.src} src={source.src} type={source.type} />
+        ))}
       </video>
 
-      <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close showreel">
+      <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label={`Close ${label}`}>
         <span aria-hidden />
         <span aria-hidden />
         {/* "Click to exit" circling inside the button, around the ×. */}
         <svg aria-hidden viewBox="0 0 100 100" className={styles.closeRing}>
           <defs>
-            <path id="showreel-close-ring" d="M50 50 m-37 0 a37 37 0 1 1 74 0 a37 37 0 1 1 -74 0" />
+            <path id={ringId} d="M50 50 m-37 0 a37 37 0 1 1 74 0 a37 37 0 1 1 -74 0" />
           </defs>
           <text>
-            <textPath href="#showreel-close-ring" textLength="230" lengthAdjust="spacing">
+            <textPath href={`#${ringId}`} textLength="230" lengthAdjust="spacing">
               CLICK TO EXIT • CLICK TO EXIT •
             </textPath>
           </text>
@@ -194,7 +218,7 @@ export default function ShowreelPlayer({ open, initialPointer, onClose }: Showre
           step="0.01"
           value={Math.min(currentTime, duration || 0)}
           onChange={(event) => seek(Number(event.currentTarget.value))}
-          aria-label="Showreel progress"
+          aria-label={`${label[0].toUpperCase()}${label.slice(1)} progress`}
         />
         <span className={styles.time}>{formatTime(duration)}</span>
         <button type="button" onClick={toggleMute} className={styles.controlButton}>

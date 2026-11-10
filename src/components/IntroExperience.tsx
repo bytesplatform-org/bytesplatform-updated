@@ -8,6 +8,7 @@ import Hero from "./hero/Hero";
 import FluidVideoTransition from "./sections/FluidVideoTransition";
 import ServicesSection from "./sections/ServicesSection";
 import FeaturedWork from "./sections/FeaturedWork";
+import StorySection from "./sections/StorySection";
 import StatsSection from "./sections/StatsSection";
 import TestimonialsSection from "./sections/TestimonialsSection";
 import ClientsSection from "./sections/ClientsSection";
@@ -633,6 +634,7 @@ export default function IntroExperience() {
           off the fixed footer. Its paper is painted by this canvas (data-sheet)
           so the pointer trail runs across it; the DOM carries only content. */}
       <div data-stats className="relative z-[3] rounded-[clamp(1.75rem,4vw,4rem)] bg-paper">
+        <StorySection />
         <StatsSection />
         <TestimonialsSection />
         <ClientsSection />
