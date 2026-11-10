@@ -1,11 +1,11 @@
 "use client";
 
-import { Fragment, useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import ActionPill from "@/components/ui/ActionPill";
-import ShowreelPlayer from "@/components/sections/ShowreelPlayer";
+import StoryFilm from "@/components/sections/StoryFilm";
 import SiteFooter from "@/components/sections/SiteFooter";
 import { about } from "@/data/about";
 import { site } from "@/data/site";
@@ -44,26 +44,8 @@ function SectionLabel({ index, children }: { index: string; children: string }) 
 
 export default function AboutPage() {
   const root = useRef<HTMLDivElement>(null);
-  const [playerOpen, setPlayerOpen] = useState(false);
-  const [playerPointer, setPlayerPointer] = useState({ x: 0, y: 0 });
-  const openPlayer = (event: MouseEvent<HTMLButtonElement>) => {
-    setPlayerPointer({ x: event.clientX, y: event.clientY });
-    setPlayerOpen(true);
-  };
 
   useEffect(() => mountScroll({ smooth: !prefersReducedMotion() }), []);
-
-  // Pause the story loop whenever it is off screen.
-  useEffect(() => {
-    const video = root.current?.querySelector<HTMLVideoElement>("[data-story-video]");
-    if (!video || prefersReducedMotion()) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => {});
-      else video.pause();
-    });
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
 
   useLayoutEffect(() => {
     const el = root.current;
@@ -120,20 +102,6 @@ export default function AboutPage() {
         stagger: 0.1,
         ease: "none",
         scrollTrigger: { trigger: "[data-statement]", start: "top 78%", end: "bottom 45%", scrub: true },
-      });
-
-      // The reel opens from an inset window to the full frame.
-      gsap.fromTo("[data-story-media]",
-        { clipPath: "inset(9% 11% 9% 11% round 2rem)" },
-        {
-          clipPath: "inset(0% 0% 0% 0% round 1.25rem)",
-          ease: "none",
-          scrollTrigger: { trigger: "[data-story-media]", start: "top bottom", end: "center 55%", scrub: true },
-        });
-      gsap.fromTo("[data-story-video]", { scale: 1.18 }, {
-        scale: 1,
-        ease: "none",
-        scrollTrigger: { trigger: "[data-story-media]", start: "top bottom", end: "bottom top", scrub: true },
       });
 
       gsap.from("[data-connector]", {
@@ -199,32 +167,7 @@ export default function AboutPage() {
             <p data-reveal className={styles.body}>{about.story.body}</p>
           </div>
 
-          <div data-story-media className={styles.storyMedia}>
-            <video
-              data-story-video
-              muted
-              loop
-              playsInline
-              autoPlay
-              preload="metadata"
-              poster="/showreel/card-poster.webp"
-              aria-hidden
-              className={styles.storyVideo}
-            >
-              <source src="/showreel/card-preview.webm" type='video/webm; codecs="av01"' />
-              <source src="/showreel/card-preview.mp4" type="video/mp4" />
-            </video>
-            <div className={styles.storyOverlay}>
-              <span aria-hidden className={styles.reelWord}>Play</span>
-              <button type="button" aria-label="Play showreel" onClick={openPlayer} className={styles.reelButton}>
-                <span aria-hidden className={styles.reelFill} />
-                <svg aria-hidden viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 3.5v17a1 1 0 0 0 1.52.85l13.6-8.5a1 1 0 0 0 0-1.7L7.52 2.65A1 1 0 0 0 6 3.5Z" />
-                </svg>
-              </button>
-              <span aria-hidden className={styles.reelWord}>Reel</span>
-            </div>
-          </div>
+          <StoryFilm />
 
           <ul className={styles.tags}>
             {about.story.tags.map((tag) => (
@@ -354,7 +297,6 @@ export default function AboutPage() {
 
       <SiteFooter />
 
-      <ShowreelPlayer open={playerOpen} initialPointer={playerPointer} onClose={() => setPlayerOpen(false)} />
     </>
   );
 }

@@ -113,80 +113,10 @@
   margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
-.storyMedia {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 1.25rem;
-  background: #1a1a1a;
-}
-
-.storyVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  will-change: transform;
-}
-
-.storyOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.75rem, 2.6vw, 3rem);
-  background: linear-gradient(to top, rgb(17 17 17 / 0.35), rgb(17 17 17 / 0.05));
-  color: var(--color-paper);
-}
-
-.reelWord {
-  font-size: clamp(2.5rem, 7.5vw, 9rem);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-
-.reelButton {
-  --reel-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  width: clamp(5rem, 10vw, 11.5rem);
-  height: clamp(3.1rem, 6vw, 7rem);
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 0;
-  border-radius: 999px;
-  background: var(--color-paper);
-  color: var(--color-ink);
-  cursor: pointer;
-  transition: transform 1s var(--reel-ease), color 1s var(--reel-ease);
-}
-
-.reelButton svg { width: auto; height: 32%; transform: translateX(6%); }
-
-.reelFill {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: var(--color-blue);
-  transform: translateY(101%);
-  transition: transform 0.5s var(--reel-ease);
-}
-
-.reelButton:hover,
-.reelButton:focus-visible { color: var(--color-paper); transform: scale(1.08); }
-.reelButton:hover .reelFill,
-.reelButton:focus-visible .reelFill { transform: none; }
-
 .tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   margin-top: 1.5rem;
 }
