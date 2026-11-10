@@ -1,0 +1,31 @@
+/* Shared hero layout for the "Add to Preferred Sources" button:
+   intro on the left, actions on the right; stacked on phones. */
+.foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* The Google button beside a page's own CTA pill. When tight it wraps
+   below, so the page's CTA (the primary action) stays on top. */
+.actions {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* A top row: a link on the left, the Google button on the right. */
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (max-width: 767px) {
+  .foot { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+}

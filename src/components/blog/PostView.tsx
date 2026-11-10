@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import ActionPill from "@/components/ui/ActionPill";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import { categoryLabel, formatDate, imageUrl, readingMinutes, type Post, type PostSummary } from "@/lib/blog";
 import PostBody from "./PostBody";
 import PostCard from "./PostCard";
@@ -39,7 +41,10 @@ export default function PostView({ post, related }: { post: Post; related: PostS
       />
 
       <header id="top" className={styles.postHero}>
-        <a data-hero-fade href="/blogs" className={styles.back}><span aria-hidden>←</span> All articles</a>
+        <div className={heroFoot.topRow}>
+          <a data-hero-fade href="/blogs" className={styles.back}><span aria-hidden>←</span> All articles</a>
+          <div data-hero-fade><GoogleSourceButton /></div>
+        </div>
         <p data-hero-fade className={styles.meta}>
           {post.category && <span>{categoryLabel(post.category)}</span>}
           <span>{formatDate(post.date)}</span>

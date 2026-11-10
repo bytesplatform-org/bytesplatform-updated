@@ -13,6 +13,8 @@ import { mountScroll } from "@/lib/animation/scroll";
 import { mountFooterLift } from "@/lib/animation/footerLift";
 // The submit button wears the site pill; its styles live with ActionPill.
 import "@/components/ui/ActionPill.css";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import styles from "./EInvoicingPage.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -322,8 +324,11 @@ export default function EInvoicingPage() {
               {capabilities.map((item) => <li key={item}><span className="hero-dot" aria-hidden />{item}</li>)}
             </ul>
           </div>
-          <div id="review" data-hero-fade className={styles.formCard}>
-            <LeadForm />
+          <div className={styles.formColumn}>
+            <div data-hero-fade><GoogleSourceButton /></div>
+            <div id="review" data-hero-fade className={styles.formCard}>
+              <LeadForm />
+            </div>
           </div>
         </section>
 

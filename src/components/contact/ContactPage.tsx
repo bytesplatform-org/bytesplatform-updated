@@ -14,6 +14,8 @@ import { mountScroll } from "@/lib/animation/scroll";
 import { mountFooterLift } from "@/lib/animation/footerLift";
 // The submit button wears the site pill; its styles live with ActionPill.
 import "@/components/ui/ActionPill.css";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import styles from "./ContactPage.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -152,10 +154,13 @@ export default function ContactPage() {
           <h1 data-hero-title className={styles.heroTitle}>
             <Words text="Let's talk" tail={<span className="hero-period">.</span>} />
           </h1>
-          <p data-hero-fade className={styles.heroIntro}>
-            Questions, feedback or a project in mind. Tell us about it. Our team reads every message and replies
-            promptly.
-          </p>
+          <div className={heroFoot.foot}>
+            <p data-hero-fade className={styles.heroIntro}>
+              Questions, feedback or a project in mind. Tell us about it. Our team reads every message and replies
+              promptly.
+            </p>
+            <div data-hero-fade><GoogleSourceButton /></div>
+          </div>
         </section>
 
         {/* ----------------------------------------------------- form + info */}

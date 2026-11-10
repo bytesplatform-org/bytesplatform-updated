@@ -3,6 +3,8 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { categoryLabel, formatDate, imageUrl, type PostSummary } from "@/lib/blogFormat";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import PostCard from "./PostCard";
 import styles from "./Blog.module.css";
 
@@ -49,9 +51,12 @@ export default function BlogIndex({ posts }: { posts: PostSummary[] }) {
           <Words text="Insights" />{" "}
           <span className={styles.wordSlot}><span data-word className={styles.word}>&amp;&nbsp;ideas<span className="hero-period">.</span></span></span>
         </h1>
-        <p data-hero-fade className={styles.indexIntro}>
-          Stories, guides and updates from the BytesPlatform team on web, apps, SEO, marketing and AI.
-        </p>
+        <div className={heroFoot.foot}>
+          <p data-hero-fade className={styles.indexIntro}>
+            Stories, guides and updates from the BytesPlatform team on web, apps, SEO, marketing and AI.
+          </p>
+          <div data-hero-fade><GoogleSourceButton /></div>
+        </div>
       </section>
 
       {featured && (

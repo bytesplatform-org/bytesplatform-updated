@@ -7,6 +7,7 @@ import HeroNav from "./HeroNav";
 import HeroTypography from "./HeroTypography";
 import MobileHeroProject from "./MobileHeroProject";
 import ServingLine from "./ServingLine";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
 
 import { prefersReducedMotion, fontsReady, introsReady } from "@/lib/animation/prefs";
 import { mountScroll } from "@/lib/animation/scroll";
@@ -144,6 +145,7 @@ export default function Hero() {
     const metaSlash = q<HTMLElement>("[data-meta-slash]");
     const foot = q<HTMLElement>("[data-hero-foot]");
     const cta = q<HTMLElement>("[data-hero-cta]");
+    const source = q<HTMLElement>("[data-hero-source]");
     const ctaParts = el.querySelectorAll<HTMLElement>("[data-hero-cta-part]");
     let footTl: gsap.core.Timeline | null = null;
 
@@ -156,6 +158,7 @@ export default function Hero() {
       const ctaLaidOut = !!(foot && cta && cta.offsetWidth);
       gsap.set(metaParts, { yPercent: 110 });
       if (metaSlash) gsap.set(metaSlash, { opacity: 0, rotate: -90, scale: 0.4 });
+      if (source) gsap.set(source, { opacity: 0, y: 28 });
       if (ctaLaidOut) {
         // The pill's clip-path reads --cta-side, inherited from the foot so the
         // pill's own transform tweens never touch it. A custom property tweens
@@ -169,7 +172,10 @@ export default function Hero() {
 
       footTl = gsap.timeline({ delay: 0.35 })
         .to(metaParts, { yPercent: 0, duration: 1.1, stagger: 0.12, ease }, 0)
-        .to(metaSlash ?? [], { opacity: 1, rotate: 0, scale: 1, duration: 0.9, ease }, 0.08);
+        .to(metaSlash ?? [], { opacity: 1, rotate: 0, scale: 1, duration: 0.9, ease }, 0.08)
+        // The Google pill rises from below and fades in alongside the meta line.
+        .to(source ?? [], { y: 0, duration: 1.1, ease }, 0.2)
+        .to(source ?? [], { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2);
       if (ctaLaidOut) {
         footTl
           .to(cta, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.15)
@@ -183,7 +189,7 @@ export default function Hero() {
       // Reset by hand, not with gsap.set: while the site loader is up GSAP's
       // timeline is held, so a clearProps tween would be queued and fire later,
       // wiping the entrance's start states (React remounts in dev do this).
-      const parts = [...metaParts, metaSlash, cta, ...ctaParts].filter((part): part is HTMLElement => !!part);
+      const parts = [...metaParts, metaSlash, cta, source, ...ctaParts].filter((part): part is HTMLElement => !!part);
       gsap.killTweensOf(parts);
       for (const part of parts) {
         for (const prop of ["transform", "translate", "rotate", "scale", "opacity"]) part.style.removeProperty(prop);
@@ -263,6 +269,11 @@ export default function Hero() {
             </svg>
           </a>
 
+          {/* Bottom-right, where inner pages carry their CTA pill. On phones it
+              stacks under the full-width "Start a project". */}
+          <div data-hero-source>
+            <GoogleSourceButton />
+          </div>
         </div>
       </div>
     </div>

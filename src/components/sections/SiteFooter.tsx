@@ -26,8 +26,6 @@ export default function SiteFooter() {
           <a className={styles.motionLink} href={site.social.facebook} target="_blank" rel="noreferrer"><span aria-hidden>↗</span><span>Facebook</span></a>
           <a className={styles.motionLink} href={site.social.instagram} target="_blank" rel="noreferrer"><span aria-hidden>↗</span><span>Instagram</span></a>
           <a className={styles.motionLink} href={site.social.linkedin} target="_blank" rel="noreferrer"><span aria-hidden>↗</span><span>LinkedIn</span></a>
-          {/* Google "Add as preferred source" button, rendered by publisher.js. */}
-          <div google-add-preferred-source-btn="" className={styles.preferredSource} />
         </nav>
       </div>
 

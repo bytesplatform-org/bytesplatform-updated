@@ -1,0 +1,81 @@
+/* Same pill as NavButton's "action" variant, with a G badge in front. */
+.button {
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  height: 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.4rem 0 0.4rem;
+  border-radius: 999px;
+  background: #292b36;
+  color: #f0f1fa;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 420ms var(--ease);
+}
+
+.button:hover,
+.button:focus-visible { background: #152fff; }
+
+.g {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.g svg { width: 1.05rem; height: 1.05rem; }
+
+/* The dot gives way to an outbound arrow ↗ on hover. */
+.end {
+  position: relative;
+  display: grid;
+  width: 0.9rem;
+  height: 0.9rem;
+  place-items: center;
+}
+
+.dot,
+.arrow {
+  position: absolute;
+  transition: opacity 220ms ease, transform 480ms var(--ease);
+}
+
+.dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.arrow {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform: translate(-0.4rem, 0.4rem);
+}
+
+.button:hover .dot,
+.button:focus-visible .dot { opacity: 0; transform: scale(0); }
+
+.button:hover .arrow,
+.button:focus-visible .arrow { opacity: 1; transform: translate(0, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .dot,
+  .arrow { transition: none; }
+}

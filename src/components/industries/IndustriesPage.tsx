@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import ActionPill from "@/components/ui/ActionPill";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
 import SiteFooter from "@/components/sections/SiteFooter";
 import { industries } from "@/data/industries";
 import { serviceLinks } from "@/data/services";
@@ -179,9 +180,7 @@ export default function IndustriesPage() {
           </h1>
           <div className={styles.heroFoot}>
             <p data-hero-fade className={styles.heroIntro}>{industries.intro}</p>
-            <div data-hero-fade>
-              <ActionPill href="#sectors" label="Explore our expertise" />
-            </div>
+            <div data-hero-fade><GoogleSourceButton /></div>
           </div>
         </section>
 

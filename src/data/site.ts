@@ -19,6 +19,8 @@ export const site = {
     linkedin: "https://www.linkedin.com/company/bytebloom-solutionss",
   },
   links: {
+    // Google "Add as a preferred source" deeplink (Search Central docs).
+    googlePreferredSource: "https://www.google.com/preferences/source?q=bytesplatform.com",
     careers: "/careers",
     blog: "/blogs",
     privacy: "/privacy-policy",

@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import ActionPill from "@/components/ui/ActionPill";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import StoryFilm from "@/components/sections/StoryFilm";
 import SiteFooter from "@/components/sections/SiteFooter";
 import { about } from "@/data/about";
@@ -145,7 +147,10 @@ export default function AboutPage() {
               <Words text="future" tail={<span className="hero-period">.</span>} />
             </h1>
 
-            <p data-hero-fade className={styles.heroIntro}>{about.intro}</p>
+            <div className={heroFoot.foot}>
+              <p data-hero-fade className={styles.heroIntro}>{about.intro}</p>
+              <div data-hero-fade><GoogleSourceButton /></div>
+            </div>
           </div>
         </section>
 

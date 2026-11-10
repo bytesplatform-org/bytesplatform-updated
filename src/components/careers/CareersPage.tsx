@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import ActionPill from "@/components/ui/ActionPill";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import SiteFooter from "@/components/sections/SiteFooter";
 import { careers } from "@/data/careers";
 import { site } from "@/data/site";
@@ -115,8 +117,11 @@ export default function CareersPage() {
           </h1>
           <div className={styles.heroFoot}>
             <p data-hero-fade className={styles.heroIntro}>{careers.intro}</p>
-            <div data-hero-fade>
-              <ActionPill href="#roles" label={hiring ? "Explore open roles" : "Join our talent pool"} />
+            <div className={heroFoot.actions}>
+              <div data-hero-fade><GoogleSourceButton /></div>
+              <div data-hero-fade>
+                <ActionPill href="#roles" label={hiring ? "Explore open roles" : "Join our talent pool"} />
+              </div>
             </div>
           </div>
         </section>

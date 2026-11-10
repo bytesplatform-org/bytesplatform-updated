@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import ActionPill from "@/components/ui/ActionPill";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
 import SiteFooter from "@/components/sections/SiteFooter";
 import type { ServiceContent } from "@/data/serviceContent";
 import { fontsReady, prefersReducedMotion } from "@/lib/animation/prefs";
@@ -158,9 +159,7 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
           </h1>
           <div className={styles.heroFoot}>
             <p data-hero-fade className={styles.heroIntro}>{hero.intro}</p>
-            <div data-hero-fade>
-              <ActionPill href="/contact" label={action} />
-            </div>
+            <div data-hero-fade><GoogleSourceButton /></div>
           </div>
         </section>
 

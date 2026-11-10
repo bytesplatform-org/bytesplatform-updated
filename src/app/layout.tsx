@@ -121,8 +121,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement;d.setAttribute('data-site-loading','');d.setAttribute('data-site-transition','');setTimeout(function(){if(!document.querySelector('[data-live]')){d.removeAttribute('data-site-loading');d.removeAttribute('data-site-transition')}},8000)}}catch(e){}`,
           }}
         />
-        {/* Google "Add as preferred source" button (Subscribe with Google). */}
-        <script async src="https://news.google.com/swg/js/v1/publisher.js" />
       </head>
       <body className="relative antialiased">
         <Script id="restart-on-refresh" strategy="beforeInteractive">

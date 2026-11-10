@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import SiteFooter from "@/components/sections/SiteFooter";
 import CurrentLink from "@/components/ui/CurrentLink";
+import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
+import heroFoot from "@/components/ui/HeroFoot.module.css";
 import { fontsReady, prefersReducedMotion } from "@/lib/animation/prefs";
 import { jumpTo, mountScroll } from "@/lib/animation/scroll";
 import { mountFooterLift } from "@/lib/animation/footerLift";
@@ -103,7 +105,10 @@ export default function LegalPage({ title, subtitle, children }: {
         <section id="top" className={styles.hero}>
           <p data-hero-fade className={styles.label}>Legal</p>
           <h1 data-hero-title className={styles.heroTitle}><Words text={title} /></h1>
-          <p data-hero-fade className={styles.heroIntro}>{subtitle}</p>
+          <div className={heroFoot.foot}>
+            <p data-hero-fade className={styles.heroIntro}>{subtitle}</p>
+            <div data-hero-fade><GoogleSourceButton /></div>
+          </div>
         </section>
 
         <div className={styles.layout}>
