@@ -2,9 +2,10 @@ import { Fragment } from "react";
 import ActionPill from "@/components/ui/ActionPill";
 import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
 import heroFoot from "@/components/ui/HeroFoot.module.css";
-import { categoryLabel, formatDate, imageUrl, readingMinutes, type Post, type PostSummary } from "@/lib/blog";
+import { categoryLabel, formatDate, imageUrl, postHeadings, readingMinutes, type Post, type PostSummary } from "@/lib/blog";
 import PostBody from "./PostBody";
 import PostCard from "./PostCard";
+import PostToc from "./PostToc";
 import styles from "./Blog.module.css";
 
 function Words({ text }: { text: string }) {
@@ -21,6 +22,7 @@ function Words({ text }: { text: string }) {
 }
 
 export default function PostView({ post, related }: { post: Post; related: PostSummary[] }) {
+  const headings = postHeadings(post.body);
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -64,10 +66,13 @@ export default function PostView({ post, related }: { post: Post; related: PostS
       <div className={styles.postBody}>
         <aside className={styles.postAside}>
           <div className={styles.postAsideSticky}>
-            <p className={styles.label}>Written by</p>
-            <p>The BytesPlatform team</p>
-            <p className={styles.label}>Need help with this?</p>
-            <ActionPill href="/contact" label="Talk to us" />
+            {headings.length > 1 && <PostToc headings={headings} />}
+            <div className={styles.postAbout}>
+              <p className={styles.label}>Written by</p>
+              <p>The BytesPlatform team</p>
+              <p className={styles.label}>Need help with this?</p>
+              <ActionPill href="/contact" label="Talk to us" />
+            </div>
           </div>
         </aside>
         <PostBody body={post.body} />

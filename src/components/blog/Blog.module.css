@@ -311,7 +311,7 @@
 .postBody {
   display: grid;
   max-width: 1800px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   gap: clamp(2rem, 6vw, 7rem);
   margin-inline: auto;
   padding: clamp(3rem, 6vw, 5rem) var(--bp-gut) 0;
@@ -319,10 +319,20 @@
 
 .postAside { position: relative; }
 
+/* Capped to the viewport so a long contents list scrolls inside itself instead of breaking the stick. */
 .postAsideSticky {
   position: sticky;
   top: 7.5rem;
   display: flex;
+  max-height: calc(100svh - 9rem);
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.postAbout {
+  display: flex;
+  max-width: 22rem; /* matches .toc, so the two dividers line up */
+  flex: none;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.75rem;
@@ -330,11 +340,85 @@
   border-top: 1px solid var(--bp-hairline);
 }
 
-.postAsideSticky .label:not(:first-child) { margin-top: 1.25rem; }
+.postAbout .label:not(:first-child) { margin-top: 1.25rem; }
+
+/* ------------------------------------------------------------- contents */
+.toc {
+  display: flex;
+  min-height: 0;
+  max-width: 22rem;
+  flex-direction: column;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--bp-hairline);
+}
+
+.tocToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  pointer-events: none;
+}
+
+.tocChevron { display: none; }
+
+.tocList {
+  position: relative;
+  min-height: 0;
+  margin-top: 0.9rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.tocList li[data-level="3"] { padding-left: 0.9rem; }
+
+.tocList a {
+  position: relative;
+  display: block;
+  padding: 0.38rem 0 0.38rem 0.9rem;
+  color: var(--color-ink-mute);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.tocList li[data-level="3"] a { font-size: 0.86rem; }
+
+.tocList a::before {
+  position: absolute;
+  top: 0.38rem;
+  bottom: 0.38rem;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--bp-accent);
+  content: "";
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition: opacity 300ms ease, transform 450ms var(--ease-out-expo);
+}
+
+.tocList a:hover { color: var(--bp-text); }
+
+.tocList a[aria-current] { color: var(--bp-text); }
+
+.tocList a[aria-current]::before {
+  opacity: 1;
+  transform: none;
+}
 
 /* ---------------------------------------------------------------- prose */
 .prose {
-  max-width: 42rem;
+  max-width: 54rem;
   font-size: clamp(1.05rem, 1.2vw, 1.18rem);
   line-height: 1.7;
   user-select: text;
@@ -347,6 +431,8 @@
 .prose h2,
 .prose h3,
 .prose h4 {
+  /* clears the fixed nav when a contents link scrolls here */
+  scroll-margin-top: 7.5rem;
   line-height: 1.12;
   letter-spacing: -0.035em;
 }
@@ -379,9 +465,31 @@
 
 @media (max-width: 1023px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
-  .postBody { grid-template-columns: 1fr; }
-  .postAside { order: 2; }
-  .postAsideSticky { position: static; }
+  .postBody { grid-template-columns: minmax(0, 1fr); }
+
+  /* The aside dissolves into the column: contents above the article, the byline after it. */
+  .postAside,
+  .postAsideSticky { display: contents; }
+  .toc { order: -1; max-width: none; padding-bottom: 1.25rem; border-bottom: 1px solid var(--bp-hairline); }
+  .postAbout { order: 2; max-width: none; }
+
+  .tocToggle { pointer-events: auto; cursor: pointer; }
+
+  .tocChevron {
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.2rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-25%) rotate(45deg);
+    transition: transform 450ms var(--ease-out-expo);
+  }
+
+  .toc[data-open] .tocChevron { transform: translateY(25%) rotate(-135deg); }
+
+  .tocList { display: none; max-height: 60svh; }
+  .toc[data-open] .tocList { display: block; }
 }
 
 @media (max-width: 767px) {

@@ -1,11 +1,13 @@
 import { Fragment, type ReactNode } from "react";
-import type { PortableBlock, PortableSpan, Post } from "@/lib/blogFormat";
+import { createSlugger, markdownHeadingText, type PortableBlock, type PortableSpan, type Post } from "@/lib/blogFormat";
 import styles from "./Blog.module.css";
 
 /**
  * Renders both post formats with the same typography: Sanity Portable Text
  * (paragraphs, h2–h4, bullet/number lists, strong/em/link marks — everything
  * the dataset uses) and the older posts' plain text with **bold** runs.
+ * Headings get ids from createSlugger, matching postHeadings, so the
+ * contents list can link to them.
  */
 export default function PostBody({ body }: { body: Post["body"] }) {
   return (
@@ -36,6 +38,7 @@ function renderSpans(block: PortableBlock): ReactNode {
 
 function renderPortable(blocks: PortableBlock[]) {
   const out: ReactNode[] = [];
+  const slug = createSlugger();
   let list: { type: "bullet" | "number"; items: ReactNode[] } | null = null;
   const flush = () => {
     if (!list) return;
@@ -58,9 +61,9 @@ function renderPortable(blocks: PortableBlock[]) {
     const text = block.children.map((child) => child.text).join("").trim();
     if (!text) return;
     const content = renderSpans(block);
-    if (block.style === "h2") out.push(<h2 key={key}>{content}</h2>);
-    else if (block.style === "h3") out.push(<h3 key={key}>{content}</h3>);
-    else if (block.style === "h4") out.push(<h4 key={key}>{content}</h4>);
+    if (block.style === "h2") out.push(<h2 key={key} id={slug(text)}>{content}</h2>);
+    else if (block.style === "h3") out.push(<h3 key={key} id={slug(text)}>{content}</h3>);
+    else if (block.style === "h4") out.push(<h4 key={key} id={slug(text)}>{content}</h4>);
     else out.push(<p key={key}>{content}</p>);
   });
   flush();
@@ -82,6 +85,7 @@ function renderInline(text: string): ReactNode[] {
  */
 function renderMarkdown(text: string) {
   const out: ReactNode[] = [];
+  const slug = createSlugger();
   let paragraph: string[] = [];
   let items: string[] = [];
   const flushParagraph = () => {
@@ -105,7 +109,8 @@ function renderMarkdown(text: string) {
       flushList();
       const content = renderInline(heading[2].replace(/^\*\*|\*\*$/g, ""));
       const level = heading[1].length;
-      out.push(level === 2 ? <h2 key={out.length}>{content}</h2> : level === 3 ? <h3 key={out.length}>{content}</h3> : <h4 key={out.length}>{content}</h4>);
+      const id = slug(markdownHeadingText(heading[2]));
+      out.push(level === 2 ? <h2 key={out.length} id={id}>{content}</h2> : level === 3 ? <h3 key={out.length} id={id}>{content}</h3> : <h4 key={out.length} id={id}>{content}</h4>);
     } else if (item) {
       flushParagraph();
       items.push(item[1]);
