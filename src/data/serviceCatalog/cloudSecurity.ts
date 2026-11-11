@@ -5,9 +5,9 @@ export const cloudSecurityServices = {
   "cloud-operations-migration": {
     slug: "cloud-operations-migration",
     meta: {
-      title: "Cloud Operations & Migration",
+      title: "Cloud Migration Services & Managed Cloud Ops | BytesPlatform",
       description:
-        "Cloud migration and cloud operations from BytesPlatform, planned moves to AWS, Azure or Google Cloud, then monitoring and cost control to run them well.",
+        "Cloud migration services and cloud managed services: readiness assessment, landing zones, phased AWS, Azure or GCP moves and FinOps. Plan your migration.",
     },
     hero: {
       title: ["Cloud operations", "& migration"],
@@ -91,9 +91,9 @@ export const cloudSecurityServices = {
   "cloud-application-development": {
     slug: "cloud-application-development",
     meta: {
-      title: "Cloud App Development & Integration",
+      title: "Cloud Application Development Services | BytesPlatform",
       description:
-        "Cloud-native application development from BytesPlatform, scalable apps, APIs and system integrations, plus modernization of legacy software for the cloud.",
+        "Cloud application development services: cloud-native application development, API integration, legacy modernization and CI/CD on AWS or Azure. Talk to us.",
     },
     hero: {
       title: ["Cloud app development", "& integration"],
@@ -177,9 +177,9 @@ export const cloudSecurityServices = {
   "managed-services": {
     slug: "managed-services",
     meta: {
-      title: "Managed Services",
+      title: "Managed IT Services | 24/7 Support & SLAs | BytesPlatform",
       description:
-        "Managed IT and application services from BytesPlatform, ongoing support, monitoring and maintenance under clear service levels, so your systems stay reliable.",
+        "Managed IT services with 24/7 monitoring, help desk and infrastructure support under clear SLAs. Built for small businesses and growing teams. Get a quote.",
     },
     hero: {
       title: ["Managed", "services"],
@@ -263,9 +263,9 @@ export const cloudSecurityServices = {
   "digital-infrastructure": {
     slug: "digital-infrastructure",
     meta: {
-      title: "Digital Infrastructure",
+      title: "IT Infrastructure Services | Network, Servers & Cloud",
       description:
-        "Digital infrastructure services from BytesPlatform, networks, servers, hybrid cloud and workplace technology designed, deployed and kept running.",
+        "IT infrastructure services covering network design, servers, data center and hybrid cloud, with IT infrastructure management by one team. Book an audit.",
     },
     hero: {
       title: ["Digital", "infrastructure"],
@@ -349,9 +349,9 @@ export const cloudSecurityServices = {
   cybersecurity: {
     slug: "cybersecurity",
     meta: {
-      title: "Cybersecurity Services",
+      title: "Cybersecurity Services | Assessments to Response",
       description:
-        "Cybersecurity services from BytesPlatform, risk assessments, cloud and application security, identity, threat monitoring and compliance readiness.",
+        "Cybersecurity services from assessments and pen testing to IAM and threat detection, plus managed cybersecurity services for SOC 2 and HIPAA. Close gaps.",
     },
     hero: {
       title: ["Cybersecurity", "services"],
@@ -435,9 +435,9 @@ export const cloudSecurityServices = {
   "emerging-technologies": {
     slug: "emerging-technologies",
     meta: {
-      title: "Emerging Technologies",
+      title: "Computer Vision Development Services | AR/VR, RPA & More",
       description:
-        "Emerging technology services from BytesPlatform, blockchain, AR/VR, computer vision, IoT and RPA, explored through fast, practical prototypes.",
+        "Computer vision development services plus AR/VR, blockchain and robotic process automation services, delivered as rapid prototypes. Test your idea.",
     },
     hero: {
       title: ["Emerging", "technologies"],

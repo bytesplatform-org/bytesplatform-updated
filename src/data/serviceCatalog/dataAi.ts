@@ -5,9 +5,9 @@ export const dataAiServices = {
   "generative-ai": {
     slug: "generative-ai",
     meta: {
-      title: "Generative AI Development",
+      title: "Generative AI Development Services & LLM Integration",
       description:
-        "Generative AI services from BytesPlatform, use-case discovery, copilots built into your software, content and code generation, model evaluation, responsible AI.",
+        "Generative AI development services: LLM integration, RAG, fine-tuning and in-product copilots evaluated before launch. Start with a proof of value.",
     },
     hero: {
       title: ["Generative AI", "built into your product"],
@@ -91,9 +91,9 @@ export const dataAiServices = {
   "data-modernization": {
     slug: "data-modernization",
     meta: {
-      title: "Data Modernization Services",
+      title: "Data Modernization Services: Legacy to Cloud | BytesPlatform",
       description:
-        "Data modernization from BytesPlatform, move legacy databases and warehouses to the cloud, build modern data platforms and pipelines your teams and AI rely on.",
+        "Data modernization services: legacy data migration to Snowflake, Databricks or BigQuery with phased, reconciled cutovers. Request an assessment.",
     },
     hero: {
       title: ["Data", "modernization"],
@@ -177,9 +177,9 @@ export const dataAiServices = {
   "advanced-analytics": {
     slug: "advanced-analytics",
     meta: {
-      title: "Advanced Analytics & BI",
+      title: "Advanced Analytics Services & BI Consulting | BytesPlatform",
       description:
-        "Advanced analytics from BytesPlatform, dashboards, predictive models, forecasting and self-service BI that turn your data into decisions your teams can act on.",
+        "Advanced analytics services and business intelligence consulting: Power BI and Tableau dashboards, predictive models, embedded analytics. Book a call.",
     },
     hero: {
       title: ["Advanced", "analytics"],
@@ -263,9 +263,9 @@ export const dataAiServices = {
   "data-management": {
     slug: "data-management",
     meta: {
-      title: "Data Management & Governance",
+      title: "Data Governance Services & Data Management | BytesPlatform",
       description:
-        "Data management from BytesPlatform, data governance, quality, master data, catalogs and security that keep your data accurate, compliant and easy to find.",
+        "Data governance services and data management consulting: frameworks, data quality, MDM and catalog/lineage built for compliance. Get an assessment.",
     },
     hero: {
       title: ["Data management", "& governance"],
@@ -349,9 +349,9 @@ export const dataAiServices = {
   "connected-intelligence": {
     slug: "connected-intelligence",
     meta: {
-      title: "Connected Intelligence & IoT",
+      title: "IoT Development Services & Solutions | BytesPlatform",
       description:
-        "Connected intelligence from BytesPlatform, IoT platforms, device connectivity, edge data, digital twins and real-time monitoring that put sensor data to work.",
+        "IoT development services from an IoT solutions provider: platforms, edge computing, digital twins and monitoring secured device to cloud. Scope a pilot.",
     },
     hero: {
       title: ["Connected", "intelligence"],

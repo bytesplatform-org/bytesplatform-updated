@@ -19,10 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!content) return {};
   const url = `/products/${content.slug}`;
   return {
-    title: content.meta.title,
+    title: { absolute: content.meta.title },
     description: content.meta.description,
     alternates: { canonical: url },
-    openGraph: { title: `${content.meta.title} · BytesPlatform`, description: content.meta.description, url },
+    openGraph: { title: content.meta.title, description: content.meta.description, url },
   };
 }
 

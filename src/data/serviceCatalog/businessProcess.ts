@@ -5,9 +5,9 @@ export const businessProcessServices = {
   "contact-center": {
     slug: "contact-center",
     meta: {
-      title: "Contact Center Services",
+      title: "Contact Center Outsourcing | Voice, Chat & AI Support",
       description:
-        "Contact center services from BytesPlatform, voice, chat, email and technical support run by trained agents, with AI for routing, summaries and routine questions.",
+        "Contact center outsourcing for voice, chat, email and social with AI-assisted agents and QA. Call center outsourcing services that scale. Get a quote.",
     },
     hero: {
       title: ["Contact center", "services"],
@@ -91,9 +91,9 @@ export const businessProcessServices = {
   "finance-accounting": {
     slug: "finance-accounting",
     meta: {
-      title: "Finance & Accounting Services",
+      title: "Finance and Accounting Outsourcing Services | BytesPlatform",
       description:
-        "Finance and accounting services from BytesPlatform, payables, receivables, bookkeeping, reconciliations and month-end close, with the repetitive steps automated.",
+        "Finance and accounting outsourcing services for procure-to-pay, order-to-cash and record-to-report, plus accounts payable outsourcing. Lighten your close.",
     },
     hero: {
       title: ["Finance &", "accounting"],
@@ -177,9 +177,9 @@ export const businessProcessServices = {
   "staff-augmentation": {
     slug: "staff-augmentation",
     meta: {
-      title: "Staff Augmentation",
+      title: "IT Staff Augmentation Services | Engineers & Specialists",
       description:
-        "Staff augmentation from BytesPlatform, software engineers, designers and data and AI specialists who join your team and work in your tools.",
+        "IT staff augmentation services that add vetted engineers, designers and data/AI specialists in days. Staff augmentation services on your stack. Grow now.",
     },
     hero: {
       title: ["Staff", "augmentation"],
@@ -260,9 +260,9 @@ export const businessProcessServices = {
   "legal-process-outsourcing": {
     slug: "legal-process-outsourcing",
     meta: {
-      title: "Legal Process Outsourcing",
+      title: "Legal Process Outsourcing Services | Review & Paralegal",
       description:
-        "Legal process outsourcing from BytesPlatform, document review, contract management, research and paralegal support for law firms and in-house legal teams.",
+        "Legal process outsourcing services for document review, contracts and outsourced paralegal support, attorney-led and confidential. Free up your legal team.",
     },
     hero: {
       title: ["Legal process", "outsourcing"],
@@ -346,9 +346,9 @@ export const businessProcessServices = {
   "recruitment-process-outsourcing": {
     slug: "recruitment-process-outsourcing",
     meta: {
-      title: "Recruitment Process Outsourcing",
+      title: "Recruitment Process Outsourcing Services | RPO Partner",
       description:
-        "Recruitment process outsourcing from BytesPlatform, sourcing, screening, interview coordination and onboarding support, with AI tools that speed up hiring.",
+        "Recruitment process outsourcing services covering end-to-end, project and partial RPO services with AI-assisted screening. Start hiring faster today.",
     },
     hero: {
       title: ["Recruitment process", "outsourcing"],

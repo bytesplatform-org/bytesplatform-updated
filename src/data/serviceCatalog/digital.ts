@@ -5,9 +5,9 @@ export const digitalServices = {
   "digital-consulting-strategy": {
     slug: "digital-consulting-strategy",
     meta: {
-      title: "Digital Consulting & Strategy",
+      title: "Digital Strategy Consulting | Roadmaps & Advisory",
       description:
-        "Digital consulting and strategy from BytesPlatform, roadmaps, product discovery and experience design that turn business goals into software your team can ship.",
+        "Digital strategy consulting and digital transformation consulting services: discovery, AI advisory and roadmaps tied to delivery. Book a strategy call.",
     },
     hero: {
       title: ["Digital consulting", "& strategy"],
@@ -86,9 +86,9 @@ export const digitalServices = {
   "digital-commerce": {
     slug: "digital-commerce",
     meta: {
-      title: "Digital Commerce",
+      title: "Ecommerce Development Services | B2B, Stores & Marketplaces",
       description:
-        "Digital commerce from BytesPlatform, online stores, B2B portals and marketplaces with secure payments, AI product recommendations and connected order operations.",
+        "Ecommerce development services for online stores, B2B ecommerce development and marketplaces: headless, payments, ERP integration. Get a store quote.",
     },
     hero: {
       title: ["Digital", "commerce"],

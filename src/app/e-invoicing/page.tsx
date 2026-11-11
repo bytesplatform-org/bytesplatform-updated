@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import EInvoicingPage from "@/components/einvoicing/EInvoicingPage";
 
 export const metadata: Metadata = {
-  title: "UAE E-Invoicing Readiness for Any ERP",
+  title: { absolute: "UAE E-Invoicing: 2027 Deadlines, Rules & ERP Readiness" },
   description:
-    "Get your ERP ready for UAE e-invoicing. BytesPlatform audits master data, maps tax codes to PINT AE and validates every invoice before it reaches your accredited service provider. Any ASP, no ERP replacement.",
+    "UAE e-invoicing starts 1 Jan 2027 for AED 50M+ firms. Check UAE e-invoicing requirements, PINT AE and ASP deadlines, then get ERP-ready: book a free audit.",
   alternates: { canonical: "/e-invoicing" },
   openGraph: {
-    title: "UAE E-Invoicing Readiness · BytesPlatform",
-    description: "PINT AE validation and ERP integration before your invoices reach your ASP.",
+    title: "UAE E-Invoicing: 2027 Deadlines, Rules & ERP Readiness",
+    description:
+      "UAE e-invoicing starts 1 Jan 2027 for AED 50M+ firms. Check UAE e-invoicing requirements, PINT AE and ASP deadlines, then get ERP-ready: book a free audit.",
     url: "/e-invoicing",
   },
 };

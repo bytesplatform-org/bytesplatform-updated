@@ -31,9 +31,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "ai-automation": {
     slug: "ai-automation",
     meta: {
-      title: "AI Automation & AI Agents",
+      title: "AI Automation Services & AI Agent Development Company",
       description:
-        "AI automation and custom AI agents from BytesPlatform, workflow automation, LLM-powered assistants and agents that connect to your tools and take real work off your team.",
+        "AI automation services: custom AI agent development, workflow automation and document processing wired into your stack with guardrails. Book a call.",
     },
     hero: {
       title: ["AI automation", "& AI agents"],
@@ -117,9 +117,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "saas-product-development": {
     slug: "saas-product-development",
     meta: {
-      title: "Custom SaaS & Product Development",
+      title: "SaaS Development Services | MVP to Scale | BytesPlatform",
       description:
-        "Custom SaaS and software product development from BytesPlatform, product strategy, UX, multi-tenant architecture, billing and launch for startups and growing businesses.",
+        "SaaS development services from a US SaaS development company: MVP builds, multi-tenant platforms, billing and product modernization. Start your build.",
     },
     hero: {
       title: ["Custom SaaS", "& products"],
@@ -204,9 +204,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "web-mobile-app-development": {
     slug: "web-mobile-app-development",
     meta: {
-      title: "Web & Mobile App Development",
+      title: "Custom Web Application Development | Web & Mobile Apps",
       description:
-        "Web and mobile app development from BytesPlatform, responsive web applications and native or cross-platform iOS and Android apps, designed, built and supported by one team.",
+        "Custom web application development plus cross-platform app development, PWAs and APIs from one US team with a shared backend. Scope your app today.",
     },
     hero: {
       title: ["Web & mobile", "apps"],
@@ -289,9 +289,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "crm-erp-systems": {
     slug: "crm-erp-systems",
     meta: {
-      title: "CRM & ERP Systems",
+      title: "Custom CRM Development & ERP Implementation Services",
       description:
-        "Custom CRM and ERP systems from BytesPlatform, built, customized and integrated to bring sales, finance, inventory and operations into one connected platform.",
+        "Custom CRM development and ERP implementation services: bespoke builds, Salesforce, Odoo and Dynamics customization, and migration. Plan your rollout.",
     },
     hero: {
       title: ["CRM & ERP", "systems"],
@@ -372,9 +372,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "government-proposal-technology": {
     slug: "government-proposal-technology",
     meta: {
-      title: "Government Opportunity & Proposal Technology",
+      title: "Government Proposal Software | AI Capture & Bid Tools",
       description:
-        "Government opportunity and proposal technology from BytesPlatform, tools that find relevant tenders and contracts, track deadlines and help teams build stronger proposals faster.",
+        "Government proposal software and capture management software for contractors: SAM.gov monitoring, bid/no-bid scoring and AI drafting. Request a demo.",
     },
     hero: {
       title: ["Government", "proposal tech"],
@@ -453,9 +453,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "e-invoicing-integration": {
     slug: "e-invoicing-integration",
     meta: {
-      title: "E-Invoicing & Business System Integration",
+      title: "E-Invoicing ERP Integration Services | Connect Any ERP",
       description:
-        "E-invoicing and business system integration from BytesPlatform, connect your ERP, accounting and sales systems to e-invoicing networks and to each other, with clean, compliant data.",
+        "E-invoicing ERP integration for SAP, Dynamics, NetSuite, Odoo and QuickBooks: Peppol integration, data clean-up and validated invoices. Book an assessment.",
     },
     hero: {
       title: ["E-invoicing &", "integration"],
@@ -523,9 +523,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   web: {
     slug: "web",
     meta: {
-      title: "Web Development Services",
+      title: "Web Development Company | Custom Web Development Services",
       description:
-        "Professional web development services across the US. BytesPlatform designs and builds fast, responsive, SEO-ready websites and web applications that drive traffic and sales.",
+        "Web development services from a US web development company: fast, SEO-ready websites, custom web apps and Shopify stores. Get a free quote today.",
     },
     hero: {
       title: ["Web", "development"],
@@ -617,9 +617,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   seo: {
     slug: "seo",
     meta: {
-      title: "SEO Services",
+      title: "SEO Services | Technical, Content & AI SEO Agency",
       description:
-        "SEO services that grow organic rankings, traffic and visibility, keyword strategy, technical SEO, on-page and off-page optimization, and local SEO from BytesPlatform.",
+        "SEO services that grow organic traffic: technical SEO, content, link building and AI search optimization with weekly reporting. Request a free SEO audit.",
     },
     hero: {
       title: ["Search engine", "optimization"],
@@ -673,9 +673,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   app: {
     slug: "app",
     meta: {
-      title: "App Development Services",
+      title: "Mobile App Development Company | iOS & Android App Services",
       description:
-        "Native and cross-platform mobile app development for iOS and Android, UX design, development, testing, launch and ongoing support from BytesPlatform.",
+        "Mobile app development services for iOS and Android from a US mobile app development company: UX, build, launch and support. Start your app project today.",
     },
     hero: {
       title: ["Mobile", "apps"],
@@ -732,9 +732,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   marketing: {
     slug: "marketing",
     meta: {
-      title: "Digital Marketing Services",
+      title: "Digital Marketing Services | Social, PPC & Content Agency",
       description:
-        "Social media marketing and PPC advertising from BytesPlatform, content, campaigns and paid media that build brand awareness and generate measurable ROI.",
+        "Digital marketing services: social media marketing, PPC management and full-funnel tracking from a Texas-based agency serving the US. Grow your reach now.",
     },
     hero: {
       title: ["Digital", "marketing"],
@@ -776,9 +776,9 @@ export const serviceContent: Record<ServiceSlug, ServiceContent> = {
   "advanced-services": {
     slug: "advanced-services",
     meta: {
-      title: "Advanced Services",
+      title: "Data and AI Consulting Services | BytesPlatform",
       description:
-        "Data and analytics, cybersecurity and emerging technologies, advanced digital solutions from BytesPlatform, from AI automation to scalable tech integrations.",
+        "Data and AI consulting services: data modernization, advanced analytics services, generative AI, cybersecurity and emerging tech in one place. Explore.",
     },
     hero: {
       title: ["Advanced", "services"],

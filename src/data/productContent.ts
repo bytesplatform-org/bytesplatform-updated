@@ -11,9 +11,9 @@ export const productContent: Record<ProductSlug, ServiceContent> = {
   "byte-bots": {
     slug: "byte-bots",
     meta: {
-      title: "Byte Bots, AI Chatbots for Sales & Support",
+      title: "AI Chatbot for Customer Support & Leads | Byte Bots",
       description:
-        "Byte Bots are custom AI chatbots trained on your business's own data. They answer in your brand's voice, qualify leads, automate support and turn conversations into insight.",
+        "Byte Bots is an AI chatbot for customer support and lead generation, trained on your data and plugged into your CRM and website. Book a free demo today.",
     },
     hero: {
       title: ["Byte Bots"],
@@ -69,9 +69,9 @@ export const productContent: Record<ProductSlug, ServiceContent> = {
   "byte-suites": {
     slug: "byte-suites",
     meta: {
-      title: "Byte Suites, Custom CRM & ERP Systems",
+      title: "CRM Software for Small Business | Byte Suites",
       description:
-        "Byte Suites are custom CRM and ERP systems from BytesPlatform, lead management, AI assistance, invoicing, scheduling and analytics in one connected platform.",
+        "Byte Suites is custom CRM software for small business: lead management, AI assistant, invoicing and scheduling in one platform. Book your onboarding call.",
     },
     hero: {
       title: ["Byte Suites"],
@@ -160,9 +160,9 @@ export const productContent: Record<ProductSlug, ServiceContent> = {
   "bytesgov": {
     slug: "bytesgov",
     meta: {
-      title: "BytesGov, Federal Contracting Intelligence",
+      title: "Construction Management Software for Contractors | BytesGov",
       description:
-        "BytesGov is a multi-tenant federal contracting intelligence platform for consulting firms that help small businesses find, qualify, win and perform government contracts. Opportunity discovery, calibrated win probability, compliance matrices, AI proposal drafting and post-award tracking in one workspace.",
+        "BytesGov is construction management software for contractors: job costing, estimating, subcontractor scheduling and billing. Request a walkthrough today.",
     },
     hero: {
       title: ["BytesGov"],
@@ -259,9 +259,9 @@ export const productContent: Record<ProductSlug, ServiceContent> = {
   "bytesbilling": {
     slug: "bytesbilling",
     meta: {
-      title: "BytesBilling, UAE FTA-Ready Invoicing & ERP",
+      title: "E-Invoicing Software UAE: ERP-Ready, PINT AE Validated",
       description:
-        "BytesBilling is a UAE-compliant invoicing platform for SMEs. Bytes ERP runs your business, BytesBilling builds and validates PINT AE (UBL 2.1) e-invoices, hands them to an accredited service provider for Peppol delivery and FTA reporting, and keeps the legal archive for the full retention period.",
+        "E-invoicing software UAE businesses can run inside their ERP: PINT AE validation before your ASP submits. See the e-invoicing solution for ERP in a demo.",
     },
     hero: {
       title: ["BytesBilling"],
@@ -357,9 +357,9 @@ export const productContent: Record<ProductSlug, ServiceContent> = {
   "bytesagentic": {
     slug: "bytesagentic",
     meta: {
-      title: "BytesAgentic, AI Receptionist for Dental Practices",
+      title: "AI Receptionist for Dental Offices | BytesAgentic",
       description:
-        "BytesAgentic is a HIPAA-minded AI phone receptionist for dental practices. It answers every call, identifies the patient, books cleanings and exams into open chair time, confirms by text and hands anything clinical or financial to your team, with an audit log for every record it touches.",
+        "BytesAgentic is an AI receptionist for dental offices: answers calls, books appointments and recovers missed patients. AI for dental practices. See a demo.",
     },
     hero: {
       title: ["BytesAgentic"],

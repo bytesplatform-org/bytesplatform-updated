@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import IndustriesPage from "@/components/industries/IndustriesPage";
 
 export const metadata: Metadata = {
-  title: "Industries We Serve",
+  title: { absolute: "Industry-Specific Software Development | BytesPlatform" },
   description:
-    "Secure, scalable, future-ready technology for government contractors, retail, banking and finance, and health, tailored solutions from BytesPlatform.",
+    "Industry-specific software development for federal contractors, retail, banking and health: custom software development by industry. Explore your sector.",
   alternates: { canonical: "/industries" },
   openGraph: {
-    title: "Industries We Serve · BytesPlatform",
-    description: "Cutting-edge solutions across diverse industries, transforming businesses with innovative technology.",
+    title: "Industry-Specific Software Development | BytesPlatform",
+    description:
+      "Industry-specific software development for federal contractors, retail, banking and health: custom software development by industry. Explore your sector.",
     url: "/industries",
   },
 };
