@@ -36,6 +36,9 @@
   .video { object-fit: cover; }
 }
 
+/* Films of another shape (a portrait story) always letterbox, never crop. */
+.player[data-fit="contain"] .video { object-fit: contain; }
+
 .close {
   position: absolute;
   top: var(--showreel-cursor-y);

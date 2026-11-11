@@ -18,6 +18,8 @@ type ShowreelPlayerProps = {
   label?: string;
   /** Selector for the button that opened the player, refocused on close. */
   trigger?: string;
+  /** "cover" fills wide screens (the reel's shape); "contain" always letterboxes. */
+  fit?: "cover" | "contain";
 };
 
 const SHOWREEL_SOURCES: VideoSource[] = [
@@ -39,6 +41,7 @@ export default function ShowreelPlayer({
   poster = "/showreel/player-poster.webp",
   label = "showreel",
   trigger = "[data-showreel-trigger]",
+  fit = "cover",
 }: ShowreelPlayerProps) {
   const ringId = `${useId()}-close-ring`;
   const playerRef = useRef<HTMLDivElement>(null);
@@ -152,6 +155,7 @@ export default function ShowreelPlayer({
       ref={playerRef}
       className={styles.player}
       data-open={open}
+      data-fit={fit}
       data-controls-hover={overControls}
       style={playerStyle}
       role="dialog"

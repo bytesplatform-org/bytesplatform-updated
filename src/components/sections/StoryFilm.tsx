@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "@/lib/animation/prefs";
@@ -9,18 +9,35 @@ import "./FluidVideoTransition.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STORY_SOURCES = [{ src: "/story/our-story.mp4", type: "video/mp4" }];
+type VideoSource = { src: string; type: string };
+
+/** The landscape company film (16:9), the default. */
+const STORY_SOURCES: VideoSource[] = [{ src: "/story/our-story.mp4", type: "video/mp4" }];
 const STORY_POSTER = "/story/our-story-poster.webp";
+
+type StoryFilmProps = {
+  className?: string;
+  sources?: VideoSource[];
+  poster?: string;
+  /** The film's width ÷ height: 16 / 9 landscape, 9 / 16 portrait. */
+  ratio?: number;
+};
 
 /**
  * The company film card, shared by the home page and /about. A muted loop
  * plays while on screen; the frosted button opens the full-screen player
  * with sound. As the card scrolls in, a clip-path window grows to the full
  * frame while the video underneath keeps its size (scrubbed, both ways).
- * Sized to fit the viewport: full width, unless that would be taller than
- * the screen (less the header), then by height instead.
+ * Sized to fit the viewport: as wide as its column, unless that would be
+ * taller than the screen (less the header), then by height instead.
  */
-export default function StoryFilm({ className = "" }: { className?: string }) {
+export default function StoryFilm({
+  className = "",
+  sources = STORY_SOURCES,
+  poster = STORY_POSTER,
+  ratio = 16 / 9,
+}: StoryFilmProps) {
+  const portrait = ratio < 1;
   const frame = useRef<HTMLDivElement>(null);
   const preview = useRef<HTMLVideoElement>(null);
   const [playerOpen, setPlayerOpen] = useState(false);
@@ -53,7 +70,10 @@ export default function StoryFilm({ className = "" }: { className?: string }) {
     const mm = gsap.matchMedia();
     mm.add({ wide: "(min-width: 768px)", narrow: "(max-width: 767px)" }, (ctx) => {
       const radius = getComputedStyle(media).borderTopLeftRadius;
-      const from = ctx.conditions?.wide ? "inset(22% 26% 22% 26%" : "inset(24% 10% 24% 10%";
+      // A tall card opens from a squarer window; a wide one from a letterbox.
+      const from = portrait
+        ? "inset(18% 14% 18% 14%"
+        : ctx.conditions?.wide ? "inset(22% 26% 22% 26%" : "inset(24% 10% 24% 10%";
       gsap.fromTo(
         media,
         { clipPath: `${from} round ${radius})` },
@@ -72,13 +92,19 @@ export default function StoryFilm({ className = "" }: { className?: string }) {
       );
     });
     return () => mm.revert();
-  }, []);
+  }, [portrait]);
+
+  const frameStyle = {
+    aspectRatio: ratio,
+    maxWidth: `calc((100svh - 12rem) * ${ratio})`,
+  } as CSSProperties;
 
   return (
     <>
       <div
         ref={frame}
-        className={`relative mx-auto aspect-video w-full max-w-[calc((100svh-12rem)*16/9)] overflow-hidden rounded-[clamp(1rem,2vw,2rem)] bg-ink ${className}`}
+        style={frameStyle}
+        className={`relative mx-auto w-full overflow-hidden rounded-[clamp(1rem,2vw,2rem)] bg-ink ${className}`}
       >
         <video
           ref={preview}
@@ -86,11 +112,11 @@ export default function StoryFilm({ className = "" }: { className?: string }) {
           loop
           playsInline
           preload="none"
-          poster={STORY_POSTER}
+          poster={poster}
           aria-hidden
           className="absolute inset-0 h-full w-full object-cover"
         >
-          {STORY_SOURCES.map((source) => (
+          {sources.map((source) => (
             <source key={source.src} src={source.src} type={source.type} />
           ))}
         </video>
@@ -124,10 +150,11 @@ export default function StoryFilm({ className = "" }: { className?: string }) {
         open={playerOpen}
         initialPointer={playerPointer}
         onClose={closePlayer}
-        sources={STORY_SOURCES}
-        poster={STORY_POSTER}
+        sources={sources}
+        poster={poster}
         label="story"
         trigger="[data-story-trigger]"
+        fit={portrait ? "contain" : "cover"}
       />
     </>
   );
