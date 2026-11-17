@@ -19,10 +19,18 @@ const vertexShader = /* glsl */ `
   void main() {
     vUv = uv;
     vec3 pos = position;
-    // The edges wobble a few pixels, like the surface of a liquid. The plane
-    // is a unit quad scaled to the box, so offsets are fractions of its size.
-    float wave = sin(uTime * 3.0 + uv.x * 8.0) * cos(uTime * 3.0 + uv.y * 8.0);
-    pos.xy += uStrength * wave * vec2(4.0, 5.0) / uSize;
+    // Each edge bows into one smooth arc (zero at the corners, widest mid-edge)
+    // that slowly breathes in and out, like a drop of liquid, never a ragged
+    // wave. Each side breathes on its own phase so the shape gently shifts.
+    // The plane is a unit quad scaled to the box, so offsets are in pixels / size.
+    const float PI = 3.14159265;
+    vec2 side = (uv - 0.5) * 2.0;
+    float arcX = sin(uv.y * PI);
+    float arcY = sin(uv.x * PI);
+    float breatheX = 0.65 + 0.35 * sin(uTime * 1.8 + (side.x > 0.0 ? 0.0 : 2.1));
+    float breatheY = 0.65 + 0.35 * sin(uTime * 1.5 + (side.y > 0.0 ? 1.0 : 3.2));
+    pos.x += side.x * arcX * breatheX * uStrength * 7.0 / uSize.x;
+    pos.y += side.y * arcY * breatheY * uStrength * 7.0 / uSize.y;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
   }
 `;
@@ -118,6 +126,9 @@ export function createLiquidMedia(container: HTMLElement, canvas: HTMLCanvasElem
       // Sampled and written as-is, so the photo matches the <img> it replaces.
       texture.colorSpace = THREE.NoColorSpace;
       texture.minFilter = THREE.LinearFilter;
+      // The camera is y-down (page pixels), so the default upload flip would
+      // show every photo upside down; upload it unflipped instead.
+      texture.flipY = false;
       material.uniforms.uTexture.value = texture;
       material.uniforms.uImage.value.set(texture.image.width, texture.image.height);
       mesh.visible = true;

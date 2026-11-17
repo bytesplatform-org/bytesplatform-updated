@@ -1,6 +1,7 @@
 import { site } from "@/data/site";
 import { serviceLinks } from "@/data/services";
 import { productLinks } from "@/data/products";
+import { governmentServices, govServicePath } from "@/data/governmentServices";
 import { getAllPosts } from "@/lib/blog";
 import type { MetadataRoute } from "next";
 
@@ -32,6 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...governmentServices.map(({ slug }) => ({
+      url: `${BASE}${govServicePath(slug)}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
     ...productLinks.map(({ slug }) => ({
       url: `${BASE}/products/${slug}`,

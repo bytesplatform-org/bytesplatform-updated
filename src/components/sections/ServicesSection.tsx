@@ -20,7 +20,12 @@ const SERVICES = [
   { label: "CRM & ERP Systems", href: "/services/crm-erp-systems" },
   { label: "Government Opportunity & Proposal Technology", href: "/services/government-proposal-technology" },
   { label: "E-Invoicing & Business System Integration", href: "/services/e-invoicing-integration" },
+  { label: "Government Contractors", href: "/government-contractors" },
 ] as const;
+/** Degrees between cards around the ring, and how much wider the ring must be
+ * than the original six-card ring (60°) for neighbours to keep the same gap. */
+const CARD_STEP = 360 / SERVICES.length;
+const RING_SPREAD = Math.sin(Math.PI / 6) / Math.sin(Math.PI / SERVICES.length);
 // Disable this after tuning; copy the panel values into DEFAULT_RING first.
 const SHOW_RING_CONTROLS = false;
 const DEFAULT_RING = { rotationX: 5, rotationY: 0, rotationZ: 7, cameraX: 103, cameraY: 142, cameraZ: 200 };
@@ -33,6 +38,7 @@ const DESCRIPTIONS = [
   "Your people, processes and data. Connected in one place.",
   "Find the right opportunities. Build proposals that win.",
   "Seamless invoicing and systems that work together.",
+  "Websites, portals, CRMs and ERPs built to pass the audit.",
 ];
 const WORKFLOWS = [
   ["New lead", "Form submission", "AI Agent", "Analyze, enrich, and take action", "Send personalized email", "Notify team", "Update CRM"],
@@ -41,6 +47,7 @@ const WORKFLOWS = [
   ["Business data", "One source of truth", "Connected operations", "Manage, track, and grow", "Sync customers", "Plan resources", "View insights"],
   ["New opportunity", "Matched to your business", "Proposal engine", "Research, qualify, and respond", "Review requirements", "Build proposal", "Submit response"],
   ["New invoice", "Ready to process", "Integration hub", "Validate, sync, and deliver", "Validate invoice", "Sync accounts", "Confirm delivery"],
+  ["New solicitation", "Agency or prime", "Delivery team", "Build, test, and document", "Accessibility audit", "Security evidence", "Agency sign-off"],
 ];
 
 function Workflow({ index }: { index: number }) {
@@ -55,7 +62,7 @@ function Workflow({ index }: { index: number }) {
 }
 function ServiceCard({ index }: { index: number }) {
   const service = SERVICES[index];
-  return <a href={service.href} className="service-orbit-card" style={{ "--card-angle": `${-index * 60}deg` } as CSSProperties}>
+  return <a href={service.href} className="service-orbit-card" style={{ "--card-angle": `${-index * CARD_STEP}deg` } as CSSProperties}>
     <div className="service-orbit-card__surface">
       <span className="service-orbit-card__number">{String(index + 1).padStart(2, "0")}</span>
       <div className="service-orbit-card__copy"><div className="service-orbit-card__title">{service.label}</div><p>{DESCRIPTIONS[index]}</p></div>
@@ -73,6 +80,7 @@ const MOBILE_DETAILS = [
   { category: "Operations", steps: ["Unify your data", "Manage & track", "Grow with insight"] },
   { category: "Government", steps: ["Discover opportunities", "Qualify & respond", "Build proposal"] },
   { category: "Finance", steps: ["Validate invoices", "Sync accounts", "Confirm delivery"] },
+  { category: "GovCon", steps: ["Scope the solicitation", "Build to Section 508", "Deliver with evidence"] },
 ] as const;
 
 /** The phone card: number and category, the steps, then the title and link. */
@@ -114,7 +122,7 @@ function MobileServicesTrack({ track }: { track: React.RefObject<HTMLDivElement 
     </div>
   </div>;
 }
-// Each 60-degree interval is one screen; cards stay visible into the portal.
+// Each card step (CARD_STEP degrees) is one screen; cards stay visible into the portal.
 const ORBIT_SCROLL_SCREENS = SERVICES.length - 1;
 const EXIT_SCROLL_SCREENS = 0.3;
 const STACK_SCROLL_SCREENS = ORBIT_SCROLL_SCREENS + EXIT_SCROLL_SCREENS;
@@ -241,7 +249,7 @@ export default function ServicesSection() {
         });
         // Keep the 3D hierarchy opaque: fading a preserve-3d parent flattens
         // its children and can project back-facing cards into the viewport.
-        stackTimeline.to(orbit, { angle: ORBIT_SCROLL_SCREENS * 60, duration: ORBIT_SCROLL_SCREENS, ease: "none", onUpdate: () => { scrollAngle.current = orbit.angle; applyRing(); } }, 0);
+        stackTimeline.to(orbit, { angle: ORBIT_SCROLL_SCREENS * CARD_STEP, duration: ORBIT_SCROLL_SCREENS, ease: "none", onUpdate: () => { scrollAngle.current = orbit.angle; applyRing(); } }, 0);
         stackTimeline.set({}, {}, STACK_SCROLL_SCREENS);
       }, section);
       const disposeInteraction = createServiceCardInteraction(section);
@@ -341,7 +349,7 @@ export default function ServicesSection() {
         style={{ "--handoff-screens": HANDOFF_SCROLL_SCREENS + 1, "--handoff-compact-screens": COMPACT_HANDOFF_SCREENS + 1 } as CSSProperties}
         aria-label="Our services"
       >
-        <div data-services-stage className="services-stage sticky top-0 h-[100svh] overflow-hidden px-[var(--bp-gut)]">
+        <div data-services-stage className="services-stage sticky top-0 h-[100svh] overflow-hidden px-[var(--bp-gut)]" style={{ "--ring-k": RING_SPREAD } as CSSProperties}>
           <div className="services-stack relative mx-auto h-full max-w-[1800px]">
             <div data-services-pill-wrap className="services-pill-wrap absolute inset-0 z-20 flex items-end justify-center">
               <ActionPill portal label="View featured work" onClick={enterWork} className="pointer-events-auto" />

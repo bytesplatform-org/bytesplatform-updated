@@ -1,6 +1,7 @@
 .services-section { isolation: isolate; }
 /* Card internals are authored at a 1000px card; --cu is one of those px at the current card size. */
-.services-stage { transform-origin: 50% 50%; --ring-focal: max(600px, 70vw); --ring-radius: max(600px, 70vw); --card-width: min(1000px, 76vw, 125svh); --cu: calc(var(--card-width) / 1000); --cam-x: var(--cu); --cam-y: var(--cu); --cam-z: var(--cu); }
+/* --ring-k (set from the card count) widens the ring and its perspective together, so the front card keeps its size. */
+.services-stage { transform-origin: 50% 50%; --ring-focal: calc(max(600px, 70vw) * var(--ring-k, 1)); --ring-radius: calc(max(600px, 70vw) * var(--ring-k, 1)); --card-width: min(1000px, 76vw, 125svh); --cu: calc(var(--card-width) / 1000); --cam-x: var(--cu); --cam-y: var(--cu); --cam-z: var(--cu); }
 .services-heading [data-heading-upper] > span, .services-heading [data-heading-lower] > span { display: inline-block; will-change: transform, opacity; }
 .services-pill-wrap { pointer-events: none; padding-bottom: clamp(24px, 5svh, 56px); }
 .services-handoff { height: calc(100svh * var(--handoff-screens)); }
@@ -50,7 +51,7 @@
 .ring-controls__buttons { display: flex; gap: 8px; margin-top: 16px; }
 .ring-controls__buttons button { flex: 1; padding: 8px; border: 1px solid #ffffff30; background: #ffffff10; border-radius: 7px; color: white; cursor: pointer; }
 @media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
-  .services-stage { --ring-focal: 92vw; --ring-radius: 92vw; --card-width: min(84vw, 125svh); }
+  .services-stage { --ring-focal: calc(92vw * var(--ring-k, 1)); --ring-radius: calc(92vw * var(--ring-k, 1)); --card-width: min(84vw, 125svh); }
 }
 /* Landscape phones: keep the card clear of the bottom pill. */
 @media (min-width: 768px) and (max-height: 500px) {

@@ -33,7 +33,7 @@ export default function LoginPage() {
   return (
     <main className="grid min-h-dvh grid-cols-1 gap-3 p-3 lg:grid-cols-[1.08fr_1fr]">
       {/* Left: brand panel */}
-      <section className="relative flex flex-col overflow-hidden rounded-[2rem] border border-[rgb(17_17_17/.08)] bg-[radial-gradient(120%_80%_at_0%_0%,#dfe5ff_0%,rgba(223,229,255,0)_60%),radial-gradient(90%_70%_at_100%_100%,#e4e9ff_0%,rgba(228,233,255,0)_55%),#f7f8fd] px-6 pb-7 pt-7 sm:px-10 sm:pt-9 lg:px-12">
+      <section className="relative order-2 flex flex-col overflow-hidden rounded-[2rem] lg:order-1 border border-[rgb(17_17_17/.08)] bg-[radial-gradient(120%_80%_at_0%_0%,#dfe5ff_0%,rgba(223,229,255,0)_60%),radial-gradient(90%_70%_at_100%_100%,#e4e9ff_0%,rgba(228,233,255,0)_55%),#f7f8fd] px-6 pb-7 pt-7 sm:px-10 sm:pt-9 lg:px-12">
         <div className="flex items-center justify-between gap-3">
           <span className="flex items-center gap-2.5 text-[0.95rem] font-semibold tracking-[-0.02em]">
             <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
@@ -75,7 +75,7 @@ export default function LoginPage() {
       </section>
 
       {/* Right: form */}
-      <section className="flex flex-col px-4 py-8 sm:px-10 lg:px-16">
+      <section className="order-1 flex flex-col px-4 py-8 sm:px-10 lg:order-2 lg:px-16">
         <div className="flex justify-end sm:hidden">
           <DemoBadge />
         </div>

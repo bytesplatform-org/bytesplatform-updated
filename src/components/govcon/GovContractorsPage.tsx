@@ -1,14 +1,13 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { Fragment, useEffect, useLayoutEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { Fragment, createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import ActionPill from "@/components/ui/ActionPill";
 import SiteFooter from "@/components/sections/SiteFooter";
 import {
-  audiences, capabilities, company, contractTypes, deadlines, evidence, faqs, market, naics, naicsNote, needs, packages, proof, roles,
+  audienceContent, audienceKeys, company, deadlines, evidence, faqs, market, naics, naicsNote, needs, packages, proof, roles,
   sources, steps, titleIIDeadline, vehicles,
 } from "@/data/govcon";
 import { demoUrls } from "@/data/demos";
@@ -23,6 +22,7 @@ import ui from "@/components/einvoicing/EInvoicingPage.module.css";
 import styles from "./GovContractorsPage.module.css";
 import GovHeroCanvas from "./GovHeroCanvas";
 import { createLiquidMedia } from "@/lib/govcon/liquidMedia";
+import { governmentServices, govServicePath } from "@/data/governmentServices";
 import { mountReveal } from "@/lib/govcon/reveal";
 import CountUp from "./CountUp";
 import type { AudienceKey } from "@/data/govcon";
@@ -35,6 +35,23 @@ const pad = (n: number) => String(n).padStart(2, "0");
 const isPlaceholder = (text: string) => /\[[^\]]*\]/.test(text);
 const realProof = proof.filter((item) => !Object.values(item).some(isPlaceholder));
 const realCompany = company.filter((row) => !isPlaceholder(row.value));
+
+/** The audience tab in use. Everything the tabs swap reads it from here. */
+const AudienceContext = createContext<AudienceKey>("state");
+
+/** ?audience=state|prime|small; the older ?for= links still work; anything else is "state". */
+function audienceFromSearch(search: string): AudienceKey {
+  const params = new URLSearchParams(search);
+  const wanted = params.get("audience");
+  if (audienceKeys.includes(wanted as AudienceKey)) return wanted as AudienceKey;
+  const legacy: Record<string, AudienceKey> = { agency: "state", prime: "prime", smb: "small" };
+  return legacy[params.get("for") ?? ""] ?? "state";
+}
+
+/** Scrolls to the call form and focuses its first field, optionally filling the message field. */
+function openCallForm(prefill?: string) {
+  window.dispatchEvent(new CustomEvent("govcon:call", { detail: prefill ?? null }));
+}
 
 /** Each word rides up out of its own clipped slot; `tail` rides with the last one. */
 function Words({ text, tail }: { text: string; tail?: ReactNode }) {
@@ -67,24 +84,26 @@ function validateLead(lead: Lead) {
 }
 
 function LeadForm() {
+  const audience = useContext(AudienceContext);
+  const { form, label: audienceLabel } = audienceContent[audience];
   const [lead, setLead] = useState<Lead>(emptyLead);
   const [errors, setErrors] = useState<Partial<Record<keyof Lead, string>>>({});
   const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  // The hero's "Run scan" hands its URL to this form: it lands in the
-  // solicitation / URL field and the visitor finishes the request here.
+  // Hero buttons and the scan card send visitors here (openCallForm): the form
+  // scrolls into view, focuses its first field, and may pre-fill the message.
   useEffect(() => {
     const fill = (event: Event) => {
-      const url = (event as CustomEvent<string>).detail;
+      const prefill = (event as CustomEvent<string | null>).detail;
       setStatus("idle");
-      setLead((current) => ({ ...current, details: url }));
+      if (prefill) setLead((current) => ({ ...current, details: prefill }));
       const name = document.querySelector<HTMLInputElement>('#call input[name="name"]');
       name?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" });
       name?.focus({ preventScroll: true });
     };
-    window.addEventListener("govcon:scan", fill);
-    return () => window.removeEventListener("govcon:scan", fill);
+    window.addEventListener("govcon:call", fill);
+    return () => window.removeEventListener("govcon:call", fill);
   }, []);
 
   const set = (key: keyof Lead, value: string) => {
@@ -112,7 +131,8 @@ function LeadForm() {
         phone: lead.phone.trim(),
         message: [
           "Government contracting enquiry",
-          `Company: ${lead.company.trim()}`,
+          `Audience: ${audience} (${audienceLabel})`,
+          `${form.companyLabel}: ${lead.company.trim()}`,
           lead.role && `Organization: ${lead.role}`,
           lead.need && `Need: ${lead.need}`,
           lead.details.trim() && `Solicitation or website: ${lead.details.trim()}`,
@@ -156,11 +176,13 @@ function LeadForm() {
 
   return (
     <form className={ui.form} noValidate onSubmit={submit}>
+      {/* Which tab the lead came from, for sales. */}
+      <input type="hidden" name="audience" value={audience} />
       <p className={ui.formTitle}>Book a capability call</p>
       <p className={ui.formNote}>Tell us about the solicitation or the problem. We reply within one business day.</p>
       <div className={ui.formGrid}>
         {input("name", "Full name", "text", "name")}
-        {input("company", "Company or agency", "text", "organization")}
+        {input("company", form.companyLabel, "text", "organization")}
         {input("email", "Work email", "email", "email")}
         {input("phone", "Phone", "tel", "tel")}
         {select("role", "You are a", roles)}
@@ -168,7 +190,7 @@ function LeadForm() {
         <label className={`${ui.field} ${styles.wide}`}>
           <span>Solicitation # or your website URL (optional)</span>
           <input name="details" aria-describedby="details-hint" value={lead.details} onChange={(event) => set("details", event.target.value)} />
-          <small id="details-hint" className={ui.consent}>Add your site&apos;s URL and we&apos;ll include a free accessibility scan.</small>
+          <small id="details-hint" className={ui.consent}>{form.helper}</small>
         </label>
       </div>
       <button type="submit" className={`action-pill ${ui.submit}`} disabled={status === "sending"}>
@@ -193,7 +215,7 @@ function ScanForm() {
     event.preventDefault();
     const value = url.trim();
     if (!value) return;
-    window.dispatchEvent(new CustomEvent("govcon:scan", { detail: value }));
+    openCallForm(value);
   };
   return (
     <form id="scan" className={styles.scan} onSubmit={submit}>
@@ -210,92 +232,198 @@ function ScanForm() {
   );
 }
 
-/** Whole days until the large-government ADA Title II date. */
-const daysToTitleII = () => Math.max(0, Math.ceil((Date.parse(titleIIDeadline) - Date.now()) / 86_400_000));
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/** Time left until the large-government ADA Title II date, split into units. */
+function timeToTitleII(now: number) {
+  const left = Math.max(0, Date.parse(titleIIDeadline) - now);
+  return {
+    days: Math.floor(left / 86_400_000),
+    hours: Math.floor((left % 86_400_000) / 3_600_000),
+    minutes: Math.floor((left % 3_600_000) / 60_000),
+    seconds: Math.floor((left % 60_000) / 1000),
+  };
+}
 
 /**
- * The server renders today's count (the route revalidates daily), so it reads
- * right without JavaScript; the browser recounts on its own clock and counts
- * up from 0 when the panel comes into view.
+ * A live countdown to the ADA Title II deadline: days count up when the panel
+ * comes into view, then hours, minutes and seconds tick every second. The
+ * server renders the current values (the route revalidates daily), so it
+ * reads right without JavaScript; screen readers get the day count once, not
+ * every tick.
  */
 function TitleIIClock() {
-  const [days, setDays] = useState(daysToTitleII);
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
-    const timer = window.setInterval(() => setDays(daysToTitleII()), 60 * 60_000);
+    setNow(Date.now());
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);
+  const left = timeToTitleII(now);
   return (
-    <p data-reveal className={styles.clock}>
-      <strong><CountUp to={days} /></strong>
-      <span>days until large state and local governments must meet WCAG 2.1 AA</span>
-    </p>
+    <div data-reveal className={styles.clock}>
+      <div className={styles.clockDigits}>
+        <span className={styles.clockDays}>
+          <strong><CountUp to={left.days} /></strong>
+          <small>days</small>
+        </span>
+        {([["hrs", left.hours], ["min", left.minutes], ["sec", left.seconds]] as const).map(([unit, value]) => (
+          <span key={unit} aria-hidden>
+            <strong suppressHydrationWarning>{pad2(value)}</strong>
+            <small>{unit}</small>
+          </span>
+        ))}
+      </div>
+      <p className={styles.clockCaption}>
+        <span className={styles.pulse} aria-hidden />
+        until large state and local governments must meet WCAG 2.1 AA · Apr 26, 2027
+      </p>
+    </div>
   );
 }
 
 /**
- * The hero's audience switch: three versions of the eyebrow, headline,
- * paragraph and first button, stacked in one grid cell so the block always
- * holds the tallest one's height and nothing below moves when switching. The
- * choice lives in ?for= so ads and emails can link straight to a version.
+ * Renders every audience's version of a block, stacked in one grid cell: the
+ * cell always holds the tallest version, so switching tabs never moves the
+ * page. The active version fades and slides in; the others stay hidden from
+ * view, from assistive tech and from the keyboard. The default ("state")
+ * version is what the server renders as the visible one.
  */
-function AudienceHero() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [active, setActive] = useState<AudienceKey>("agency");
+function Swap({ layerClassName = "", children }: { layerClassName?: string; children: (key: AudienceKey, on: boolean) => ReactNode }) {
+  const active = useContext(AudienceContext);
+  return (
+    <div className={styles.swap}>
+      {audienceKeys.map((key) => {
+        const on = key === active;
+        return (
+          <div key={key} className={`${styles.swapLayer} ${layerClassName}`} data-active={on} aria-hidden={!on} inert={!on}>
+            {children(key, on)}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
-  // Read ?for= after mount: reading search params during render would opt the
-  // whole page out of static rendering.
-  useEffect(() => {
-    const wanted = new URLSearchParams(window.location.search).get("for");
-    const match = audiences.find((audience) => audience.key === wanted);
-    if (match) setActive(match.key);
-  }, []);
+/**
+ * The audience tabs (WAI-ARIA tabs pattern): arrows move focus between tabs,
+ * Home / End jump to the ends, Enter / Space select. Only the selected tab is
+ * in the page's tab order. On phones the bar scrolls sideways and keeps the
+ * selected tab in view.
+ */
+function AudienceTabs({ onSelect }: { onSelect: (key: AudienceKey) => void }) {
+  const active = useContext(AudienceContext);
+  const list = useRef<HTMLDivElement>(null);
+  const tabs = useRef<Partial<Record<AudienceKey, HTMLButtonElement | null>>>({});
 
-  const choose = (key: AudienceKey) => {
-    if (key === active) return;
-    setActive(key);
-    const params = new URLSearchParams(window.location.search);
-    params.set("for", key);
-    router.replace(`${pathname}?${params.toString()}${window.location.hash}`, { scroll: false });
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const last = audienceKeys.length - 1;
+    const next = { ArrowRight: index === last ? 0 : index + 1, ArrowLeft: index === 0 ? last : index - 1, Home: 0, End: last }[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    tabs.current[audienceKeys[next]]?.focus();
   };
 
+  useEffect(() => {
+    const bar = list.current;
+    const tab = tabs.current[active];
+    if (!bar || !tab || bar.scrollWidth <= bar.clientWidth) return;
+    bar.scrollTo({ left: tab.offsetLeft - (bar.clientWidth - tab.offsetWidth) / 2, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  }, [active]);
+
   return (
-    <>
-      <div data-hero-fade role="group" aria-label="Choose who you are" className={styles.audienceTabs}>
-        {audiences.map((audience) => (
-          <button key={audience.key} type="button" aria-pressed={audience.key === active} onClick={() => choose(audience.key)}>
-            {audience.label}
-          </button>
-        ))}
-      </div>
-      <div className={styles.audienceStack}>
-        {audiences.map((audience) => {
-          const on = audience.key === active;
-          // Only the visible version is a real <h1>; the others hold their space.
-          const Title = on ? "h1" : "div";
+    <div className={styles.tabsBar}>
+      <div ref={list} data-hero-fade role="tablist" aria-label="Choose your organization type" className={styles.audienceTabs}>
+        {audienceKeys.map((key, index) => {
+          const on = key === active;
           return (
-            <div key={audience.key} className={styles.audienceLayer} data-active={on} aria-hidden={!on} inert={!on}>
-              <p data-hero-fade className={styles.eyebrow}><span className="hero-dot" aria-hidden />{audience.eyebrow}</p>
-              <Title data-hero-title className={ui.heroTitle}>
-                <Words text={audience.headline[0]} />
-                <br />
-                <Words text={audience.headline[1]} tail={<span className="hero-period">.</span>} />
-              </Title>
-              <p data-hero-fade className={ui.heroIntro}>{audience.paragraph}</p>
-              <div data-hero-fade className={styles.heroActions}>
-                <ActionPill href={audience.cta.target} label={audience.cta.label} />
-                <a className={styles.textLink} href="#call">Book a capability call</a>
-              </div>
-            </div>
+            <button
+              key={key}
+              ref={(node) => { tabs.current[key] = node; }}
+              id={`audience-tab-${key}`}
+              type="button"
+              role="tab"
+              aria-selected={on}
+              aria-controls="audience-panel"
+              tabIndex={on ? 0 : -1}
+              onClick={() => onSelect(key)}
+              onKeyDown={(event) => onKeyDown(event, index)}
+            >
+              <span className={styles.tabFull}>{audienceContent[key].label}</span>
+              <span className={styles.tabShort} aria-hidden>{audienceContent[key].short}</span>
+            </button>
           );
         })}
       </div>
-    </>
+    </div>
+  );
+}
+
+/** The hero's text column: each audience's eyebrow, headline, sub and buttons. */
+function AudienceHero({ children }: { children: ReactNode }) {
+  return (
+    <div className={ui.heroText}>
+      <Swap layerClassName={styles.audienceLayer}>
+        {(key, on) => {
+          const { hero } = audienceContent[key];
+          // Only the visible version is a real <h1>; the others hold their space.
+          const Title = on ? "h1" : "div";
+          return (
+            <>
+              <p data-hero-fade className={styles.eyebrow}><span className="hero-dot" aria-hidden />{hero.eyebrow}</p>
+              <Title data-hero-title className={ui.heroTitle}>
+                {hero.headline.map((line, index) => (
+                  <Fragment key={line}>
+                    {index > 0 && <br />}
+                    <Words text={line} tail={index === hero.headline.length - 1 ? <span className="hero-period">.</span> : undefined} />
+                  </Fragment>
+                ))}
+              </Title>
+              <p data-hero-fade className={ui.heroIntro}>{hero.sub}</p>
+              <div data-hero-fade className={styles.heroActions}>
+                {hero.cta.kind === "link"
+                  ? <ActionPill href={hero.cta.href} label={hero.cta.label} />
+                  : <ActionPill label={hero.cta.label} onClick={() => openCallForm((hero.cta as { prefill: string }).prefill)} />}
+                <button type="button" className={`${styles.textLink} ${styles.linkButton}`} onClick={() => openCallForm()}>
+                  Book a capability call
+                </button>
+              </div>
+            </>
+          );
+        }}
+      </Swap>
+      {children}
+    </div>
   );
 }
 
 export default function GovContractorsPage() {
   const root = useRef<HTMLDivElement>(null);
+  // The server renders "state"; ?audience= is applied once the page is live.
+  const [audience, setAudience] = useState<AudienceKey>("state");
+  // Whether ?audience= is in the URL (on load or after a tab click): if so,
+  // the service card links carry it to the detail pages.
+  const [audienceInUrl, setAudienceInUrl] = useState(false);
+
+  useEffect(() => {
+    setAudience(audienceFromSearch(window.location.search));
+    const params = new URLSearchParams(window.location.search);
+    setAudienceInUrl(params.has("audience") || params.has("for"));
+  }, []);
+
+  const selectAudience = useCallback((key: AudienceKey) => {
+    setAudience(key);
+    setAudienceInUrl(true);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("audience", key);
+      url.searchParams.delete("for");
+      window.history.replaceState(window.history.state, "", url);
+    } catch { /* the URL just doesn't update */ }
+    try {
+      (window as Window & { dataLayer?: unknown[] }).dataLayer?.push({ event: "audience_tab_select", audience: key });
+    } catch { /* analytics is optional */ }
+  }, []);
   const typesRef = useRef<HTMLDivElement>(null);
   const liquidRef = useRef<HTMLCanvasElement>(null);
 
@@ -352,29 +480,33 @@ export default function GovContractorsPage() {
   }, []);
 
   return (
-    <>
+    <AudienceContext.Provider value={audience}>
       <div ref={root} className={ui.page}>
         <HeroNav />
+
+        {/* The tabs sit outside the panel they control: the hero. */}
+        <div className={styles.audienceShell}>
+        <AudienceTabs onSelect={selectAudience} />
+        <div id="audience-panel" role="tabpanel" aria-labelledby={`audience-tab-${audience}`}>
 
         {/* ------------------------------------------------------------ hero */}
         <section id="top" className={`${ui.hero} ${styles.heroStage}`}>
           <GovHeroCanvas className={styles.heroCanvas} />
-          <div className={ui.heroText}>
-            <AudienceHero />
-            <ul data-hero-fade className={ui.capabilities}>
-              {capabilities.map((item) => <li key={item}><span className="hero-dot" aria-hidden />{item}</li>)}
-            </ul>
+          <AudienceHero>
             <div data-hero-fade><ScanForm /></div>
-          </div>
-          <div className={ui.formColumn}>
+          </AudienceHero>
+          <div className={`${ui.formColumn} ${styles.formTop}`}>
             <div id="call" data-hero-fade className={ui.formCard}>
               <LeadForm />
             </div>
           </div>
         </section>
 
-        {/* -------------------------------------------------- contract types */}
-        <section className={ui.section}>
+        </div>
+        </div>
+
+        {/* -------------------------------------------------------- services */}
+        <section id="services" className={ui.section}>
           <div className={ui.sectionHead}>
             <h2 data-lines className={ui.h2}><Words text="What government buys, what you get" /></h2>
             <p data-reveal className={ui.body}>
@@ -384,19 +516,24 @@ export default function GovContractorsPage() {
           <div ref={typesRef} className={styles.types}>
             {/* One WebGL canvas over the grid draws every card's image (liquid on hover). */}
             <canvas ref={liquidRef} aria-hidden className={styles.liquidCanvas} />
-            {contractTypes.map((type, index) => (
-              <article data-reveal data-liquid-card key={type.title} className={styles.type}>
+            {/* Each card is one link (its title), stretched over the whole card. */}
+            {governmentServices.map((service) => (
+              <article data-reveal data-liquid-card key={service.slug} className={styles.type}>
                 <div data-liquid-media className={styles.media}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- also the WebGL texture source */}
-                  <img src={type.image} alt="" loading="lazy" decoding="async" width={900} height={600} />
+                  <img src={service.image} alt="" loading="lazy" decoding="async" width={900} height={600} />
                 </div>
                 <div className={styles.typeHead}>
-                  <span className={ui.index}>{pad(index + 1)}</span>
-                  <span className={styles.naicsTag}>NAICS {type.naics}</span>
+                  <span className={ui.index}>{service.number}</span>
+                  <span className={styles.naicsTag}>NAICS {service.naics.join(" · ")}</span>
                 </div>
-                <h3>{type.title}</h3>
-                <p>{type.body}</p>
-                <ul>{type.buys.map((buy) => <li key={buy}>{buy}</li>)}</ul>
+                <h3>
+                  <a className={styles.cardLink} href={`${govServicePath(service.slug)}${audienceInUrl ? `?audience=${audience}` : ""}`}>
+                    {service.title}
+                  </a>
+                </h3>
+                <p>{service.summary}</p>
+                <ul>{service.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
               </article>
             ))}
           </div>
@@ -636,6 +773,6 @@ export default function GovContractorsPage() {
       </div>
 
       <SiteFooter />
-    </>
+    </AudienceContext.Provider>
   );
 }

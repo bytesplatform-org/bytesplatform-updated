@@ -33,28 +33,38 @@
 }
 
 /* ------------------------------------------------------- contract types */
+/* No card boxes: each item is the image and its text, straight on the page. */
 .types {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 .type {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  padding: clamp(1.5rem, 2.4vw, 2.25rem);
-  border: 1px solid rgb(17 17 17 / 0.06);
-  border-radius: 1.75rem;
-  background: #fff;
-  transition: transform 600ms var(--ease-out-expo), box-shadow 600ms var(--ease-out-expo);
 }
 
-.type:hover {
-  box-shadow: 0 1.5rem 4rem rgb(19 20 26 / 0.08);
-  transform: translateY(-0.35rem);
+/* The title link covers the whole card: one link, one announcement. */
+.cardLink::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  content: "";
 }
+
+.cardLink:focus-visible { outline: none; }
+
+.cardLink:focus-visible::after {
+  outline: 2px solid var(--bp-accent);
+  outline-offset: 8px;
+  border-radius: 1.5rem;
+}
+
+.type:hover h3 { color: var(--bp-accent); }
 
 /* The canvas bleeds past the grid so wobbling edges are never clipped. */
 .liquidCanvas {
@@ -69,8 +79,8 @@
 .media {
   overflow: hidden;
   aspect-ratio: 3 / 2;
-  margin: calc(-1 * clamp(0.5rem, 1vw, 1rem)) calc(-1 * clamp(0.5rem, 1vw, 1rem)) 0.75rem;
-  border-radius: 1.1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 1.5rem;
   background: var(--bp-bg);
 }
 
@@ -104,6 +114,7 @@
 }
 
 .type h3 {
+  transition: color 300ms ease;
   font-size: clamp(1.35rem, 1.8vw, 1.8rem);
   font-weight: 500;
   line-height: 1.08;
@@ -120,8 +131,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-top: auto;
-  padding-top: 0.5rem;
+  padding-top: 0.25rem;
 }
 
 .type li {
@@ -299,62 +309,143 @@
 }
 
 /* ------------------------------------------------------ audience tabs */
+/* The tabs sit outside the panel they control, laid over the top of the hero
+   (where they always were), above the WebGL curve; the hero makes room. */
+.audienceShell { position: relative; }
+
+.tabsBar {
+  position: absolute;
+  z-index: 5;
+  top: calc(var(--bp-gut) + 6rem);
+  right: var(--bp-gut);
+  left: var(--bp-gut);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.audienceShell .heroStage { padding-top: calc(var(--bp-gut) + 6rem + 3.25rem + clamp(1.5rem, 3.5vh, 2.25rem)); }
+
+/* Solid white, so the decorative curve can never wash out a label. Inactive
+   labels are #3B3F4A on white (10:1); the active one is white on ink. */
 .audienceTabs {
   display: inline-flex;
-  flex-wrap: wrap;
-  align-self: flex-start;
-  gap: 0.25rem;
-  padding: 0.25rem;
+  max-width: 100%;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid var(--bp-hairline);
   border-radius: 999px;
-  background: #f4f5f7;
+  background: #fff;
+  box-shadow: 0 0.5rem 1.5rem rgb(19 20 26 / 0.06);
+  pointer-events: auto;
 }
 
 .audienceTabs button {
   min-height: 44px;
-  padding: 0 1.1rem;
+  flex-shrink: 0;
+  padding: 0 1rem;
   border: 0;
   border-radius: 999px;
   background: transparent;
   color: #3b3f4a;
   font: inherit;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
-  transition: background-color 250ms ease, color 250ms ease;
+  transition: background-color 250ms ease, color 250ms ease, transform 400ms var(--ease-out-expo);
 }
 
-.audienceTabs button:hover { color: var(--color-ink); }
+.audienceTabs button:hover {
+  color: var(--color-ink);
+  transform: scale(1.06);
+}
 
-.audienceTabs button[aria-pressed="true"] {
+.audienceTabs button[aria-selected="true"] {
   background: #0b0b0f;
   color: #fff;
 }
 
-.audienceTabs button:focus-visible { outline-offset: 2px; }
-
-/* All three versions share one grid cell, so the block keeps the tallest
-   one's height and nothing below moves when switching. */
-.audienceStack { display: grid; }
-
-.audienceLayer {
-  display: flex;
-  grid-area: 1 / 1;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: clamp(1.5rem, 3.5vh, 2.25rem);
-  transition: opacity 200ms ease, visibility 0s linear 200ms;
+.audienceTabs button:focus-visible {
+  outline: 2px solid var(--bp-accent);
+  outline-offset: -4px;
 }
 
-.audienceLayer[data-active="false"] {
+@media (prefers-reduced-motion: reduce) {
+  .audienceTabs button:hover { transform: none; }
+}
+
+/* Phones: short labels in one row that scrolls sideways if it must; the full
+   label stays for screen readers. */
+.tabShort { display: none; }
+
+@media (max-width: 520px) {
+  .audienceTabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .audienceTabs::-webkit-scrollbar { display: none; }
+  .audienceTabs button { padding: 0 0.8rem; }
+  .tabShort { display: inline; }
+  .tabFull {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* --------------------------------------------------------------- swap */
+/* Every audience's version shares one grid cell, so the cell keeps the tallest
+   one's height and nothing below moves when the tab changes. */
+.swap { display: grid; }
+
+.swapLayer {
+  grid-area: 1 / 1;
+  min-width: 0;
+  transition: opacity 220ms ease, transform 220ms ease, visibility 0s linear 220ms;
+}
+
+.swapLayer[data-active="false"] {
   opacity: 0;
+  transform: translateY(8px);
   visibility: hidden;
 }
 
-.audienceLayer[data-active="true"] {
+.swapLayer[data-active="true"] {
   opacity: 1;
+  transform: none;
   visibility: visible;
-  transition: opacity 200ms ease, visibility 0s;
+  transition: opacity 220ms ease, transform 220ms ease, visibility 0s;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .swapLayer,
+  .swapLayer[data-active="true"] { transform: none; transition: none; }
+}
+
+/* The hero's versions lay out as a column; spare space falls below. */
+.audienceLayer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(1.5rem, 3.5vh, 2.25rem);
+}
+
+/* A <button> that looks like the text links. */
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* The call form starts at the top of the hero, level with the text. */
+.formTop { align-self: start; }
 
 .heroActions {
   display: flex;
@@ -543,27 +634,76 @@
 /* ------------------------------------------------------------- clock */
 .clock {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
-.clock strong {
-  color: #8aa2ff;
-  font-size: clamp(4rem, 10vw, 9rem);
+.clockDigits {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem clamp(1.25rem, 3vw, 2.75rem);
+}
+
+.clockDigits > span {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.clockDigits strong {
+  font-size: clamp(2.6rem, 5.5vw, 5.5rem);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.clockDays strong {
+  color: #8aa2ff;
+  font-size: clamp(4rem, 10vw, 9rem);
   letter-spacing: -0.07em;
 }
 
-/* The caption only: the number's own spans (CountUp) must keep its size. */
-.clock > span {
-  max-width: 22rem;
+.clockDigits small {
+  color: rgb(240 241 250 / 0.66);
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+}
+
+.clockCaption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   color: rgb(240 241 250 / 0.8);
-  font-size: clamp(1rem, 1.4vw, 1.3rem);
-  line-height: 1.35;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  line-height: 1.4;
+}
+
+.pulse {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #8aa2ff;
+}
+
+.pulse::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #8aa2ff;
+  content: "";
+  animation: clock-pulse 1.8s ease-out infinite;
+}
+
+@keyframes clock-pulse {
+  to { opacity: 0; transform: scale(3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse::after { animation: none; }
 }
 
 /* ---------------------------------------------------------- packages */

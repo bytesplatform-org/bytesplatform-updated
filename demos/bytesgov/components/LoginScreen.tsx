@@ -34,7 +34,7 @@ export function LoginScreen() {
     <main className="grid min-h-dvh lg:grid-cols-[1.08fr_1fr]">
       {/* ---------- brand panel ---------- */}
       <section className="relative isolate flex min-h-[540px] flex-col overflow-hidden border-b border-[var(--bp-hairline)] bg-[radial-gradient(120%_90%_at_15%_0%,#d9e0ff_0%,#e6e9fb_45%,#f0f1fa_100%)] px-6 pb-8 pt-6 sm:px-10 lg:min-h-dvh lg:border-b-0 lg:border-r lg:px-14 lg:pb-12 lg:pt-10">
-        <CapitolArt className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[78%] w-full opacity-90" />
+        <CapitolArt className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[78%] w-full opacity-60 [mask-image:linear-gradient(to_bottom,transparent,black_35%)]" />
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(240_241_250/0)_35%,rgb(240_241_250/0.72)_100%)]" />
 
         <div className="flex items-center justify-between gap-4">
@@ -42,12 +42,12 @@ export function LoginScreen() {
           <DemoBadge className="hidden sm:inline-flex" />
         </div>
 
-        <div className="mt-auto max-w-xl pt-16">
+        <div className="mt-auto max-w-2xl pt-16">
           <p className="mb-5 flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink-mute">
             <span aria-hidden className="size-1.5 rounded-full bg-blue" />
             Federal contracting intelligence
           </p>
-          <h1 className="text-[clamp(2.7rem,6.2vw,5.2rem)] font-medium leading-[0.92] tracking-[-0.06em]">
+          <h1 className="text-[clamp(2.7rem,5.6vw,5rem)] font-medium leading-[0.92] tracking-[-0.06em]">
             Know your odds
             <br />
             <em className="font-medium italic text-blue">before you bid</em>

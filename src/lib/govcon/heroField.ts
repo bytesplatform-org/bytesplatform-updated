@@ -4,9 +4,8 @@ import * as THREE from "three";
  * The government contractors hero: a light cousin of the home page's canvas.
  * A dot grid breathes on a slow wave and parts around the pointer, a few
  * "contract" nodes pulse in the site blue, and on wider screens one thick blue
- * ribbon (the home page's orbital line) runs through the right-hand side:
- * loading draws its first stretch and scrolling through the hero draws the
- * rest, while the line trails the page in parallax.
+ * ribbon (the home page's orbital line) draws itself through the right-hand
+ * side on load, keeps swaying on its own, and bends and trails with the scroll.
  *
  * One renderer, two draw calls, page-space pixels with a y-down camera. It
  * renders only while on screen, and a single still frame for reduced motion.
@@ -15,12 +14,10 @@ import * as THREE from "three";
 const BLUE = new THREE.Vector3(36 / 255, 87 / 255, 1);
 const INK = new THREE.Vector3(17 / 255, 17 / 255, 17 / 255);
 
-/** The ribbon's path, as fractions of the canvas: in from the top right,
- * looping over the form, down the open gutter between the headline and the
- * form, under the form and back out on the right. */
+/** The ribbon's path, as fractions of the canvas: in from the top right, one
+ * big loop around and behind the form, and out past the bottom edge. */
 const WIDE_PATH: [number, number][] = [
-  [1.06, 0.05], [0.84, 0.16], [0.63, 0.08], [0.52, 0.25], [0.535, 0.5],
-  [0.525, 0.75], [0.6, 0.965], [0.8, 0.985], [0.96, 0.92], [1.08, 0.76],
+  [1.04, 0.1], [0.84, 0.2], [0.63, 0.13], [0.52, 0.3], [0.62, 0.52], [0.86, 0.6], [0.97, 0.82], [0.8, 1.06],
 ];
 /** Ribbon samples along the path. */
 const SAMPLES = 320;
@@ -197,13 +194,19 @@ export function createHeroField(canvas: HTMLCanvasElement, options: { reducedMot
   const tangent = new THREE.Vector3();
   let halfWidth = 9;
 
-  /** Re-lays the ribbon along the path, each anchor swaying on its own slow orbit. */
-  const buildRibbon = (time: number, progress: number) => {
+  /**
+   * Re-lays the ribbon along the path. Each anchor sways on its own slow orbit
+   * (time), and scrolling (flow, 0 at the top of the page) bends the loop:
+   * anchors are pushed along a travelling wave, so the curve flows with the
+   * scroll and settles back when scrolled up again.
+   */
+  const buildRibbon = (time: number, progress: number, flow = 0) => {
     WIDE_PATH.forEach(([x, y], i) => {
       const sway = i === 0 ? 0 : 1;
+      const phase = flow * Math.PI * 1.6 + i * 0.9;
       anchors[i].set(
-        x * width + sway * Math.sin(time * 0.55 + i * 1.7) * 16,
-        y * height + sway * Math.cos(time * 0.45 + i * 1.3) * 12,
+        x * width + sway * (Math.sin(time * 0.6 + i * 1.7) * 26 + Math.sin(phase) * flow * 90),
+        y * height + sway * (Math.cos(time * 0.5 + i * 1.3) * 20 + Math.cos(phase) * flow * 60),
         0,
       );
     });
@@ -298,7 +301,7 @@ export function createHeroField(canvas: HTMLCanvasElement, options: { reducedMot
   const start = performance.now();
   let raf = 0;
   let running = false;
-  /** Eased 0–1 progress of the hero scrolling off the top. */
+  /** Eased 0–1 progress of the hero scrolling off the top of the screen. */
   let scrolled = 0;
   const frame = (now: number) => {
     raf = requestAnimationFrame(frame);
@@ -306,15 +309,16 @@ export function createHeroField(canvas: HTMLCanvasElement, options: { reducedMot
     dotsMaterial.uniforms.uTime.value = elapsed;
     // The dots wash in first; the ribbon draws after them, easing out.
     dotsMaterial.uniforms.uIntro.value = Math.min(1, elapsed / 1.8);
-    const drawn = Math.min(1, Math.max(0, (elapsed - 0.35) / 2.2));
+    // The line draws itself in on load, keeps swaying on its own, and moves
+    // with the scroll: its loop bends with the scroll position and it trails
+    // the page (counter-shifted down, so it scrolls slower than the content).
+    const drawn = Math.min(1, Math.max(0, (elapsed - 0.35) / 2.4));
     const rect = canvas.getBoundingClientRect();
-    const scrollTarget = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height * 0.6)));
-    scrolled += (scrollTarget - scrolled) * 0.1;
-    buildRibbon(elapsed, (1 - Math.pow(1 - drawn, 3)) * 0.5 + scrolled * 0.5);
-    // Counter-shifted down, so on screen they scroll slower than the page:
-    // the line hangs back and keeps drawing while the hero leaves.
-    line.position.y = scrolled * height * 0.3;
-    dots.position.y = scrolled * height * 0.1;
+    const scrollTarget = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height * 0.7)));
+    scrolled += (scrollTarget - scrolled) * 0.08;
+    buildRibbon(elapsed, 1 - Math.pow(1 - drawn, 3), scrolled);
+    line.position.y = scrolled * height * 0.35;
+    dots.position.y = scrolled * height * 0.12;
     pointer.lerp(target, 0.12);
     pointerOn += (pointerTarget - pointerOn) * 0.08;
     dotsMaterial.uniforms.uPointerOn.value = pointerOn;

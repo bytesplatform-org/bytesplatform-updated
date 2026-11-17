@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Dashboard" };
 
 const STAGE_COLORS: Record<string, string> = {
   Identified: "bg-ink/15",
-  Qualifying: "bg-blue/35",
+  Qualifying: "bg-blue/25",
   Capture: "bg-blue/60",
   Proposal: "bg-blue",
   Submitted: "bg-ink",
@@ -66,7 +66,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
         <Card>
           <CardHead
             title="New this morning"
@@ -84,7 +84,7 @@ export default function Dashboard() {
                       <VerdictBadge v={verdict(o)} />
                     </div>
                     <p className="mt-2 font-semibold leading-snug tracking-[-0.015em]">{o.title}</p>
-                    <p className="mt-0.5 truncate text-[0.82rem] text-ink-mute">
+                    <p className="mt-0.5 text-[0.82rem] text-ink-mute sm:truncate">
                       {o.agency} · NAICS {o.naics} · {money(o.value)} · due {fmtShort(dateFromToday(o.dueInDays))}
                     </p>
                   </div>
@@ -98,7 +98,7 @@ export default function Dashboard() {
           </ul>
         </Card>
 
-        <div className="grid content-start gap-4">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] content-start gap-4">
           <Card>
             <CardHead title="Pipeline by stage" meta={`${OPPORTUNITIES.length} pursuits · ${money(total)} total value`} />
             <div className="p-5">

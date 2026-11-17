@@ -22,13 +22,7 @@ export function CapitolArt({ className }: { className?: string }) {
           <stop offset="0.5" stopColor="#2457ff" stopOpacity="0.9" />
           <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
-        <radialGradient id="bg-glow" cx="0.5" cy="0.35" r="0.6">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
-        </radialGradient>
       </defs>
-
-      <ellipse cx="300" cy="300" rx="320" ry="260" fill="url(#bg-glow)" />
 
       <g stroke="url(#bg-fade)" strokeWidth="1.2" fill="none">
         {/* dome drum + dome, faint, behind the portico */}

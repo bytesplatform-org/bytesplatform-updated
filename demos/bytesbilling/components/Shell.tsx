@@ -184,7 +184,9 @@ export default function Shell({ children }: { children: ReactNode }) {
               </span>
               {ERP_NAME} · connected
             </span>
-            <DemoBadge className="hidden sm:inline-flex" />
+            {/* Phones show the badge in the row below instead. The wrapper does the
+                hiding: the badge's own inline-flex would override `hidden`. */}
+            <span className="hidden sm:inline-flex"><DemoBadge /></span>
           </div>
           <div className="flex items-center justify-between gap-2 border-t border-[rgb(17_17_17/.06)] px-4 py-2 sm:hidden">
             <DemoBadge />

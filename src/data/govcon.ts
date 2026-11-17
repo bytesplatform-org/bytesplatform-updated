@@ -7,93 +7,69 @@
  * DoD in July 2026 pending review).
  */
 
-/** Hero versions per audience, picked by the tabs or ?for=. Only these change. */
-export const audiences = [
-  {
-    key: "agency",
+export type AudienceKey = "state" | "prime" | "small";
+
+/** Tab order; the first is the default (and the server-rendered version). */
+export const audienceKeys: readonly AudienceKey[] = ["state", "prime", "small"];
+
+type AudienceContent = {
+  /** Tab label, and the shorter one phones show. */
+  label: string;
+  short: string;
+  hero: {
+    eyebrow: string;
+    /** One entry per line; the last takes the blue period. */
+    headline: readonly string[];
+    sub: string;
+    /** "prefill" scrolls to the call form and fills its message field; "link" navigates. */
+    cta: { label: string; kind: "prefill"; prefill: string } | { label: string; kind: "link"; href: string };
+  };
+  form: { companyLabel: string; helper: string };
+};
+
+/**
+ * Everything the audience tabs swap: the hero and the call form's details.
+ * One object, keyed by audience, so every tab
+ * renders through the same markup.
+ */
+export const audienceContent: Record<AudienceKey, AudienceContent> = {
+  state: {
     label: "State & local agency",
-    eyebrow: "For cities, counties, states and school districts",
-    headline: ["Built to pass", "the audit"],
-    paragraph:
-      "We modernize government websites, portals and back-office systems that residents can use, staff can update, and accessibility coordinators can sign off, with the evidence to prove it.",
-    cta: { label: "Get a free accessibility scan", target: "#scan" },
+    short: "State & local",
+    hero: {
+      eyebrow: "Cities, counties, states and school districts",
+      headline: ["Built to pass", "the audit"],
+      sub: "Modernize government websites, portals and back-office systems that residents can use, staff can update, and accessibility coordinators can sign off on, with the evidence to prove it.",
+      cta: { label: "Get a free accessibility scan", kind: "prefill", prefill: "Free accessibility scan request" },
+    },
+    form: { companyLabel: "Agency name", helper: "Tell us about your website or solicitation." },
   },
-  {
-    key: "prime",
+  prime: {
     label: "Federal prime",
-    eyebrow: "For primes building a winning team",
-    headline: ["Your compliant", "delivery team"],
-    paragraph:
-      "Add a US-based design, build and accessibility team to your bid. We ship the Section 508 and security evidence your contracting officer reviews.",
-    cta: { label: "Talk teaming", target: "#buy" },
+    short: "Federal prime",
+    hero: {
+      eyebrow: "For prime contractors and systems integrators",
+      headline: ["Your bench,", "ready on", "day one"],
+      sub: "Add web, AI and cloud capacity to your federal contracts. Our work is Section 508 tested, documented, and ready for your customer's review.",
+      cta: { label: "Request a capability statement", kind: "prefill", prefill: "Capability statement request" },
+    },
+    form: { companyLabel: "Company name", helper: "Tell us about the contract or task order." },
   },
-  {
-    key: "smb",
+  small: {
     label: "Small business contractor",
-    eyebrow: "For 8(a), WOSB, SDVOSB and HUBZone firms",
-    headline: ["Look like a prime.", "Bid like one"],
-    paragraph:
-      "A GovCon-ready website and capability statement, plus BytesGov, the AI bid platform we use ourselves to find, qualify and write proposals.",
-    cta: { label: "See BytesGov", target: "#bytesgov" },
+    short: "Small business",
+    hero: {
+      eyebrow: "For small businesses selling to government",
+      headline: ["Look ready", "before you bid"],
+      sub: "Find the right bids, submit compliant proposals, and show up with a website that passes a contracting officer's first look.",
+      cta: { label: "Try BytesGov free for 14 days", kind: "link", href: "/products/bytesgov" },
+    },
+    form: { companyLabel: "Company name", helper: "Tell us what you sell and where you want to bid." },
   },
-] as const;
+};
 
-export type AudienceKey = (typeof audiences)[number]["key"];
 
-export const capabilities = [
-  "Section 508",
-  "WCAG 2.1 AA",
-  "NIST 800-171 aligned",
-  "US-hosted",
-  "Denton, Texas",
-];
-
-/** What agencies and primes put out to bid that maps to what we build.
- * Images are Unsplash photos (Unsplash License), cropped to 900×600. */
-export const contractTypes = [
-  {
-    title: "Website & digital service modernization",
-    image: "/govcon/websites.jpg",
-    body: "Accessible, fast sites on a CMS your staff can update, delivered with an Accessibility Conformance Report.",
-    naics: "541511 · 541512",
-    buys: ["WCAG 2.1 AA build", "ACR / VPAT", "Content migration", "CMS training"],
-  },
-  {
-    title: "Constituent portals, permitting & licensing",
-    image: "/govcon/portals.jpg",
-    body: "Online applications, payments and status tracking that replace paper forms and email queues.",
-    naics: "541511 · 541519",
-    buys: ["Online applications", "Payments", "Login.gov / SSO", "Status tracking"],
-  },
-  {
-    title: "CRM & case management",
-    image: "/govcon/crm.jpg",
-    body: "One view of every case, grant or constituent on Salesforce, Dynamics 365 or a custom build, with audit trails.",
-    naics: "541511 · 541512",
-    buys: ["Case workflows", "Role-based access", "Audit trails", "Reporting"],
-  },
-  {
-    title: "ERP & financial modernization",
-    image: "/govcon/erp.jpg",
-    body: "Finance, procurement and HR moved off legacy systems, or a DCAA-ready ERP for contractors.",
-    naics: "541512 · 541519",
-    buys: ["ERP migration", "Integrations & APIs", "Data conversion", "DCAA-ready timekeeping"],
-  },
-  {
-    title: "Data, AI & intelligent automation",
-    image: "/govcon/ai.jpg",
-    body: "Document extraction and policy search with a person approving every output, plus clear governance records.",
-    naics: "541511 · 518210",
-    buys: ["Document AI", "Search assistants", "Human review", "Use-case inventory"],
-  },
-  {
-    title: "Cloud hosting & DevSecOps",
-    image: "/govcon/cloud.jpg",
-    body: "Migration to US-region, FedRAMP-authorized clouds with security scanning on every deploy.",
-    naics: "518210 · 541513",
-    buys: ["Cloud migration", "CI/CD scanning", "Monitoring", "Hardening"],
-  },
-];
+// The services grid's cards live in governmentServices.ts (shared with their detail pages).
 
 /** NAICS codes we pursue, with the current SBA small-business size standards. */
 export const naics = [

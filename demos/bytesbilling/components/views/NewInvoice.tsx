@@ -295,14 +295,14 @@ export default function NewInvoice() {
                         </label>
                         <input id={`r-${l.id}`} type="number" step="any" className="input tabular-nums" value={Number.isNaN(l.rate) ? "" : l.rate} aria-invalid={inv("rate")} onChange={(e) => setLine(l.id, { rate: e.target.valueAsNumber })} />
                       </div>
-                      <p className="self-center text-right text-[0.88rem] tabular-nums max-md:col-span-2 max-md:text-left">
+                      <p className="self-center text-right text-[0.88rem] tabular-nums max-md:text-left">
                         <span className="text-ink-mute md:hidden">Net </span>
                         {Number.isFinite(lineNet(l)) ? amount(lineNet(l)) : "–"}
                       </p>
                       <button
                         type="button"
                         onClick={() => setD((p) => ({ ...p, lines: p.lines.filter((x) => x.id !== l.id) }))}
-                        className="grid h-10 w-10 place-items-center justify-self-end rounded-full text-ink-mute hover:bg-[rgb(17_17_17/.05)] hover:text-ink max-md:col-start-2 max-md:row-start-4"
+                        className="grid h-10 w-10 place-items-center justify-self-end rounded-full text-ink-mute hover:bg-[rgb(17_17_17/.05)] hover:text-ink"
                         aria-label={`Remove line ${i + 1}`}
                       >
                         <IconTrash size={17} />
