@@ -20,6 +20,7 @@ const SUMMARY_FIELDS = `
   excerpt,
   category,
   publishedAt,
+  "updated": _updatedAt,
   "image": listingImage.asset->url
 `;
 
@@ -39,7 +40,7 @@ async function sanityQuery<T>(query: string, params: Record<string, string> = {}
 
 const cleanSlug = (slug: string) => slug.replace(/^\/+|\/+$/g, "");
 
-type SanitySummary = { title: string; slug: string; excerpt?: string; category?: string; publishedAt: string; image?: string };
+type SanitySummary = { title: string; slug: string; excerpt?: string; category?: string; publishedAt: string; updated?: string; image?: string };
 
 const fromSanity = (post: SanitySummary): PostSummary => ({
   slug: cleanSlug(post.slug),
@@ -47,6 +48,7 @@ const fromSanity = (post: SanitySummary): PostSummary => ({
   excerpt: post.excerpt ?? "",
   category: post.category ?? "",
   date: post.publishedAt,
+  updated: post.updated,
   image: post.image ?? "",
 });
 

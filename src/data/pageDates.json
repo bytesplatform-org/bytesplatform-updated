@@ -1,0 +1,210 @@
+{
+  "/": {
+    "lastmod": "2026-11-18",
+    "hash": "a683c445e0f784eb"
+  },
+  "/about": {
+    "lastmod": "2026-11-17",
+    "hash": "f38004c3ddaf5454"
+  },
+  "/contact": {
+    "lastmod": "2026-11-17",
+    "hash": "c56f25b01fb61a5b"
+  },
+  "/careers": {
+    "lastmod": "2026-11-17",
+    "hash": "b5fd98203ff1875c"
+  },
+  "/industries": {
+    "lastmod": "2026-11-17",
+    "hash": "86afa276a4d971dd"
+  },
+  "/e-invoicing": {
+    "lastmod": "2026-11-17",
+    "hash": "276b2211250e3101"
+  },
+  "/government-contractors": {
+    "lastmod": "2026-11-18",
+    "hash": "4934c491bc43003b"
+  },
+  "/case-studies": {
+    "lastmod": "2026-11-18",
+    "hash": "93dbb027a59a8992"
+  },
+  "/privacy-policy": {
+    "lastmod": "2026-11-17",
+    "hash": "ca39a3c26bbc50c6"
+  },
+  "/terms-conditions": {
+    "lastmod": "2026-11-17",
+    "hash": "23d59c29175d1180"
+  },
+  "/refund-policy": {
+    "lastmod": "2026-11-17",
+    "hash": "e7f760577caef7da"
+  },
+  "/blogs": {
+    "lastmod": "2026-11-17",
+    "hash": "5ad42777b827a68e"
+  },
+  "/services/ai-automation": {
+    "lastmod": "2026-11-17",
+    "hash": "084b175370294bc8"
+  },
+  "/services/saas-product-development": {
+    "lastmod": "2026-11-17",
+    "hash": "5c32e93a769b8a93"
+  },
+  "/services/web-mobile-app-development": {
+    "lastmod": "2026-11-17",
+    "hash": "6a8ed32c3f6cbab8"
+  },
+  "/services/crm-erp-systems": {
+    "lastmod": "2026-11-17",
+    "hash": "83b8d138581b8234"
+  },
+  "/services/government-proposal-technology": {
+    "lastmod": "2026-11-17",
+    "hash": "bb6971b54a7f4b46"
+  },
+  "/services/e-invoicing-integration": {
+    "lastmod": "2026-11-17",
+    "hash": "f3fcb48578dde156"
+  },
+  "/services/web": {
+    "lastmod": "2026-11-17",
+    "hash": "0e64313e9c580027"
+  },
+  "/services/seo": {
+    "lastmod": "2026-11-17",
+    "hash": "c62bbc4ac153fb68"
+  },
+  "/services/app": {
+    "lastmod": "2026-11-17",
+    "hash": "380bdb657743be3d"
+  },
+  "/services/marketing": {
+    "lastmod": "2026-11-17",
+    "hash": "0aa3b84792889766"
+  },
+  "/services/advanced-services": {
+    "lastmod": "2026-11-17",
+    "hash": "dfeade643b01c258"
+  },
+  "/services/digital-consulting-strategy": {
+    "lastmod": "2026-11-17",
+    "hash": "d1ada8e874d471b8"
+  },
+  "/services/digital-commerce": {
+    "lastmod": "2026-11-17",
+    "hash": "779074fe4790b54f"
+  },
+  "/services/generative-ai": {
+    "lastmod": "2026-11-17",
+    "hash": "5022086cc50fee3e"
+  },
+  "/services/data-modernization": {
+    "lastmod": "2026-11-17",
+    "hash": "661d5985b4d50a06"
+  },
+  "/services/advanced-analytics": {
+    "lastmod": "2026-11-17",
+    "hash": "0d3a95090346a064"
+  },
+  "/services/data-management": {
+    "lastmod": "2026-11-17",
+    "hash": "647b36cf7f577cd9"
+  },
+  "/services/connected-intelligence": {
+    "lastmod": "2026-11-17",
+    "hash": "0d44af65f5fe12ce"
+  },
+  "/services/cloud-operations-migration": {
+    "lastmod": "2026-11-17",
+    "hash": "7a99aceb44eb96bc"
+  },
+  "/services/cloud-application-development": {
+    "lastmod": "2026-11-17",
+    "hash": "db3576200bbcd047"
+  },
+  "/services/managed-services": {
+    "lastmod": "2026-11-17",
+    "hash": "df6f6f5c8209eeb6"
+  },
+  "/services/digital-infrastructure": {
+    "lastmod": "2026-11-17",
+    "hash": "a4a2b050f27e8b4e"
+  },
+  "/services/cybersecurity": {
+    "lastmod": "2026-11-17",
+    "hash": "213db311f6470113"
+  },
+  "/services/emerging-technologies": {
+    "lastmod": "2026-11-17",
+    "hash": "d53a72813c334903"
+  },
+  "/services/contact-center": {
+    "lastmod": "2026-11-17",
+    "hash": "565da2a1bec6f150"
+  },
+  "/services/finance-accounting": {
+    "lastmod": "2026-11-17",
+    "hash": "ef5b70e58e002b64"
+  },
+  "/services/staff-augmentation": {
+    "lastmod": "2026-11-17",
+    "hash": "0fd6c82e5b0c4976"
+  },
+  "/services/legal-process-outsourcing": {
+    "lastmod": "2026-11-17",
+    "hash": "1a46f4598390470d"
+  },
+  "/services/recruitment-process-outsourcing": {
+    "lastmod": "2026-11-17",
+    "hash": "63b16fa4a9ba5d45"
+  },
+  "/products/byte-bots": {
+    "lastmod": "2026-11-17",
+    "hash": "6fa7f7ef615ced0f"
+  },
+  "/products/byte-suites": {
+    "lastmod": "2026-11-17",
+    "hash": "65a7d5e0bd45fde8"
+  },
+  "/products/bytesgov": {
+    "lastmod": "2026-11-17",
+    "hash": "ed9e552f63abb6c8"
+  },
+  "/products/bytesbilling": {
+    "lastmod": "2026-11-17",
+    "hash": "364face5e6e7e1c5"
+  },
+  "/products/bytesagentic": {
+    "lastmod": "2026-11-17",
+    "hash": "f3e7ab560f4f2615"
+  },
+  "/government-contractors/services/website-modernization": {
+    "lastmod": "2026-11-18",
+    "hash": "c68838a086b50b72"
+  },
+  "/government-contractors/services/portals-permitting-licensing": {
+    "lastmod": "2026-11-18",
+    "hash": "179c25134b4cf0b9"
+  },
+  "/government-contractors/services/crm-case-management": {
+    "lastmod": "2026-11-18",
+    "hash": "261dc8857ca9f112"
+  },
+  "/government-contractors/services/erp-financial-modernization": {
+    "lastmod": "2026-11-18",
+    "hash": "2c0ae7231f057697"
+  },
+  "/government-contractors/services/data-ai-automation": {
+    "lastmod": "2026-11-18",
+    "hash": "116b7f02e2eaac84"
+  },
+  "/government-contractors/services/cloud-hosting-devsecops": {
+    "lastmod": "2026-11-18",
+    "hash": "49c968e13d598534"
+  }
+}

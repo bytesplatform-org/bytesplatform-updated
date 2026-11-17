@@ -20,6 +20,8 @@ export type PostSummary = {
   excerpt: string;
   category: string;
   date: string;
+  /** When the post was last edited, if known (Sanity posts only). Used for the sitemap. */
+  updated?: string;
   image: string;
 };
 

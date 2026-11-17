@@ -11,6 +11,8 @@
     "build": "next build",
     "build:demos": "next build demos/bytesgov && next build demos/bytesbilling",
     "start": "next start",
+    "sitemap:dates": "node scripts/page-dates.mjs",
+    "prepare": "git config core.hooksPath .githooks || true",
     "typecheck": "tsc --noEmit --noUnusedLocals --noUnusedParameters"
   },
   "dependencies": {

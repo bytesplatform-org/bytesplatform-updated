@@ -1,0 +1,4 @@
+#!/bin/sh
+# Moves a page's sitemap date to today when this commit changes that page's content.
+node scripts/page-dates.mjs || exit 1
+git add src/data/pageDates.json
