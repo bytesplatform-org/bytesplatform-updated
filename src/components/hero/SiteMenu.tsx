@@ -17,9 +17,11 @@ const links = [
 
 /** Plain rows listed after the groups. */
 const trailingLinks = [
+  { label: "Gov Contractors", href: "/government-contractors" },
   { label: "Industries", href: "/industries" },
   { label: "E-Invoicing", href: "/e-invoicing" },
-  { label: "Contact Us", href: "/contact" }
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 /** Rows that slide in a sub-list of pages instead of navigating. */

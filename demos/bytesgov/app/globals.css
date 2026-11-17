@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Same tokens as the BytesPlatform site (src/app/globals.css):
+   one grotesk, one accent, paper and ink. */
+@theme {
+  --color-paper: #f0f1fa;
+  --color-ink: #111111;
+  --color-ink-mute: #6b665d;
+  --color-blue: #2457ff;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --bp-bg: var(--color-paper);
+  --bp-text: var(--color-ink);
+  --bp-accent: var(--color-blue);
+  --bp-hairline: rgb(17 17 17 / 0.14);
+}
+
+@layer base {
+  html { background-color: var(--bp-bg); color-scheme: light; -webkit-font-smoothing: antialiased; }
+  body { background-color: var(--bp-bg); color: var(--bp-text); font-family: var(--font-sans); font-feature-settings: "ss01", "ss03", "cv11"; }
+  ::selection { background: rgb(36 87 255 / 0.16); color: var(--bp-text); }
+  :focus-visible { outline: 2px solid var(--bp-accent); outline-offset: 3px; border-radius: 4px; }
+}
+
+/* ---------- BytesGov demo additions ---------- */
+
+@layer base {
+  html { overflow-x: clip; }
+  button { cursor: pointer; }
+  input, textarea, select { font: inherit; }
+}
+
+@keyframes bg-flow {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1000; }
+}
+@keyframes bg-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.55; }
+  50% { transform: translate3d(0, -14px, 0); opacity: 1; }
+}
+@keyframes bg-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes bg-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bg-spin { to { transform: rotate(360deg); } }
+@keyframes bg-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.flow-line { stroke-dasharray: 60 940; animation: bg-flow 9s linear infinite; }
+.drift { animation: bg-drift 7s ease-in-out infinite; }
+.demo-pulse { animation: bg-pulse 2.4s ease-in-out infinite; }
+.rise { animation: bg-rise 0.6s var(--ease-out-expo) both; }
+.spin { animation: bg-spin 0.9s linear infinite; }
+.grow-x { transform-origin: left center; animation: bg-grow 0.9s var(--ease-out-expo) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .flow-line { animation: none; stroke-dasharray: none; opacity: 0.25; }
+}
+
+/* thin, quiet scrollbars inside panels */
+.scroll-thin { scrollbar-width: thin; scrollbar-color: rgb(17 17 17 / 0.18) transparent; }
+
+dialog::backdrop { background: rgb(17 17 17 / 0.35); backdrop-filter: blur(3px); }

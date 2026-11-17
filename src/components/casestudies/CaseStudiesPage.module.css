@@ -1,0 +1,288 @@
+/* Case studies & demos. Shared layout pieces come from the e-invoicing module. */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-ink-mute);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------------- hero */
+.hero {
+  display: flex;
+  max-width: 1800px;
+  min-height: 92svh;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(1.5rem, 3.5vh, 2.25rem);
+  margin-inline: auto;
+  padding: calc(var(--bp-gut) + 6rem) var(--bp-gut) var(--bp-gut);
+}
+
+.heroFoot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.jump {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.jump a {
+  display: flex;
+  min-height: 9rem;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.4rem;
+  border: 1px solid rgb(17 17 17 / 0.06);
+  border-radius: 1.5rem;
+  background: #fff;
+  transition: background-color 400ms ease, color 400ms ease, transform 600ms var(--ease-out-expo);
+}
+
+.jump a:hover { background: var(--bp-accent); color: var(--color-paper); transform: translateY(-0.25rem); }
+.jump a:hover span { color: rgb(240 241 250 / 0.75); }
+
+.jump strong {
+  margin-top: auto;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+
+.jump a > span:last-child { color: var(--color-ink-mute); font-size: 0.88rem; }
+
+/* ---------------------------------------------------------------- study */
+.study {
+  display: grid;
+  max-width: 1800px;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem) clamp(2rem, 6vw, 7rem);
+  margin: clamp(5rem, 11vw, 10rem) auto 0;
+  padding: clamp(5rem, 8vw, 7rem) var(--bp-gut) 0;
+  border-top: 1px solid var(--bp-hairline);
+  scroll-margin-top: 2rem;
+}
+
+.studyHead {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.studyTitle {
+  margin: 0.5rem 0 0;
+  font-size: clamp(3.2rem, 8.5vw, 10rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+}
+
+.tagline {
+  font-size: clamp(1.4rem, 2.4vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+
+/* ----------------------------------------------------------------- demo */
+.demo {
+  position: sticky;
+  top: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 2.8vw, 2.5rem);
+  border-radius: 1.75rem;
+  background: #fff;
+  box-shadow: 0 1.5rem 4rem rgb(19 20 26 / 0.06);
+}
+
+.demoWindow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--bp-hairline);
+}
+
+.demoWindow span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgb(17 17 17 / 0.12);
+}
+
+.demoWindow span:first-child { background: var(--bp-accent); }
+
+.demoWindow em {
+  margin-left: auto;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--bp-bg);
+  color: var(--color-ink-mute);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.demoLabel {
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.tries li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.5rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--bp-hairline);
+  line-height: 1.45;
+}
+
+.tries .index,
+.tries li > span:first-child { padding-top: 0.15rem; }
+
+.demoActions,
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.ctaActions { justify-content: center; }
+
+.launch { text-decoration: none; }
+
+.textLink {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--bp-hairline);
+  text-underline-offset: 0.3em;
+  transition: color 300ms ease, text-decoration-color 300ms ease;
+}
+
+.textLink:hover { color: var(--bp-accent); text-decoration-color: currentColor; }
+
+/* --------------------------------------------------------------- blocks */
+.block {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: 1fr 3fr;
+  gap: 2rem;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--bp-hairline);
+}
+
+.blockLabel {
+  color: var(--color-ink-mute);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.challenge {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.challenge li {
+  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.built {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.built li {
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  border: 1px solid rgb(17 17 17 / 0.06);
+  border-radius: 1.5rem;
+  background: #fff;
+}
+
+.built strong {
+  margin-top: auto;
+  font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.built p {
+  color: var(--color-ink-mute);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.engineering > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.points li {
+  position: relative;
+  padding: 0.9rem 0 0.9rem 1.5rem;
+  border-bottom: 1px solid var(--bp-hairline);
+  line-height: 1.5;
+}
+
+.points li::before {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bp-accent);
+  content: "";
+}
+
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
+}
+
+/* ----------------------------------------------------------- responsive */
+@media (max-width: 1199px) {
+  .built { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1023px) {
+  .heroFoot,
+  .study { grid-template-columns: 1fr; }
+  .demo { position: static; }
+  .block { grid-template-columns: 1fr; gap: 1.25rem; }
+  .challenge { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+@media (max-width: 600px) {
+  .jump,
+  .built { grid-template-columns: 1fr; }
+  .jump a,
+  .built li { min-height: 0; }
+}

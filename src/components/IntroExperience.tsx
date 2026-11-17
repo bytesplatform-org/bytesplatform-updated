@@ -12,6 +12,7 @@ import StorySection from "./sections/StorySection";
 import StatsSection from "./sections/StatsSection";
 import TestimonialsSection from "./sections/TestimonialsSection";
 import ClientsSection from "./sections/ClientsSection";
+import GovContractorsCta from "./sections/GovContractorsCta";
 import SiteFooter from "./sections/SiteFooter";
 import { createFloatingCards, type FloatingCards } from "@/lib/hero/floatingCards";
 import { createInkTrail, type InkTrail } from "@/lib/hero/inkTrail";
@@ -638,6 +639,7 @@ export default function IntroExperience() {
         <StatsSection />
         <TestimonialsSection />
         <ClientsSection />
+        <GovContractorsCta />
       </div>
       <SiteFooter />
       {ENABLE_LINE_DRAWING_TOOL && <LineDrawingTool root={root} />}

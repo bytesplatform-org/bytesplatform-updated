@@ -9,6 +9,8 @@ type ActionPillProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   portal?: boolean;
   className?: string;
+  /** Opens the link in a new tab (for demos and other external apps). */
+  newTab?: boolean;
 };
 
 const contents = (label: string) => (
@@ -21,8 +23,16 @@ const contents = (label: string) => (
   </>
 );
 
-export default function ActionPill({ label, href, onClick, portal = false, className = "" }: ActionPillProps) {
+export default function ActionPill({ label, href, onClick, portal = false, className = "", newTab = false }: ActionPillProps) {
   const classes = `action-pill ${className}`.trim();
+  if (href && newTab) {
+    return (
+      <a href={href} className={classes} target="_blank" rel="noreferrer">
+        {contents(label)}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
   if (href) return <a href={href} className={classes}>{contents(label)}</a>;
   return <button data-services-pill={portal ? "" : undefined} type="button" onClick={onClick} className={classes}>{contents(label)}</button>;
 }

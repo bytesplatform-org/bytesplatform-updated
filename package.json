@@ -4,7 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:site": "NEXT_PUBLIC_BYTESGOV_DEMO_URL=http://localhost:3001 NEXT_PUBLIC_BYTESBILLING_DEMO_URL=http://localhost:3002 next dev",
+    "dev:gov": "next dev demos/bytesgov --port 3001",
+    "dev:billing": "next dev demos/bytesbilling --port 3002",
+    "dev:all": "concurrently --kill-others-on-fail --names site,bytesgov,bytesbilling --prefix-colors blue,green,magenta \"npm:dev:site\" \"npm:dev:gov\" \"npm:dev:billing\"",
     "build": "next build",
+    "build:demos": "next build demos/bytesgov && next build demos/bytesbilling",
     "start": "next start",
     "typecheck": "tsc --noEmit --noUnusedLocals --noUnusedParameters"
   },
@@ -22,6 +27,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
+    "concurrently": "^9.2.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
   }

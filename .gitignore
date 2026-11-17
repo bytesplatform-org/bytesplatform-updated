@@ -15,3 +15,7 @@ tsconfig.tsbuildinfo
 references
 
 todo-prompt
+# demo apps build into their own folders
+demos/*/.next
+demos/*/next-env.d.ts
+demos/*/tsconfig.tsbuildinfo

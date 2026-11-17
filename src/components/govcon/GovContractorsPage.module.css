@@ -1,0 +1,632 @@
+/* Pieces specific to the government contractors page. Layout, hero, cards,
+   dark panel and FAQ come from the e-invoicing page's module. */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-ink-mute);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wide { grid-column: 1 / -1; }
+
+/* ------------------------------------------------------- hero backdrop */
+/* The WebGL field sits behind the hero's text and form, bleeding to the edges. */
+.heroStage {
+  position: relative;
+  isolation: isolate;
+}
+
+.heroCanvas {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  /* Fades out into the next section instead of ending on a hard edge. */
+  mask-image: linear-gradient(to bottom, #000 90%, transparent);
+}
+
+/* ------------------------------------------------------- contract types */
+.types {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.type {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: clamp(1.5rem, 2.4vw, 2.25rem);
+  border: 1px solid rgb(17 17 17 / 0.06);
+  border-radius: 1.75rem;
+  background: #fff;
+  transition: transform 600ms var(--ease-out-expo), box-shadow 600ms var(--ease-out-expo);
+}
+
+.type:hover {
+  box-shadow: 0 1.5rem 4rem rgb(19 20 26 / 0.08);
+  transform: translateY(-0.35rem);
+}
+
+/* The canvas bleeds past the grid so wobbling edges are never clipped. */
+.liquidCanvas {
+  position: absolute;
+  z-index: 2;
+  inset: -1.5rem;
+  width: calc(100% + 3rem);
+  height: calc(100% + 3rem);
+  pointer-events: none;
+}
+
+.media {
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  margin: calc(-1 * clamp(0.5rem, 1vw, 1rem)) calc(-1 * clamp(0.5rem, 1vw, 1rem)) 0.75rem;
+  border-radius: 1.1rem;
+  background: var(--bp-bg);
+}
+
+.media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Once WebGL has the texture, the canvas draws the image instead. */
+.media[data-liquid="ready"] img { visibility: hidden; }
+
+.typeHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.naicsTag {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: rgb(36 87 255 / 0.08);
+  color: var(--bp-accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.type h3 {
+  font-size: clamp(1.35rem, 1.8vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.type p {
+  color: var(--color-ink-mute);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.type ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.type li {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--bp-hairline);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------------- naics */
+.naics {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+}
+
+.naics th,
+.naics td {
+  padding: 1.15rem 0.75rem 1.15rem 0;
+  border-bottom: 1px solid var(--bp-hairline);
+  text-align: left;
+  vertical-align: baseline;
+}
+
+.naics thead th {
+  padding-top: 0;
+  color: var(--color-ink-mute);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.naics tbody th {
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+.naics td:last-child {
+  padding-right: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------- vehicles */
+.vehicles span { line-height: 1.45; }
+
+/* ---------------------------------------------------------------- stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+  border: 1px solid rgb(240 241 250 / 0.12);
+  border-radius: 1.75rem;
+}
+
+.stats strong {
+  font-size: clamp(2.4rem, 4.4vw, 4.5rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.stats li > span { color: rgb(240 241 250 / 0.8); line-height: 1.4; }
+
+.stats small {
+  margin-top: auto;
+  color: #8aa2ff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* The deadlines list replaces the penalties grid inside the shared panel. */
+.dates {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 1rem 0 1.75rem;
+}
+
+.dates time {
+  display: block;
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+
+.dates p {
+  margin-top: 0.5rem;
+  color: rgb(240 241 250 / 0.66);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------- product */
+.product {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(2rem, 5vw, 4.5rem);
+  border-radius: 2.5rem;
+  background: #fff;
+  box-shadow: 0 1.5rem 4rem rgb(19 20 26 / 0.06);
+}
+
+.productTitle {
+  margin: 1rem 0 1.25rem;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.productActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 1.75rem;
+  margin-top: 2rem;
+}
+
+.textLink {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--bp-hairline);
+  text-underline-offset: 0.3em;
+  transition: color 300ms ease, text-decoration-color 300ms ease;
+}
+
+.textLink:hover { color: var(--bp-accent); text-decoration-color: currentColor; }
+
+.productList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.productList li {
+  display: flex;
+  min-height: 9.5rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem;
+  border-radius: 1.5rem;
+  background: var(--bp-bg);
+}
+
+.productList strong {
+  color: var(--bp-accent);
+  font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+
+.productList span {
+  color: var(--color-ink-mute);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* ------------------------------------------------------ audience tabs */
+.audienceTabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: #f4f5f7;
+}
+
+.audienceTabs button {
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #3b3f4a;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.audienceTabs button:hover { color: var(--color-ink); }
+
+.audienceTabs button[aria-pressed="true"] {
+  background: #0b0b0f;
+  color: #fff;
+}
+
+.audienceTabs button:focus-visible { outline-offset: 2px; }
+
+/* All three versions share one grid cell, so the block keeps the tallest
+   one's height and nothing below moves when switching. */
+.audienceStack { display: grid; }
+
+.audienceLayer {
+  display: flex;
+  grid-area: 1 / 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(1.5rem, 3.5vh, 2.25rem);
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
+}
+
+.audienceLayer[data-active="false"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.audienceLayer[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 200ms ease, visibility 0s;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audienceLayer,
+  .audienceLayer[data-active="true"] { transition: none; }
+}
+
+/* ------------------------------------------------------------- scan */
+.scan {
+  max-width: 38rem;
+  padding: 1.25rem 1.25rem 1.1rem;
+  border: 1px solid var(--bp-hairline);
+  border-radius: 1.5rem;
+  background: rgb(255 255 255 / 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.scanTitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.scanNote {
+  margin-top: 0.25rem;
+  color: var(--color-ink-mute);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.scanRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.scanRow input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--bp-hairline);
+  border-radius: 999px;
+  outline: none;
+  background: #fff;
+  color: var(--bp-text);
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color 300ms ease;
+}
+
+.scanRow input:focus { border-color: var(--bp-accent); }
+
+.scanRow button {
+  padding: 0.7rem 1.3rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+}
+
+.scanRow button:hover { background: var(--bp-accent); }
+
+/* --------------------------------------------------------- evidence */
+.evidence {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.evidence li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgb(17 17 17 / 0.06);
+  border-radius: 1.1rem;
+  background: #fff;
+  transition: transform 600ms var(--ease-out-expo), box-shadow 600ms var(--ease-out-expo);
+}
+
+.evidence li:hover {
+  box-shadow: 0 1rem 2.5rem rgb(19 20 26 / 0.07);
+  transform: translateX(0.35rem);
+}
+
+.evidence svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--bp-accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.evidence li > span {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.evidence strong {
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.evidence small {
+  color: var(--color-ink-mute);
+  font-size: 0.85rem;
+}
+
+.evidence em {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--bp-bg);
+  color: var(--color-ink-mute);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* ------------------------------------------------------------- proof */
+.proof { min-height: clamp(17rem, 22vw, 20rem); }
+.proof .proofProject { color: var(--bp-text); font-size: 1.05rem; font-weight: 500; letter-spacing: -0.02em; }
+
+.proofValue {
+  margin-top: auto;
+  font-size: clamp(2.4rem, 4vw, 3.75rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+/* ----------------------------------------------------------- company */
+/* Sits directly under the buy-cards grid. */
+.companyCard {
+  margin-top: 0.75rem;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  border-radius: 1.75rem;
+  background: #fff;
+  box-shadow: 0 1.5rem 4rem rgb(19 20 26 / 0.06);
+}
+
+.companyCard dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: clamp(2rem, 4vw, 4rem);
+  margin-top: 1.25rem;
+}
+
+.companyCard dl > div {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--bp-hairline);
+}
+
+.companyCard dt {
+  color: var(--color-ink-mute);
+  font-size: 0.85rem;
+}
+
+.companyCard dd { font-weight: 500; }
+
+/* The shared source line (45% white) falls under 4.5:1 on the dark panel. */
+.sourceNote { color: rgb(240 241 250 / 0.62); }
+
+/* ------------------------------------------------------------- clock */
+.clock {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.clock strong {
+  color: #8aa2ff;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+
+/* The caption only: the number's own spans (CountUp) must keep its size. */
+.clock > span {
+  max-width: 22rem;
+  color: rgb(240 241 250 / 0.8);
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  line-height: 1.35;
+}
+
+/* ---------------------------------------------------------- packages */
+.package { min-height: 0; }
+.package .index { margin-bottom: 1.5rem; }
+
+.package ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.package li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.92rem;
+}
+
+.package li::before {
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+/* The shared accent card's 75% text is 3.4:1 on the blue; solid paper passes. */
+.packageAccent > span:first-child,
+.packageAccent p { color: var(--color-paper); }
+
+.price {
+  margin-top: auto;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+/* ----------------------------------------------------------- responsive */
+@media (max-width: 1199px) {
+  .types { grid-template-columns: repeat(2, 1fr); }
+  .stats,
+  .dates { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1023px) {
+  .product,
+  .companyCard dl { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  .types,
+  .dates { grid-template-columns: 1fr; }
+  .naics td:nth-child(2) { font-size: 0.88rem; }
+}
+
+@media (max-width: 520px) {
+  .companyCard dl > div { grid-template-columns: 1fr; gap: 0.15rem; }
+  .scanRow { flex-direction: column; }
+  .stats,
+  .productList { grid-template-columns: 1fr; }
+  .productList li { min-height: 0; }
+}
