@@ -7,10 +7,10 @@ export const revalidate = 1200;
 
 export async function GET() {
   const { pages } = await getSitemapPages();
-  const urls = pages.map(
-    ({ url, lastModified, priority }) =>
-      `<url><loc>${url}</loc><lastmod>${lastModified.toISOString().slice(0, 10)}</lastmod><changefreq>daily</changefreq><priority>${priority.toFixed(1)}</priority></url>`,
-  ).join("\n");
+  // Only loc and lastmod: Google ignores changefreq and priority.
+  const urls = pages
+    .map(({ url, lastModified }) => `<url><loc>${url}</loc><lastmod>${lastModified.toISOString().slice(0, 10)}</lastmod></url>`)
+    .join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap-style.xsl"?>

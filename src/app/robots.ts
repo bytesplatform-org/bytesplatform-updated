@@ -4,6 +4,7 @@ import type { MetadataRoute } from "next";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: [`${site.url}/sitemap.xml`, `${site.url}/sitemap-static.xml`],
+    // One sitemap only: sitemap-static.xml repeats the core pages already in sitemap.xml.
+    sitemap: `${site.url}/sitemap.xml`,
   };
 }

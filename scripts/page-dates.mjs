@@ -4,6 +4,8 @@
 //
 //   node scripts/page-dates.mjs                    update changed pages to today
 //   node scripts/page-dates.mjs --set 2026-11-17   reset every page to that date
+//   node scripts/page-dates.mjs --check            fail if a page changed without its date moving
+//                                                  (runs before every build, so edits that skipped the hook are caught)
 
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -115,6 +117,18 @@ for (const [path, text] of Object.entries(contents)) {
     next[path] = { lastmod: today, hash: digest };
     changed.push(path);
   }
+}
+
+if (process.argv.includes("--check")) {
+  if (changed.length) {
+    console.error(
+      `page-dates: ${changed.length} page(s) changed without their sitemap date moving: ${changed.join(", ")}\n` +
+        "Run `npm run sitemap:dates` and commit src/data/pageDates.json (the pre-commit hook does this when installed with `npm install`).",
+    );
+    process.exit(1);
+  }
+  console.log(`page-dates: all ${Object.keys(next).length} page dates are up to date`);
+  process.exit(0);
 }
 
 writeFileSync(OUT, `${JSON.stringify(next, null, 2)}\n`);

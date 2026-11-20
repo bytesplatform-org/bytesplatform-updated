@@ -14,7 +14,6 @@ import { mountFooterLift } from "@/lib/animation/footerLift";
 // The submit button wears the site pill; its styles live with ActionPill.
 import "@/components/ui/ActionPill.css";
 import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
-import heroFoot from "@/components/ui/HeroFoot.module.css";
 import styles from "./EInvoicingPage.module.css";
 
 gsap.registerPlugin(ScrollTrigger);

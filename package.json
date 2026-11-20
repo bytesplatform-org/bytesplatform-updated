@@ -8,10 +8,12 @@
     "dev:gov": "next dev demos/bytesgov --port 3001",
     "dev:billing": "next dev demos/bytesbilling --port 3002",
     "dev:all": "concurrently --kill-others-on-fail --names site,bytesgov,bytesbilling --prefix-colors blue,green,magenta \"npm:dev:site\" \"npm:dev:gov\" \"npm:dev:billing\"",
+    "prebuild": "npm run sitemap:check",
     "build": "next build",
     "build:demos": "next build demos/bytesgov && next build demos/bytesbilling",
     "start": "next start",
     "sitemap:dates": "node scripts/page-dates.mjs",
+    "sitemap:check": "node scripts/page-dates.mjs --check",
     "prepare": "git config core.hooksPath .githooks || true",
     "typecheck": "tsc --noEmit --noUnusedLocals --noUnusedParameters"
   },
