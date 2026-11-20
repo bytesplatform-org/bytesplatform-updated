@@ -404,6 +404,63 @@
 }
 
 
+/* -------------------------------------------------------------- explore */
+/* Links to related pages and posts, and links woven into the copy. */
+.explore {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.exploreList {
+  margin-top: 1rem;
+}
+
+.exploreList li {
+  border-top: 1px solid var(--bp-hairline);
+}
+
+.exploreList li:last-child { border-bottom: 1px solid var(--bp-hairline); }
+
+.exploreList a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  transition: color 300ms ease;
+}
+
+.exploreReading a {
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.exploreList a span {
+  flex-shrink: 0;
+  transition: transform 450ms var(--ease-out-expo);
+}
+
+.exploreList a:hover { color: var(--bp-accent); }
+.exploreList a:hover span { transform: translateX(0.3rem); }
+
+.inlineLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--bp-accent);
+  text-underline-offset: 0.2em;
+  transition: color 300ms ease;
+}
+
+.inlineLink:hover { color: var(--bp-accent); }
+.cardAccent .inlineLink { text-decoration-color: currentColor; }
+.cardAccent .inlineLink:hover { color: inherit; }
+
 /* ---------------------------------------------------------- responsive */
 @media (max-width: 767px) {
   .heroFoot { flex-direction: column; align-items: flex-start; }

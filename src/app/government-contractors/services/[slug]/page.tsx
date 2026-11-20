@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import GovServicePage from "@/components/govcon/GovServicePage";
 import { findGovernmentService, governmentServices, govServicePath } from "@/data/governmentServices";
+import { pageLinks } from "@/data/internalLinks";
 import { site } from "@/data/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -62,7 +63,7 @@ export default async function Page({ params }: Props) {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <GovServicePage service={service} related={related} />
+      <GovServicePage service={service} related={related} links={pageLinks[govServicePath(service.slug)]} />
     </>
   );
 }

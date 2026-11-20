@@ -1,0 +1,1045 @@
+/**
+ * Internal links across the site, kept in one place so they can be reviewed
+ * and changed without touching the CMS or the page copy.
+ *
+ * Every page and post in the sitemap gets at least two links from other
+ * pages' content (the menu and footer don't count). `npm run links:check`
+ * confirms each anchor below still appears in its post and reports any page
+ * that falls under two.
+ */
+
+import type { InlineLink } from "@/lib/linkText";
+
+export type { InlineLink };
+
+/**
+ * Links woven into blog post bodies. Each anchor is linked at its first
+ * appearance in the post's paragraphs or list items (never a heading or
+ * text that is already a link), matched on whole words, ignoring case.
+ * An anchor the post no longer contains is skipped.
+ */
+export const postLinks: Record<string, InlineLink[]> = {
+  "google-september-2026-spam-update": [
+    { anchor: "AI-generated content", href: "/blogs/why-you-need-more-than-ai-to-still-win-at-seo" },
+    { anchor: "AI Overviews", href: "/blogs/ai-search-visibility" },
+    { anchor: "Bytes Platform", href: "/about" },
+  ],
+  "what-are-core-web-vitals": [
+    { anchor: "loading speed", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+    { anchor: "landing pages", href: "/blogs/what-is-a-landing-page" },
+    { anchor: "development team", href: "/services/staff-augmentation" },
+  ],
+  "why-is-data-backup-important": [
+    { anchor: "small businesses", href: "/blogs/bytes-platform-services-for-small-businesses" },
+  ],
+  "seo-vs-ppc": [
+    { anchor: "ad spend", href: "/blogs/how-marketers-are-spending-in-2026" },
+    { anchor: "startup", href: "/blogs/what-are-the-most-effective-seo-strategies-for-startups" },
+    { anchor: "Bytes Platform", href: "/about" },
+  ],
+  "what-is-agentic-ai": [
+    { anchor: "generative AI", href: "/blogs/what-is-generative-ai" },
+    { anchor: "chatbot", href: "/blogs/why-should-businesses-use-chatbot-services" },
+  ],
+  "what-is-marketing-automation": [
+    { anchor: "landing pages", href: "/blogs/what-is-a-landing-page" },
+    { anchor: "CRM works", href: "/blogs/how-does-a-crm-work" },
+    { anchor: "data quality", href: "/services/data-management" },
+  ],
+  "ai-search-visibility": [
+    { anchor: "AI answers", href: "/blogs/why-websites-dont-appear-in-ai-answers" },
+    { anchor: "Search Console report", href: "/blogs/ai-search-console-update" },
+  ],
+  "what-is-api-first-development-2026-guide": [
+    { anchor: "IoT devices", href: "/services/connected-intelligence" },
+    { anchor: "SaaS platforms", href: "/services/saas-product-development" },
+    { anchor: "Mobile-first", href: "/blogs/7-best-practices-for-designing-mobile-first" },
+    { anchor: "software development", href: "/blogs/how-ai-is-reshaping-development" },
+  ],
+  "what-are-the-7-cs-of-website-design-in-2026": [
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "Mobile-first design", href: "/blogs/7-best-practices-for-designing-mobile-first" },
+    { anchor: "conversion rates", href: "/blogs/understand-how-ui-ux-design-affects-cro" },
+  ],
+  "8-top-digital-marketing-trends-2026": [
+    { anchor: "emerging technologies", href: "/services/emerging-technologies" },
+    { anchor: "Voice search", href: "/blogs/how-to-optimize-for-voice-seo-search-in-2026" },
+    { anchor: "Digital Marketing trends", href: "/blogs/7-digital-marketing-trends-in-2026" },
+  ],
+  "google-core-update-april-2026": [
+    { anchor: "March 2026 core update", href: "/blogs/google-core-update-march-2026-seo-impact-recovery" },
+    { anchor: "AI Overviews", href: "/blogs/ai-search-visibility" },
+  ],
+  "biggest-marketing-problem-2026-guide": [
+    { anchor: "across industries", href: "/industries" },
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "KPIs", href: "/blogs/kpis-that-matter-in-social-media-marketing" },
+    { anchor: "SEO strategy", href: "/services/seo" },
+    { anchor: "Marketing trends", href: "/blogs/7-digital-marketing-trends-in-2026" },
+  ],
+  "how-to-build-an-app-without-coding-guide": [
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "Scalability", href: "/blogs/how-to-build-scalable-mobile-apps" },
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+  ],
+  "website-development-roadmap-in-2026-guide": [
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "Progressive Web Apps", href: "/blogs/how-pwas-are-changing-the-game-for-businesses" },
+    { anchor: "API integrations", href: "/services/cloud-application-development" },
+    { anchor: "Core Web Vitals", href: "/blogs/what-are-core-web-vitals" },
+  ],
+  "google-core-update-march-2026-seo-impact-recovery": [
+    { anchor: "core update", href: "/blogs/google-core-update-april-2026" },
+    { anchor: "spam update", href: "/blogs/google-september-2026-spam-update" },
+    { anchor: "website development", href: "/services/web" },
+  ],
+  "why-should-businesses-use-chatbot-services": [
+    { anchor: "automate repetitive tasks", href: "/services/ai-automation" },
+    { anchor: "customer support team", href: "/services/contact-center" },
+    { anchor: "chatbots help businesses", href: "/blogs/how-chatbots-help-businesses" },
+    { anchor: "marketing strategies", href: "/blogs/building-effective-marketing-strategies" },
+    { anchor: "digital transformation", href: "/services/digital-consulting-strategy" },
+  ],
+  "how-do-i-secure-my-website-from-hackers": [
+    { anchor: "online store", href: "/services/digital-commerce" },
+    { anchor: "website security", href: "/blogs/why-website-security-matters-for-small-businesses" },
+    { anchor: "security solutions", href: "/blogs/7-cyber-security-solutions-for-businesses-2025" },
+    { anchor: "Cyber security", href: "/services/cybersecurity" },
+  ],
+  "how-can-a-mobile-app-help-grow-a-business": [
+    { anchor: "conversion rates", href: "/blogs/understand-how-ui-ux-design-affects-cro" },
+    { anchor: "Data-driven decisions", href: "/services/advanced-analytics" },
+    { anchor: "user-friendly", href: "/blogs/what-features-make-a-mobile-app-user-friendly" },
+  ],
+  "how-does-ai-impact-seo-strategies": [
+    { anchor: "SEO audits", href: "/blogs/how-do-seo-audits-help-websites-rank-higher" },
+    { anchor: "Data-driven decision", href: "/services/advanced-analytics" },
+    { anchor: "SEO trends", href: "/blogs/8-seo-trends-for-2026" },
+  ],
+  "why-choose-flutter-for-mobile-app-development-in-2026": [
+    { anchor: "across industries", href: "/industries" },
+    { anchor: "startups", href: "/blogs/what-are-the-most-effective-seo-strategies-for-startups" },
+    { anchor: "development framework", href: "/blogs/how-to-choose-right-development-framework" },
+    { anchor: "development team", href: "/services/staff-augmentation" },
+  ],
+  "what-is-white-hat-seo": [
+    { anchor: "keyword stuffing", href: "/blogs/what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals" },
+    { anchor: "black hat SEO", href: "/blogs/what-is-black-hat-seo" },
+    { anchor: "SEO experts", href: "/blogs/why-choose-bytes-platform-seo-services" },
+  ],
+  "what-is-grey-hat-seo": [
+    { anchor: "Black Hat SEO", href: "/blogs/what-is-black-hat-seo" },
+    { anchor: "link building", href: "/blogs/effective-link-building-strategies" },
+    { anchor: "digital marketing", href: "/services/marketing" },
+  ],
+  "what-is-black-hat-seo": [
+    { anchor: "Keyword stuffing", href: "/blogs/what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals" },
+    { anchor: "White Hat SEO", href: "/blogs/what-is-white-hat-seo" },
+  ],
+  "why-engagement-matters-more-than-followers": [
+    { anchor: "social media strategy", href: "/blogs/social-media-marketing-strategies" },
+    { anchor: "marketing strategies", href: "/blogs/building-effective-marketing-strategies" },
+  ],
+  "how-to-integrate-ai-into-a-mobile-app": [
+    { anchor: "app performance", href: "/blogs/ways-to-boost-mobile-app-performance" },
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "AI services", href: "/services/advanced-services" },
+    { anchor: "AI apps", href: "/blogs/why-invest-in-ai-app-development-in-2026" },
+    { anchor: "development team", href: "/services/staff-augmentation" },
+  ],
+  "why-website-speed-matters-more-than-ever-in-2026": [
+    { anchor: "mobile-first", href: "/blogs/7-best-practices-for-designing-mobile-first" },
+    { anchor: "Core Web Vitals", href: "/blogs/what-are-core-web-vitals" },
+  ],
+  "seo-vs-geo-what-matters-in-2026": [
+    { anchor: "Generative Engine Optimization", href: "/blogs/understanding-generative-engine-optimization-geo" },
+    { anchor: "AI-generated answers", href: "/blogs/why-websites-dont-appear-in-ai-answers" },
+    { anchor: "Bytes Platform", href: "/about" },
+  ],
+  "what-is-a-landing-page": [
+    { anchor: "conversion rates", href: "/blogs/understand-how-ui-ux-design-affects-cro" },
+    { anchor: "digital marketing strategy", href: "/services/marketing" },
+    { anchor: "load times", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+  ],
+  "why-invest-in-ai-app-development-in-2026": [
+    { anchor: "automate repetitive tasks", href: "/services/ai-automation" },
+    { anchor: "machine learning", href: "/blogs/ai-ml-apps-driving-innovation-digital-platforms" },
+    { anchor: "predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "AI features", href: "/blogs/how-to-integrate-ai-into-a-mobile-app" },
+  ],
+  "how-to-optimize-for-voice-seo-search-in-2026": [
+    { anchor: "smart devices", href: "/services/connected-intelligence" },
+    { anchor: "schema markup", href: "/blogs/how-schema-markup-boosts-local-seo" },
+    { anchor: "Google Search Console", href: "/blogs/how-does-google-search-console-work" },
+  ],
+  "how-marketers-are-spending-in-2026": [
+    { anchor: "emerging technologies", href: "/services/emerging-technologies" },
+    { anchor: "advanced analytics", href: "/services/advanced-analytics" },
+    { anchor: "automation tools", href: "/services/ai-automation" },
+    { anchor: "augmented reality", href: "/blogs/how-to-build-an-augmented-reality-app-in-2025" },
+    { anchor: "Influencer marketing", href: "/blogs/types-of-social-media-marketing" },
+  ],
+  "ai-ml-apps-driving-innovation-digital-platforms": [
+    { anchor: "across industries", href: "/industries" },
+    { anchor: "scalability", href: "/blogs/how-to-build-scalable-mobile-apps" },
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "development team", href: "/services/staff-augmentation" },
+    { anchor: "generative AI", href: "/blogs/what-is-generative-ai" },
+  ],
+  "the-rise-of-black-hat-llm-seo-tactics": [
+    { anchor: "large language models", href: "/services/generative-ai" },
+    { anchor: "AI-generated content", href: "/blogs/why-you-need-more-than-ai-to-still-win-at-seo" },
+    { anchor: "human oversight", href: "/blogs/ai-cant-replace-humans-in-seo" },
+  ],
+  "how-ai-is-reshaping-development": [
+    { anchor: "AI tools", href: "/blogs/top-10-ai-tools-for-data-analysis" },
+    { anchor: "machine learning", href: "/blogs/ai-ml-apps-driving-innovation-digital-platforms" },
+    { anchor: "data breaches", href: "/services/cybersecurity" },
+    { anchor: "advanced analytics", href: "/services/advanced-analytics" },
+    { anchor: "digital strategy", href: "/services/digital-consulting-strategy" },
+  ],
+  "7-digital-marketing-trends-in-2026": [
+    { anchor: "Digital Marketing Trends in 2026", href: "/blogs/8-top-digital-marketing-trends-2026" },
+    { anchor: "Influencer marketing", href: "/blogs/types-of-social-media-marketing" },
+    { anchor: "Predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "Bytes Platform", href: "/about" },
+  ],
+  "8-seo-trends-for-2026": [
+    { anchor: "generative engine optimization", href: "/blogs/understanding-generative-engine-optimization-geo" },
+    { anchor: "llms.txt", href: "/blogs/why-llm-only-pages-arent-the-answer-to-modern-ai-search" },
+    { anchor: "AI chatbots", href: "/products/byte-bots" },
+  ],
+  "top-5-mobile-app-development-trends-2026": [
+    { anchor: "Mobile App Development Trends", href: "/blogs/top-mobile-app-development-trends-2025" },
+    { anchor: "predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "Augmented Reality", href: "/blogs/how-to-build-an-augmented-reality-app-in-2025" },
+    { anchor: "AR and VR", href: "/services/emerging-technologies" },
+    { anchor: "development team", href: "/services/staff-augmentation" },
+  ],
+  "8-top-web-development-trends-in-2026": [
+    { anchor: "Web Development Trends", href: "/blogs/important-web-development-trends" },
+    { anchor: "emerging technologies", href: "/services/emerging-technologies" },
+    { anchor: "predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "mobile apps", href: "/services/app" },
+    { anchor: "animations", href: "/blogs/what-is-motion-design-in-web-development" },
+  ],
+  "what-is-ai-website-benchmarking": [
+    { anchor: "AI tools", href: "/blogs/top-10-ai-tools-for-data-analysis" },
+    { anchor: "page speed", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+    { anchor: "AI automation", href: "/services/ai-automation" },
+  ],
+  "best-wordpress-plugins-small-business-websites-2026": [
+    { anchor: "content management system", href: "/blogs/what-is-a-content-management-system" },
+    { anchor: "website security", href: "/blogs/why-website-security-matters-for-small-businesses" },
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "Automated workflows", href: "/services/ai-automation" },
+    { anchor: "digital consulting", href: "/services/digital-consulting-strategy" },
+  ],
+  "meta-expands-threads-ads-to-all-users-globally": [
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+    { anchor: "social media marketing", href: "/blogs/why-social-media-marketing-is-important" },
+  ],
+  "why-llm-only-pages-arent-the-answer-to-modern-ai-search": [
+    { anchor: "large language models", href: "/services/generative-ai" },
+    { anchor: "AI search systems", href: "/blogs/predictions-future-ai-search-2026" },
+    { anchor: "AI solutions", href: "/services/advanced-services" },
+    { anchor: "human expertise", href: "/blogs/ai-cant-replace-humans-in-seo" },
+  ],
+  "ultimate-guide-linkedin-advertising": [
+    { anchor: "marketing strategy", href: "/blogs/building-effective-marketing-strategies" },
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+  ],
+  "local-seo-for-small-businesses": [
+    { anchor: "small businesses", href: "/blogs/bytes-platform-services-for-small-businesses" },
+    { anchor: "Customer Reviews", href: "/blogs/how-to-use-customer-reviews-to-power-local-seo" },
+  ],
+  "all-you-need-to-know-about-web-app-development": [
+    { anchor: "custom web app", href: "/services/web-mobile-app-development" },
+    { anchor: "Progressive Web Apps", href: "/blogs/how-pwas-are-changing-the-game-for-businesses" },
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "Responsive web design", href: "/blogs/why-responsive-web-design-is-essential" },
+    { anchor: "cloud platforms", href: "/services/cloud-operations-migration" },
+  ],
+  "ultimate-guide-ui-design": [
+    { anchor: "responsive design", href: "/blogs/why-responsive-web-design-is-essential" },
+    { anchor: "Accessibility", href: "/blogs/what-is-inclusive-web-design" },
+  ],
+  "why-websites-dont-appear-in-ai-answers": [
+    { anchor: "AI Overviews", href: "/blogs/ai-search-visibility" },
+    { anchor: "schema markup", href: "/blogs/how-schema-markup-boosts-local-seo" },
+    { anchor: "across industries", href: "/industries" },
+  ],
+  "wix-vs-bigcommerce-detailed-comparison": [
+    { anchor: "eCommerce platform", href: "/services/digital-commerce" },
+    { anchor: "small businesses", href: "/blogs/bytes-platform-services-for-small-businesses" },
+    { anchor: "Search engine optimization", href: "/services/seo" },
+    { anchor: "marketing automation", href: "/blogs/what-is-marketing-automation" },
+  ],
+  "how-to-make-your-website-ai-agent-ready": [
+    { anchor: "autonomous agents", href: "/blogs/what-is-agentic-ai" },
+    { anchor: "AI agents", href: "/services/ai-automation" },
+    { anchor: "APIs", href: "/blogs/what-is-api-first-development-2026-guide" },
+    { anchor: "customer support", href: "/services/contact-center" },
+  ],
+  "digital-marketing-roi-measuring-success-2026": [
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+    { anchor: "Automation tools", href: "/services/ai-automation" },
+    { anchor: "marketing budget", href: "/blogs/how-marketers-are-spending-in-2026" },
+  ],
+  "ai-cant-replace-humans-in-seo": [
+    { anchor: "keyword research", href: "/blogs/why-is-key-word-research-important-for-business-growth" },
+    { anchor: "AI-generated content", href: "/blogs/why-you-need-more-than-ai-to-still-win-at-seo" },
+    { anchor: "automate repetitive tasks", href: "/services/ai-automation" },
+  ],
+  "how-to-implement-dark-mode-in-web-design": [
+    { anchor: "web design", href: "/blogs/5-elements-of-great-website-design" },
+  ],
+  "ai-in-app-development-statistics-2026": [
+    { anchor: "web apps", href: "/blogs/all-you-need-to-know-about-web-app-development" },
+    { anchor: "automate routine tasks", href: "/services/ai-automation" },
+    { anchor: "app performance", href: "/blogs/ways-to-boost-mobile-app-performance" },
+  ],
+  "understand-how-ui-ux-design-affects-cro": [
+    { anchor: "UI/UX design", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+    { anchor: "Responsive design", href: "/blogs/why-responsive-web-design-is-essential" },
+  ],
+  "how-to-build-an-augmented-reality-app-in-2025": [
+    { anchor: "app performance", href: "/blogs/ways-to-boost-mobile-app-performance" },
+    { anchor: "UI design", href: "/blogs/ultimate-guide-ui-design" },
+    { anchor: "across industries", href: "/industries" },
+  ],
+  "why-you-need-more-than-ai-to-still-win-at-seo": [
+    { anchor: "keyword research", href: "/blogs/why-is-key-word-research-important-for-business-growth" },
+    { anchor: "Instagram Advertising", href: "/blogs/instagram-advertising-guide" },
+  ],
+  "best-instagram-advertising-strategy-guide": [
+    { anchor: "Instagram advertising", href: "/blogs/instagram-advertising-guide" },
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+  ],
+  "predictions-future-ai-search-2026": [
+    { anchor: "user intent", href: "/blogs/what-is-user-intent-in-seo" },
+    { anchor: "Voice search", href: "/blogs/how-to-optimize-for-voice-seo-search-in-2026" },
+  ],
+  "cloud-storage-vs-local-storage-security": [
+    { anchor: "Data breaches", href: "/services/cybersecurity" },
+    { anchor: "Backup", href: "/blogs/why-is-data-backup-important" },
+    { anchor: "security solutions", href: "/blogs/7-cyber-security-solutions-for-businesses-2025" },
+  ],
+  "building-effective-marketing-strategies": [
+    { anchor: "search engine optimization", href: "/services/seo" },
+    { anchor: "KPIs", href: "/blogs/kpis-that-matter-in-social-media-marketing" },
+    { anchor: "conversion rates", href: "/blogs/understand-how-ui-ux-design-affects-cro" },
+  ],
+  "how-pwas-are-changing-the-game-for-businesses": [
+    { anchor: "conversion rates", href: "/blogs/understand-how-ui-ux-design-affects-cro" },
+    { anchor: "mobile app development", href: "/services/app" },
+    { anchor: "page speed", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+  ],
+  "ai-search-console-update": [
+    { anchor: "Google Search Console", href: "/blogs/how-does-google-search-console-work" },
+    { anchor: "data-driven decisions", href: "/services/advanced-analytics" },
+  ],
+  "google-search-console-indexing-delay-update": [
+    { anchor: "Google Search Console", href: "/blogs/how-does-google-search-console-work" },
+  ],
+  "why-bytes-platform-is-the-right-ai-partner-for-your-business": [
+    { anchor: "digital transformation", href: "/services/digital-consulting-strategy" },
+    { anchor: "CRM", href: "/blogs/what-is-crm" },
+    { anchor: "data-driven decisions", href: "/services/advanced-analytics" },
+    { anchor: "workflow automation", href: "/services/ai-automation" },
+  ],
+  "instagram-advertising-guide": [
+    { anchor: "Instagram Advertising strategy", href: "/blogs/best-instagram-advertising-strategy-guide" },
+    { anchor: "landing pages", href: "/blogs/what-is-a-landing-page" },
+  ],
+  "what-is-front-end-development": [
+    { anchor: "front-end development", href: "/blogs/what-is-front-end-development-and-why-it-matters" },
+    { anchor: "animations", href: "/blogs/what-is-motion-design-in-web-development" },
+  ],
+  "how-ai-is-changing-seo": [
+    { anchor: "machine learning", href: "/blogs/ai-ml-apps-driving-innovation-digital-platforms" },
+    { anchor: "AI in SEO", href: "/blogs/artificial-intelligence-transforming-search-optimization" },
+  ],
+  "how-to-build-a-strong-brand-community-2025": [
+    { anchor: "Authenticity", href: "/blogs/what-is-authenticity-in-social-media" },
+  ],
+  "understanding-generative-engine-optimization-geo": [
+    { anchor: "user intent", href: "/blogs/what-is-user-intent-in-seo" },
+    { anchor: "SEO trends", href: "/blogs/8-seo-trends-for-2026" },
+  ],
+  "what-is-inclusive-web-design": [
+    { anchor: "web design", href: "/blogs/5-elements-of-great-website-design" },
+  ],
+  "how-to-design-ui-for-a-mobile-app": [
+    { anchor: "brand identity", href: "/blogs/how-branding-in-digital-marketing-boosts-business" },
+    { anchor: "UX", href: "/blogs/why-ui-ux-design-is-crucial" },
+  ],
+  "top-10-ai-tools-for-data-analysis": [
+    { anchor: "advanced analytics", href: "/services/advanced-analytics" },
+    { anchor: "cloud storage", href: "/blogs/cloud-storage-vs-local-storage-security" },
+    { anchor: "data analytics", href: "/blogs/what-is-data-analytics" },
+    { anchor: "cloud-native", href: "/services/cloud-application-development" },
+    { anchor: "cloud infrastructure", href: "/services/cloud-operations-migration" },
+  ],
+  "how-to-use-customer-reviews-to-power-local-seo": [
+    { anchor: "local SEO", href: "/blogs/local-seo-for-small-businesses" },
+  ],
+  "5-elements-of-great-website-design": [
+    { anchor: "website design", href: "/blogs/what-are-the-7-cs-of-website-design-in-2026" },
+    { anchor: "responsive website", href: "/blogs/how-responsive-websites-improve-customer-engagement" },
+    { anchor: "SEO efforts", href: "/services/seo" },
+  ],
+  "kpis-that-matter-in-social-media-marketing": [
+    { anchor: "Social media marketing", href: "/blogs/why-social-media-marketing-is-important" },
+    { anchor: "engagement rate", href: "/blogs/why-engagement-matters-more-than-followers" },
+  ],
+  "what-ai-means-for-seo-in-2026": [
+    { anchor: "digital marketing", href: "/services/marketing" },
+    { anchor: "SEO trends", href: "/blogs/8-seo-trends-for-2026" },
+    { anchor: "voice search", href: "/blogs/how-to-optimize-for-voice-seo-search-in-2026" },
+  ],
+  "reasons-your-business-needs-mobile-app-development": [
+    { anchor: "user-friendly", href: "/blogs/what-features-make-a-mobile-app-user-friendly" },
+    { anchor: "mobile app can help", href: "/blogs/how-can-a-mobile-app-help-grow-a-business" },
+  ],
+  "7-best-practices-for-designing-mobile-first": [
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+    { anchor: "frameworks", href: "/blogs/how-to-choose-right-development-framework" },
+  ],
+  "what-is-authenticity-in-social-media": [
+    { anchor: "engagement rate", href: "/blogs/why-engagement-matters-more-than-followers" },
+    { anchor: "social media strategy", href: "/blogs/social-media-marketing-strategies" },
+  ],
+  "10-strategies-to-improve-digital-marketing-roi-in-2025": [
+    { anchor: "digital marketing ROI", href: "/blogs/digital-marketing-roi-measuring-success-2026" },
+    { anchor: "marketing automation", href: "/blogs/what-is-marketing-automation" },
+    { anchor: "Search engine optimization", href: "/services/seo" },
+    { anchor: "Bytes Platform", href: "/about" },
+  ],
+  "how-ui-ux-design-boosts-customer-engagement": [
+    { anchor: "User Interface", href: "/blogs/ultimate-guide-ui-design" },
+  ],
+  "10-local-seo-factors-2025": [
+    { anchor: "online reviews", href: "/blogs/how-to-use-customer-reviews-to-power-local-seo" },
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "customer service", href: "/blogs/what-are-the-benefits-of-ai-in-customer-service" },
+  ],
+  "ways-to-improve-your-website-page-load-speed-in-2025": [
+    { anchor: "eCommerce platform", href: "/services/digital-commerce" },
+    { anchor: "Core Web Vitals", href: "/blogs/what-are-core-web-vitals" },
+    { anchor: "Cloud Hosting", href: "/services/cloud-operations-migration" },
+    { anchor: "website speed", href: "/blogs/why-website-speed-matters-more-than-ever-in-2026" },
+  ],
+  "top-mobile-app-development-trends-2025": [
+    { anchor: "app development trends", href: "/blogs/top-5-mobile-app-development-trends-2026" },
+    { anchor: "AR and VR", href: "/services/emerging-technologies" },
+    { anchor: "no-code", href: "/blogs/how-to-build-an-app-without-coding-guide" },
+    { anchor: "predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "MVP", href: "/services/saas-product-development" },
+  ],
+  "what-is-motion-design-in-web-development": [
+    { anchor: "brand identity", href: "/blogs/how-branding-in-digital-marketing-boosts-business" },
+    { anchor: "front-end development", href: "/blogs/what-is-front-end-development-and-why-it-matters" },
+  ],
+  "artificial-intelligence-transforming-search-optimization": [
+    { anchor: "digital marketing", href: "/services/marketing" },
+    { anchor: "keyword research", href: "/blogs/why-is-key-word-research-important-for-business-growth" },
+    { anchor: "SEO audits", href: "/blogs/how-do-seo-audits-help-websites-rank-higher" },
+  ],
+  "7-cyber-security-solutions-for-businesses-2025": [
+    { anchor: "cybersecurity", href: "/services/cybersecurity" },
+    { anchor: "backups", href: "/blogs/why-is-data-backup-important" },
+    { anchor: "small businesses", href: "/blogs/bytes-platform-services-for-small-businesses" },
+  ],
+  "why-choose-bytes-platform-seo-services": [
+    { anchor: "Technical SEO", href: "/blogs/what-technical-seo-includes" },
+    { anchor: "Bytes Platform", href: "/about" },
+    { anchor: "startups", href: "/blogs/what-are-the-most-effective-seo-strategies-for-startups" },
+  ],
+  "bytes-platform-crm-erp-integration": [
+    { anchor: "CRM and ERP", href: "/services/crm-erp-systems" },
+    { anchor: "legacy systems", href: "/services/data-modernization" },
+  ],
+  "why-choose-bytes-platform-web-development-services": [
+    { anchor: "WordPress", href: "/blogs/best-wordpress-plugins-small-business-websites-2026" },
+    { anchor: "digital transformation", href: "/services/digital-consulting-strategy" },
+    { anchor: "Secure Development", href: "/blogs/how-to-ensure-security-during-project-development" },
+    { anchor: "Ongoing Maintenance", href: "/services/managed-services" },
+    { anchor: "support team", href: "/services/contact-center" },
+  ],
+  "bytes-platform-services-for-small-businesses": [
+    { anchor: "Custom website", href: "/services/web" },
+    { anchor: "Ongoing maintenance", href: "/services/managed-services" },
+    { anchor: "content marketing", href: "/blogs/content-marketing-ideas-that-help-websites-rank" },
+    { anchor: "Responsive website", href: "/blogs/how-responsive-websites-improve-customer-engagement" },
+    { anchor: "CRM/ERP", href: "/services/crm-erp-systems" },
+    { anchor: "Flutter", href: "/blogs/why-choose-flutter-for-mobile-app-development-in-2026" },
+  ],
+  "what-is-omni-channel-marketing": [
+    { anchor: "omnichannel marketing", href: "/blogs/what-is-omnichannel-marketing" },
+    { anchor: "multichannel marketing", href: "/blogs/what-is-multichannel-marketing-a-complete-guide-for-businesses" },
+    { anchor: "automation tools", href: "/services/ai-automation" },
+  ],
+  "why-is-key-word-research-important-for-business-growth": [
+    { anchor: "content marketing", href: "/blogs/content-marketing-ideas-that-help-websites-rank" },
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+    { anchor: "data-driven decisions", href: "/services/advanced-analytics" },
+  ],
+  "what-features-make-a-mobile-app-user-friendly": [
+    { anchor: "UX", href: "/blogs/why-ui-ux-design-is-crucial" },
+    { anchor: "Inclusive design", href: "/blogs/what-is-inclusive-web-design" },
+  ],
+  "why-website-security-matters-for-small-businesses": [
+    { anchor: "small businesses", href: "/blogs/bytes-platform-services-for-small-businesses" },
+    { anchor: "hackers", href: "/blogs/how-do-i-secure-my-website-from-hackers" },
+  ],
+  "what-businesses-will-survive-ai": [
+    { anchor: "customer service", href: "/blogs/what-are-the-benefits-of-ai-in-customer-service" },
+    { anchor: "software development", href: "/blogs/how-ai-is-reshaping-development" },
+    { anchor: "digital transformation", href: "/services/digital-consulting-strategy" },
+    { anchor: "automate repetitive tasks", href: "/services/ai-automation" },
+    { anchor: "digital marketing", href: "/services/marketing" },
+  ],
+  "what-is-the-30-rule-in-ai": [
+    { anchor: "digital transformation", href: "/services/digital-consulting-strategy" },
+    { anchor: "human oversight", href: "/blogs/ai-cant-replace-humans-in-seo" },
+    { anchor: "AI tools", href: "/blogs/top-10-ai-tools-for-data-analysis" },
+    { anchor: "legacy systems", href: "/services/data-modernization" },
+  ],
+  "what-are-the-benefits-of-ai-in-customer-service": [
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "AI chatbots", href: "/blogs/how-ai-chatbots-improve-customer-service" },
+    { anchor: "predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "integrate AI into", href: "/blogs/how-to-integrate-ai-into-a-mobile-app" },
+  ],
+  "how-ai-chatbots-improve-customer-service": [
+    { anchor: "customer service", href: "/blogs/what-are-the-benefits-of-ai-in-customer-service" },
+    { anchor: "chatbot", href: "/blogs/why-should-businesses-use-chatbot-services" },
+    { anchor: "AI chatbot", href: "/products/byte-bots" },
+    { anchor: "AI automation", href: "/services/ai-automation" },
+  ],
+  "how-responsive-websites-improve-customer-engagement": [
+    { anchor: "website design", href: "/blogs/what-are-the-7-cs-of-website-design-in-2026" },
+    { anchor: "responsive web design", href: "/blogs/why-responsive-web-design-is-essential" },
+  ],
+  "what-are-the-most-effective-seo-strategies-for-startups": [
+    { anchor: "keyword density", href: "/blogs/what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals" },
+    { anchor: "link building", href: "/blogs/effective-link-building-strategies" },
+  ],
+  "why-custom-mobile-app-development-is-better-for-business": [
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+    { anchor: "Data breaches", href: "/services/cybersecurity" },
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+    { anchor: "development team", href: "/services/staff-augmentation" },
+    { anchor: "ongoing maintenance", href: "/services/managed-services" },
+  ],
+  "how-branding-in-digital-marketing-boosts-business": [
+    { anchor: "multiple channels", href: "/blogs/what-is-multichannel-marketing-a-complete-guide-for-businesses" },
+    { anchor: "marketing strategies", href: "/blogs/building-effective-marketing-strategies" },
+  ],
+  "what-is-multichannel-marketing-a-complete-guide-for-businesses": [
+    { anchor: "omnichannel marketing", href: "/blogs/what-is-omnichannel-marketing" },
+  ],
+  "what-is-omnichannel-marketing": [
+    { anchor: "mobile apps", href: "/services/app" },
+    { anchor: "multichannel marketing", href: "/blogs/what-is-multichannel-marketing-a-complete-guide-for-businesses" },
+  ],
+  "how-do-seo-audits-help-websites-rank-higher": [
+    { anchor: "SEO strategy", href: "/services/seo" },
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+    { anchor: "page speed", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+    { anchor: "digital strategy", href: "/services/digital-consulting-strategy" },
+  ],
+  "how-does-google-search-console-work": [
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+    { anchor: "SEO strategy", href: "/services/seo" },
+    { anchor: "digital marketing strategy", href: "/services/marketing" },
+    { anchor: "SEO experts", href: "/blogs/why-choose-bytes-platform-seo-services" },
+  ],
+  "how-chatbots-help-businesses": [
+    { anchor: "mobile apps", href: "/services/app" },
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "chatbot", href: "/blogs/why-should-businesses-use-chatbot-services" },
+    { anchor: "CRM", href: "/blogs/what-is-crm" },
+  ],
+  "what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals": [
+    { anchor: "content marketing", href: "/blogs/content-marketing-ideas-that-help-websites-rank" },
+    { anchor: "landing pages", href: "/blogs/what-is-a-landing-page" },
+  ],
+  "how-does-a-crm-work": [
+    { anchor: "Customer Relationship Management", href: "/services/crm-erp-systems" },
+    { anchor: "marketing campaigns", href: "/blogs/how-to-improve-marketing-campaign-efficiency" },
+    { anchor: "Customer support", href: "/services/contact-center" },
+    { anchor: "Data-Driven Decisions", href: "/services/advanced-analytics" },
+    { anchor: "customer service", href: "/blogs/what-are-the-benefits-of-ai-in-customer-service" },
+  ],
+  "what-is-crm": [
+    { anchor: "Customer Relationship Management", href: "/services/crm-erp-systems" },
+    { anchor: "Marketing Automation", href: "/blogs/what-is-marketing-automation" },
+    { anchor: "Customer Support", href: "/services/contact-center" },
+    { anchor: "data analysis", href: "/blogs/top-10-ai-tools-for-data-analysis" },
+    { anchor: "data migration", href: "/services/data-modernization" },
+  ],
+  "types-of-social-media-marketing": [
+    { anchor: "Paid advertising", href: "/blogs/how-paid-advertising-works" },
+    { anchor: "Instagram ads", href: "/blogs/best-instagram-advertising-strategy-guide" },
+  ],
+  "how-is-ai-transforming-local-seo": [
+    { anchor: "local SEO", href: "/blogs/local-seo-for-small-businesses" },
+    { anchor: "AI tools", href: "/blogs/top-10-ai-tools-for-data-analysis" },
+    { anchor: "predictive analytics", href: "/services/advanced-analytics" },
+    { anchor: "SEO strategy", href: "/services/seo" },
+  ],
+  "what-is-generative-ai": [
+    { anchor: "generative AI", href: "/services/generative-ai" },
+    { anchor: "chatbots", href: "/blogs/how-chatbots-help-businesses" },
+    { anchor: "AI-generated content", href: "/blogs/why-you-need-more-than-ai-to-still-win-at-seo" },
+  ],
+  "what-is-iot-data-analytics": [
+    { anchor: "Internet of Things", href: "/blogs/what-is-iot" },
+    { anchor: "data analytics", href: "/blogs/what-is-data-analytics" },
+    { anchor: "business intelligence", href: "/services/advanced-analytics" },
+    { anchor: "System Integration", href: "/services/cloud-application-development" },
+  ],
+  "what-is-data-analytics": [
+    { anchor: "marketing campaign", href: "/blogs/how-to-create-digital-marketing-campaigns" },
+    { anchor: "marketing budgets", href: "/blogs/how-marketers-are-spending-in-2026" },
+    { anchor: "in-house team", href: "/services/staff-augmentation" },
+  ],
+  "what-is-iot": [
+    { anchor: "IoT solutions", href: "/services/connected-intelligence" },
+  ],
+  "why-social-media-marketing-is-important": [
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "LinkedIn Ads", href: "/blogs/ultimate-guide-linkedin-advertising" },
+  ],
+  "how-to-conduct-a-social-media-audit": [
+    { anchor: "branding", href: "/blogs/how-branding-in-digital-marketing-boosts-business" },
+    { anchor: "Engagement rate", href: "/blogs/why-engagement-matters-more-than-followers" },
+  ],
+  "what-is-a-seo-audit": [
+    { anchor: "SEO audits", href: "/blogs/how-do-seo-audits-help-websites-rank-higher" },
+    { anchor: "Site speed", href: "/blogs/why-website-speed-matters-more-than-ever-in-2026" },
+  ],
+  "what-is-user-intent-in-seo": [
+    { anchor: "keyword stuffing", href: "/blogs/what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals" },
+    { anchor: "Google Search Console", href: "/blogs/how-does-google-search-console-work" },
+    { anchor: "SEO strategies", href: "/services/seo" },
+  ],
+  "what-technical-seo-includes": [
+    { anchor: "Schema markup", href: "/blogs/how-schema-markup-boosts-local-seo" },
+    { anchor: "SEO efforts", href: "/services/seo" },
+    { anchor: "page speed", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+    { anchor: "digital marketing", href: "/services/marketing" },
+  ],
+  "local-seo-vs-national-seo": [
+    { anchor: "Local SEO", href: "/blogs/local-seo-for-small-businesses" },
+    { anchor: "Google Business Profile", href: "/blogs/10-local-seo-factors-2025" },
+  ],
+  "how-to-choose-right-development-framework": [
+    { anchor: "web development", href: "/services/web" },
+    { anchor: "user interface", href: "/blogs/ultimate-guide-ui-design" },
+    { anchor: "e-commerce platform", href: "/services/digital-commerce" },
+    { anchor: "WordPress", href: "/blogs/best-wordpress-plugins-small-business-websites-2026" },
+  ],
+  "how-to-ensure-security-during-project-development": [
+    { anchor: "data breaches", href: "/services/cybersecurity" },
+    { anchor: "web development", href: "/services/web" },
+    { anchor: "APIs", href: "/blogs/what-is-api-first-development-2026-guide" },
+    { anchor: "frameworks", href: "/blogs/how-to-choose-right-development-framework" },
+  ],
+  "ways-to-boost-mobile-app-performance": [
+    { anchor: "load times", href: "/blogs/ways-to-improve-your-website-page-load-speed-in-2025" },
+    { anchor: "iOS and Android", href: "/services/app" },
+  ],
+  "social-media-marketing-strategies": [
+    { anchor: "marketing strategies", href: "/blogs/building-effective-marketing-strategies" },
+    { anchor: "Authenticity", href: "/blogs/what-is-authenticity-in-social-media" },
+  ],
+  "content-marketing-ideas-that-help-websites-rank": [
+    { anchor: "Keyword Research", href: "/blogs/why-is-key-word-research-important-for-business-growth" },
+    { anchor: "repurpose content", href: "/blogs/how-to-repurpose-your-content" },
+    { anchor: "SEO strategy", href: "/services/seo" },
+  ],
+  "how-to-measure-roi": [
+    { anchor: "digital marketing", href: "/services/marketing" },
+    { anchor: "digital marketing ROI", href: "/blogs/digital-marketing-roi-measuring-success-2026" },
+    { anchor: "KPIs", href: "/blogs/kpis-that-matter-in-social-media-marketing" },
+  ],
+  "what-is-seo": [
+    { anchor: "Search Engine Optimization", href: "/services/seo" },
+    { anchor: "Technical SEO", href: "/blogs/what-technical-seo-includes" },
+    { anchor: "Local SEO", href: "/blogs/local-seo-for-small-businesses" },
+  ],
+  "how-to-implement-seo-strategies": [
+    { anchor: "Search Engine Optimization", href: "/services/seo" },
+    { anchor: "small businesses", href: "/blogs/bytes-platform-services-for-small-businesses" },
+    { anchor: "Google Business Profile", href: "/blogs/10-local-seo-factors-2025" },
+  ],
+  "important-web-development-trends": [
+    { anchor: "web development", href: "/services/web" },
+    { anchor: "accessibility", href: "/blogs/what-is-inclusive-web-design" },
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "API-first", href: "/blogs/what-is-api-first-development-2026-guide" },
+  ],
+  "why-responsive-web-design-is-essential": [
+    { anchor: "web design", href: "/blogs/5-elements-of-great-website-design" },
+    { anchor: "responsive website", href: "/blogs/how-responsive-websites-improve-customer-engagement" },
+  ],
+  "why-ui-ux-design-is-crucial": [
+    { anchor: "UI/UX design", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+    { anchor: "UI design", href: "/blogs/ultimate-guide-ui-design" },
+  ],
+  "how-to-build-scalable-mobile-apps": [
+    { anchor: "cloud platforms", href: "/services/cloud-operations-migration" },
+    { anchor: "Cloud storage", href: "/blogs/cloud-storage-vs-local-storage-security" },
+    { anchor: "customer support", href: "/services/contact-center" },
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+  ],
+  "how-to-create-digital-marketing-campaigns": [
+    { anchor: "Digital marketing", href: "/services/marketing" },
+    { anchor: "marketing campaigns", href: "/blogs/how-to-improve-marketing-campaign-efficiency" },
+    { anchor: "ad spend", href: "/blogs/how-marketers-are-spending-in-2026" },
+  ],
+  "how-paid-advertising-works": [
+    { anchor: "return on investment", href: "/blogs/10-strategies-to-improve-digital-marketing-roi-in-2025" },
+    { anchor: "marketing budget", href: "/blogs/how-marketers-are-spending-in-2026" },
+  ],
+  "white-hat-seo-vs-black-hat-seo": [
+    { anchor: "white hat SEO", href: "/blogs/what-is-white-hat-seo" },
+    { anchor: "Keyword stuffing", href: "/blogs/what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals" },
+    { anchor: "SEO strategy", href: "/services/seo" },
+  ],
+  "how-schema-markup-boosts-local-seo": [
+    { anchor: "customer reviews", href: "/blogs/how-to-use-customer-reviews-to-power-local-seo" },
+    { anchor: "SEO strategy", href: "/services/seo" },
+    { anchor: "SEO audit", href: "/blogs/what-is-a-seo-audit" },
+  ],
+  "what-is-content-pruning-and-why-it-matters": [
+    { anchor: "SEO strategy", href: "/services/seo" },
+    { anchor: "Google Search Console", href: "/blogs/how-does-google-search-console-work" },
+    { anchor: "E-E-A-T", href: "/blogs/what-is-e-e-a-t" },
+  ],
+  "how-to-improve-your-sites-visibility": [
+    { anchor: "search engine optimization", href: "/services/seo" },
+    { anchor: "Repurpose", href: "/blogs/how-to-repurpose-your-content" },
+    { anchor: "white hat SEO", href: "/blogs/what-is-white-hat-seo" },
+  ],
+  "effective-link-building-strategies": [
+    { anchor: "search engine optimization", href: "/services/seo" },
+    { anchor: "user experience", href: "/blogs/how-ui-ux-design-boosts-customer-engagement" },
+  ],
+  "what-is-a-content-management-system": [
+    { anchor: "web development", href: "/services/web" },
+  ],
+  "how-to-improve-marketing-campaign-efficiency": [
+    { anchor: "marketing budgets", href: "/blogs/how-marketers-are-spending-in-2026" },
+    { anchor: "LinkedIn ads", href: "/blogs/ultimate-guide-linkedin-advertising" },
+  ],
+  "what-is-front-end-development-and-why-it-matters": [
+    { anchor: "front-end development", href: "/blogs/what-is-front-end-development" },
+    { anchor: "Progressive Web Apps", href: "/blogs/how-pwas-are-changing-the-game-for-businesses" },
+  ],
+};
+
+/**
+ * Links in service, product and government page copy, by page path and then
+ * by the field the anchor sits in ("offer.items.2", "faqs.0", "summary").
+ */
+export const pageLinks: Record<string, Record<string, InlineLink[]>> = {
+  "/services/crm-erp-systems": {
+    "process.steps.4": [{ anchor: "ongoing support", href: "/services/managed-services" }],
+    "faqs.1": [{ anchor: "legacy systems", href: "/services/data-modernization" }],
+    "faqs.2": [{ anchor: "e-invoicing", href: "/products/bytesbilling" }],
+  },
+  "/services/e-invoicing-integration": {
+    "faqs.2": [{ anchor: "UAE e-invoicing", href: "/e-invoicing" }],
+  },
+  "/services/web-mobile-app-development": {
+    "offer.items.1": [{ anchor: "iOS and Android", href: "/services/app" }],
+    "faqs.3": [{ anchor: "ongoing maintenance", href: "/services/managed-services" }],
+  },
+  "/services/app": {
+    "highlights.items.2": [{ anchor: "Ongoing maintenance", href: "/services/managed-services" }],
+  },
+  "/services/advanced-services": {
+    "offer.items.0": [{ anchor: "Legacy systems", href: "/services/data-modernization" }],
+    "offer.items.2": [{ anchor: "IoT devices", href: "/services/connected-intelligence" }],
+  },
+  "/services/generative-ai": {
+    "faqs.0": [{ anchor: "AI automation", href: "/services/ai-automation" }],
+  },
+  "/government-contractors/services/portals-permitting-licensing": {
+    "faqs.2": [{ anchor: "WCAG", href: "/government-contractors/services/website-modernization" }],
+  },
+  "/services/data-modernization": {
+    "process.steps.3": [{ anchor: "ongoing support", href: "/services/managed-services" }],
+  },
+  "/services/cloud-application-development": {
+    "offer.items.2": [{ anchor: "infrastructure", href: "/services/digital-infrastructure" }],
+    "faqs.0": [{ anchor: "cloud infrastructure", href: "/services/cloud-operations-migration" }],
+  },
+  "/products/byte-bots": {
+    "offer.items.2": [{ anchor: "real-time dashboards", href: "/services/advanced-analytics" }],
+    "faqs.1": [{ anchor: "customer support", href: "/services/contact-center" }],
+  },
+  "/products/byte-suites": {
+    "faqs.2": [{ anchor: "workflow automation", href: "/services/ai-automation" }],
+  },
+  "/services/saas-product-development": {
+    "offer.items.3": [{ anchor: "Legacy software", href: "/services/data-modernization" }],
+  },
+  "/services/digital-commerce": {
+    "process.steps.3": [{ anchor: "data migration", href: "/services/data-modernization" }],
+  },
+  "/services/connected-intelligence": {
+    "offer.items.0": [{ anchor: "Cloud platforms", href: "/services/cloud-operations-migration" }],
+    "offer.items.3": [{ anchor: "mobile apps", href: "/services/app" }],
+  },
+  "/government-contractors/services/erp-financial-modernization": {
+    "summary": [{ anchor: "legacy systems", href: "/services/data-modernization" }],
+  },
+};
+
+/** "Related services" at the foot of each service and product page. */
+export const relatedPages: Record<string, string[]> = {
+  "/services/digital-consulting-strategy": ["/services/ai-automation", "/services/data-modernization", "/services/crm-erp-systems"],
+  "/services/saas-product-development": ["/services/web-mobile-app-development", "/services/cloud-application-development", "/services/staff-augmentation"],
+  "/services/web-mobile-app-development": ["/services/saas-product-development", "/services/app", "/government-contractors/services/portals-permitting-licensing"],
+  "/services/digital-commerce": ["/services/web", "/services/seo", "/case-studies"],
+  "/services/crm-erp-systems": ["/products/byte-suites", "/services/e-invoicing-integration", "/government-contractors/services/crm-case-management"],
+  "/services/government-proposal-technology": ["/government-contractors", "/products/bytesgov", "/services/generative-ai"],
+  "/services/e-invoicing-integration": ["/e-invoicing", "/products/bytesbilling", "/services/finance-accounting"],
+  "/services/web": ["/services/seo", "/services/digital-commerce", "/government-contractors/services/website-modernization"],
+  "/services/app": ["/services/web-mobile-app-development", "/services/saas-product-development", "/services/emerging-technologies"],
+  "/services/seo": ["/services/marketing", "/services/web", "/case-studies"],
+  "/services/marketing": ["/services/seo", "/services/advanced-analytics", "/products/byte-bots"],
+  "/services/ai-automation": ["/services/generative-ai", "/products/bytesagentic", "/government-contractors/services/data-ai-automation"],
+  "/services/generative-ai": ["/services/ai-automation", "/products/byte-bots", "/services/government-proposal-technology"],
+  "/services/data-modernization": ["/services/data-management", "/services/cloud-operations-migration", "/government-contractors/services/erp-financial-modernization"],
+  "/services/advanced-analytics": ["/services/data-management", "/services/data-modernization", "/services/connected-intelligence"],
+  "/services/data-management": ["/services/advanced-analytics", "/services/data-modernization", "/services/cybersecurity"],
+  "/services/connected-intelligence": ["/services/emerging-technologies", "/services/advanced-analytics", "/services/digital-infrastructure"],
+  "/services/cloud-operations-migration": ["/services/cloud-application-development", "/services/managed-services", "/government-contractors/services/cloud-hosting-devsecops"],
+  "/services/cloud-application-development": ["/services/cloud-operations-migration", "/services/web-mobile-app-development", "/services/saas-product-development"],
+  "/services/managed-services": ["/services/digital-infrastructure", "/services/cybersecurity", "/services/contact-center"],
+  "/services/digital-infrastructure": ["/services/managed-services", "/services/cloud-operations-migration", "/services/cybersecurity"],
+  "/services/cybersecurity": ["/services/managed-services", "/services/data-management", "/government-contractors/services/cloud-hosting-devsecops"],
+  "/services/emerging-technologies": ["/services/connected-intelligence", "/services/ai-automation", "/services/app"],
+  "/services/advanced-services": ["/services/ai-automation", "/services/advanced-analytics", "/services/generative-ai"],
+  "/services/contact-center": ["/products/byte-bots", "/products/bytesagentic", "/services/ai-automation"],
+  "/services/finance-accounting": ["/services/e-invoicing-integration", "/products/bytesbilling", "/services/legal-process-outsourcing"],
+  "/services/staff-augmentation": ["/services/recruitment-process-outsourcing", "/services/saas-product-development", "/services/web-mobile-app-development"],
+  "/services/legal-process-outsourcing": ["/services/finance-accounting", "/services/recruitment-process-outsourcing", "/services/data-management"],
+  "/services/recruitment-process-outsourcing": ["/services/staff-augmentation", "/services/legal-process-outsourcing", "/services/contact-center"],
+  "/products/byte-bots": ["/services/contact-center", "/services/ai-automation", "/services/generative-ai"],
+  "/products/byte-suites": ["/services/crm-erp-systems", "/products/byte-bots", "/services/marketing"],
+  "/products/bytesgov": ["/government-contractors", "/services/government-proposal-technology", "/services/generative-ai"],
+  "/products/bytesbilling": ["/e-invoicing", "/services/e-invoicing-integration", "/services/finance-accounting"],
+  "/products/bytesagentic": ["/services/contact-center", "/products/byte-bots", "/services/ai-automation"],
+};
+
+/** "From the blog" on each service and product page, as post slugs. Unpublished posts are skipped. */
+export const pageReading: Record<string, string[]> = {
+  "/services/ai-automation": ["what-is-agentic-ai", "how-to-make-your-website-ai-agent-ready", "what-is-marketing-automation"],
+  "/services/saas-product-development": ["what-is-api-first-development-2026-guide", "how-to-build-scalable-mobile-apps", "how-to-build-an-app-without-coding-guide"],
+  "/services/web-mobile-app-development": ["all-you-need-to-know-about-web-app-development", "how-pwas-are-changing-the-game-for-businesses", "why-custom-mobile-app-development-is-better-for-business", "how-to-implement-dark-mode-in-web-design"],
+  "/services/digital-commerce": ["wix-vs-bigcommerce-detailed-comparison", "what-is-a-landing-page", "ways-to-improve-your-website-page-load-speed-in-2025"],
+  "/services/crm-erp-systems": ["bytes-platform-crm-erp-integration", "how-does-a-crm-work", "what-is-crm"],
+  "/services/government-proposal-technology": ["what-is-generative-ai", "what-is-agentic-ai"],
+  "/services/e-invoicing-integration": ["bytes-platform-crm-erp-integration"],
+  "/services/web": ["website-development-roadmap-in-2026-guide", "8-top-web-development-trends-in-2026", "how-to-make-your-website-ai-agent-ready", "wix-vs-bigcommerce-detailed-comparison"],
+  "/services/seo": ["8-seo-trends-for-2026", "how-ai-is-changing-seo", "how-is-ai-transforming-local-seo", "why-choose-bytes-platform-seo-services"],
+  "/services/app": ["top-5-mobile-app-development-trends-2026", "ai-in-app-development-statistics-2026", "why-choose-flutter-for-mobile-app-development-in-2026", "reasons-your-business-needs-mobile-app-development"],
+  "/services/marketing": ["7-digital-marketing-trends-in-2026", "digital-marketing-roi-measuring-success-2026", "biggest-marketing-problem-2026-guide", "meta-expands-threads-ads-to-all-users-globally"],
+  "/services/advanced-services": ["why-bytes-platform-is-the-right-ai-partner-for-your-business", "what-businesses-will-survive-ai", "what-is-the-30-rule-in-ai"],
+  "/services/digital-consulting-strategy": ["what-businesses-will-survive-ai", "bytes-platform-services-for-small-businesses", "how-ai-is-reshaping-development"],
+  "/services/generative-ai": ["what-is-generative-ai", "why-llm-only-pages-arent-the-answer-to-modern-ai-search", "ai-ml-apps-driving-innovation-digital-platforms"],
+  "/services/data-modernization": ["cloud-storage-vs-local-storage-security", "what-is-data-analytics", "what-is-api-first-development-2026-guide"],
+  "/services/advanced-analytics": ["what-is-data-analytics", "top-10-ai-tools-for-data-analysis", "what-is-ai-website-benchmarking"],
+  "/services/data-management": ["why-is-data-backup-important", "cloud-storage-vs-local-storage-security", "what-is-iot-data-analytics"],
+  "/services/connected-intelligence": ["what-is-iot", "what-is-iot-data-analytics"],
+  "/services/cloud-operations-migration": ["cloud-storage-vs-local-storage-security", "why-is-data-backup-important"],
+  "/services/cloud-application-development": ["what-is-api-first-development-2026-guide", "how-pwas-are-changing-the-game-for-businesses", "how-to-build-scalable-mobile-apps"],
+  "/services/managed-services": ["why-is-data-backup-important", "why-website-security-matters-for-small-businesses", "how-do-i-secure-my-website-from-hackers"],
+  "/services/digital-infrastructure": ["cloud-storage-vs-local-storage-security", "why-is-data-backup-important"],
+  "/services/cybersecurity": ["7-cyber-security-solutions-for-businesses-2025", "how-do-i-secure-my-website-from-hackers", "how-to-ensure-security-during-project-development"],
+  "/services/emerging-technologies": ["how-to-build-an-augmented-reality-app-in-2025", "what-is-iot", "ai-ml-apps-driving-innovation-digital-platforms"],
+  "/services/contact-center": ["what-are-the-benefits-of-ai-in-customer-service", "how-ai-chatbots-improve-customer-service", "why-should-businesses-use-chatbot-services"],
+  "/products/byte-bots": ["how-chatbots-help-businesses", "why-should-businesses-use-chatbot-services", "how-ai-chatbots-improve-customer-service"],
+  "/products/byte-suites": ["what-is-crm", "how-does-a-crm-work", "what-is-marketing-automation"],
+  "/products/bytesagentic": ["what-are-the-benefits-of-ai-in-customer-service", "what-is-agentic-ai", "how-ai-chatbots-improve-customer-service"],
+};
+
+/**
+ * "Keep reading" under each post: the three most similar posts by full text,
+ * spread so older posts get picked too. A post missing here (published after
+ * this list was made) falls back to its newest same-category posts.
+ */
+export const relatedPosts: Record<string, string[]> = {
+  "what-technical-seo-includes": ["what-is-a-seo-audit", "why-website-speed-matters-more-than-ever-in-2026", "what-are-the-most-effective-seo-strategies-for-startups"],
+  "local-seo-vs-national-seo": ["local-seo-for-small-businesses", "what-is-seo", "how-is-ai-transforming-local-seo"],
+  "how-to-choose-right-development-framework": ["why-choose-bytes-platform-web-development-services", "how-to-ensure-security-during-project-development", "what-is-api-first-development-2026-guide"],
+  "how-to-ensure-security-during-project-development": ["how-do-i-secure-my-website-from-hackers", "why-website-security-matters-for-small-businesses", "7-cyber-security-solutions-for-businesses-2025"],
+  "ways-to-boost-mobile-app-performance": ["why-ui-ux-design-is-crucial", "how-to-build-scalable-mobile-apps", "what-features-make-a-mobile-app-user-friendly"],
+  "social-media-marketing-strategies": ["types-of-social-media-marketing", "why-social-media-marketing-is-important", "8-top-digital-marketing-trends-2026"],
+  "content-marketing-ideas-that-help-websites-rank": ["how-to-improve-your-sites-visibility", "how-to-repurpose-your-content", "how-to-optimize-for-voice-seo-search-in-2026"],
+  "how-to-measure-roi": ["digital-marketing-roi-measuring-success-2026", "kpis-that-matter-in-social-media-marketing", "how-to-improve-marketing-campaign-efficiency"],
+  "what-is-seo": ["local-seo-vs-national-seo", "local-seo-for-small-businesses", "10-local-seo-factors-2025"],
+  "how-to-implement-seo-strategies": ["10-local-seo-factors-2025", "local-seo-for-small-businesses", "how-schema-markup-boosts-local-seo"],
+  "important-web-development-trends": ["what-is-inclusive-web-design", "8-top-web-development-trends-in-2026", "website-development-roadmap-in-2026-guide"],
+  "why-responsive-web-design-is-essential": ["how-responsive-websites-improve-customer-engagement", "7-best-practices-for-designing-mobile-first", "5-elements-of-great-website-design"],
+  "why-ui-ux-design-is-crucial": ["how-to-design-ui-for-a-mobile-app", "ultimate-guide-ui-design", "how-ui-ux-design-boosts-customer-engagement"],
+  "how-to-build-scalable-mobile-apps": ["ways-to-boost-mobile-app-performance", "how-to-build-an-augmented-reality-app-in-2025", "top-mobile-app-development-trends-2025"],
+  "how-to-create-digital-marketing-campaigns": ["how-paid-advertising-works", "instagram-advertising-guide", "ultimate-guide-linkedin-advertising"],
+  "how-paid-advertising-works": ["best-instagram-advertising-strategy-guide", "instagram-advertising-guide", "ultimate-guide-linkedin-advertising"],
+  "white-hat-seo-vs-black-hat-seo": ["what-is-white-hat-seo", "what-is-black-hat-seo", "what-is-grey-hat-seo"],
+  "how-schema-markup-boosts-local-seo": ["10-local-seo-factors-2025", "how-to-implement-seo-strategies", "local-seo-for-small-businesses"],
+  "what-is-content-pruning-and-why-it-matters": ["google-core-update-march-2026-seo-impact-recovery", "how-do-seo-audits-help-websites-rank-higher", "what-is-a-seo-audit"],
+  "how-to-improve-your-sites-visibility": ["effective-link-building-strategies", "what-are-the-most-effective-seo-strategies-for-startups", "why-is-key-word-research-important-for-business-growth"],
+  "effective-link-building-strategies": ["how-to-improve-your-sites-visibility", "what-is-white-hat-seo", "what-is-black-hat-seo"],
+  "what-is-a-content-management-system": ["what-is-front-end-development-and-why-it-matters", "bytes-platform-services-for-small-businesses", "how-to-build-an-app-without-coding-guide"],
+  "how-to-improve-marketing-campaign-efficiency": ["how-to-measure-roi", "what-is-marketing-automation", "how-to-create-digital-marketing-campaigns"],
+  "what-is-front-end-development-and-why-it-matters": ["what-is-front-end-development", "what-is-motion-design-in-web-development", "how-to-choose-right-development-framework"],
+  "what-is-user-intent-in-seo": ["why-is-key-word-research-important-for-business-growth", "how-does-ai-impact-seo-strategies", "what-ai-means-for-seo-in-2026"],
+  "what-is-a-seo-audit": ["how-do-seo-audits-help-websites-rank-higher", "what-technical-seo-includes", "what-are-the-most-effective-seo-strategies-for-startups"],
+  "how-to-conduct-a-social-media-audit": ["what-is-instagram-business-seo", "why-social-media-marketing-is-important", "how-branding-in-digital-marketing-boosts-business"],
+  "why-social-media-marketing-is-important": ["social-media-marketing-strategies", "types-of-social-media-marketing", "how-paid-advertising-works"],
+  "what-is-iot": ["what-is-iot-data-analytics", "what-is-agentic-ai", "what-are-the-benefits-of-ai-in-customer-service"],
+  "what-is-data-analytics": ["why-invest-in-ai-app-development-in-2026", "what-is-iot-data-analytics", "what-is-ai-website-benchmarking"],
+  "what-is-iot-data-analytics": ["what-is-iot", "what-is-data-analytics", "ai-ml-apps-driving-innovation-digital-platforms"],
+  "what-is-generative-ai": ["ai-ml-apps-driving-innovation-digital-platforms", "what-is-agentic-ai", "why-should-businesses-use-chatbot-services"],
+  "how-is-ai-transforming-local-seo": ["what-ai-means-for-seo-in-2026", "local-seo-vs-national-seo", "artificial-intelligence-transforming-search-optimization"],
+  "types-of-social-media-marketing": ["social-media-marketing-strategies", "instagram-advertising-guide", "why-social-media-marketing-is-important"],
+  "what-is-crm": ["how-does-a-crm-work", "bytes-platform-crm-erp-integration", "how-chatbots-help-businesses"],
+  "how-does-a-crm-work": ["what-is-crm", "bytes-platform-crm-erp-integration", "why-bytes-platform-is-the-right-ai-partner-for-your-business"],
+  "what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals": ["how-ai-is-changing-seo", "why-is-key-word-research-important-for-business-growth", "artificial-intelligence-transforming-search-optimization"],
+  "how-to-repurpose-your-content": ["content-marketing-ideas-that-help-websites-rank", "how-to-improve-marketing-campaign-efficiency", "types-of-social-media-marketing"],
+  "how-chatbots-help-businesses": ["why-should-businesses-use-chatbot-services", "how-ai-chatbots-improve-customer-service", "what-are-the-benefits-of-ai-in-customer-service"],
+  "how-does-google-search-console-work": ["google-search-console-indexing-delay-update", "ai-search-console-update", "what-is-a-seo-audit"],
+  "how-do-seo-audits-help-websites-rank-higher": ["what-is-a-seo-audit", "what-is-seo", "how-does-google-search-console-work"],
+  "what-is-omnichannel-marketing": ["what-is-omni-channel-marketing", "what-is-multichannel-marketing-a-complete-guide-for-businesses", "how-marketers-are-spending-in-2026"],
+  "what-is-multichannel-marketing-a-complete-guide-for-businesses": ["what-is-omnichannel-marketing", "what-is-omni-channel-marketing", "how-to-create-digital-marketing-campaigns"],
+  "how-branding-in-digital-marketing-boosts-business": ["what-is-authenticity-in-social-media", "how-to-conduct-a-social-media-audit", "how-paid-advertising-works"],
+  "why-custom-mobile-app-development-is-better-for-business": ["reasons-your-business-needs-mobile-app-development", "how-pwas-are-changing-the-game-for-businesses", "how-can-a-mobile-app-help-grow-a-business"],
+  "what-are-the-most-effective-seo-strategies-for-startups": ["how-to-improve-your-sites-visibility", "what-technical-seo-includes", "what-is-a-seo-audit"],
+  "how-responsive-websites-improve-customer-engagement": ["why-responsive-web-design-is-essential", "7-best-practices-for-designing-mobile-first", "5-elements-of-great-website-design"],
+  "how-ai-chatbots-improve-customer-service": ["what-are-the-benefits-of-ai-in-customer-service", "why-should-businesses-use-chatbot-services", "how-chatbots-help-businesses"],
+  "what-are-the-benefits-of-ai-in-customer-service": ["how-ai-chatbots-improve-customer-service", "why-should-businesses-use-chatbot-services", "how-chatbots-help-businesses"],
+  "what-is-the-30-rule-in-ai": ["what-businesses-will-survive-ai", "why-llm-only-pages-arent-the-answer-to-modern-ai-search", "how-ai-chatbots-improve-customer-service"],
+  "what-businesses-will-survive-ai": ["what-is-the-30-rule-in-ai", "why-bytes-platform-is-the-right-ai-partner-for-your-business", "ai-cant-replace-humans-in-seo"],
+  "why-website-security-matters-for-small-businesses": ["how-do-i-secure-my-website-from-hackers", "7-cyber-security-solutions-for-businesses-2025", "how-to-ensure-security-during-project-development"],
+  "what-features-make-a-mobile-app-user-friendly": ["why-ui-ux-design-is-crucial", "ways-to-boost-mobile-app-performance", "how-to-design-ui-for-a-mobile-app"],
+  "why-is-key-word-research-important-for-business-growth": ["what-is-user-intent-in-seo", "what-is-keyword-density-a-complete-guide-for-seo-beginners-and-professionals", "how-does-ai-impact-seo-strategies"],
+  "what-is-omni-channel-marketing": ["what-is-omnichannel-marketing", "what-is-multichannel-marketing-a-complete-guide-for-businesses", "how-marketers-are-spending-in-2026"],
+  "bytes-platform-services-for-small-businesses": ["bytes-platform-crm-erp-integration", "why-custom-mobile-app-development-is-better-for-business", "why-choose-flutter-for-mobile-app-development-in-2026"],
+  "why-choose-bytes-platform-web-development-services": ["how-to-choose-right-development-framework", "website-development-roadmap-in-2026-guide", "wix-vs-bigcommerce-detailed-comparison"],
+  "bytes-platform-crm-erp-integration": ["bytes-platform-services-for-small-businesses", "what-is-crm", "how-does-a-crm-work"],
+  "why-choose-bytes-platform-seo-services": ["how-do-seo-audits-help-websites-rank-higher", "why-choose-bytes-platform-web-development-services", "why-bytes-platform-is-the-right-ai-partner-for-your-business"],
+  "7-cyber-security-solutions-for-businesses-2025": ["how-do-i-secure-my-website-from-hackers", "cloud-storage-vs-local-storage-security", "why-is-data-backup-important"],
+  "artificial-intelligence-transforming-search-optimization": ["how-does-ai-impact-seo-strategies", "how-ai-is-changing-seo", "what-is-ai-website-benchmarking"],
+  "what-is-motion-design-in-web-development": ["what-is-front-end-development", "what-is-front-end-development-and-why-it-matters", "ultimate-guide-ui-design"],
+  "top-mobile-app-development-trends-2025": ["top-5-mobile-app-development-trends-2026", "all-you-need-to-know-about-web-app-development", "ai-in-app-development-statistics-2026"],
+  "ways-to-improve-your-website-page-load-speed-in-2025": ["why-website-speed-matters-more-than-ever-in-2026", "important-web-development-trends", "7-best-practices-for-designing-mobile-first"],
+  "10-local-seo-factors-2025": ["how-to-use-customer-reviews-to-power-local-seo", "how-schema-markup-boosts-local-seo", "local-seo-for-small-businesses"],
+  "how-ui-ux-design-boosts-customer-engagement": ["ultimate-guide-ui-design", "5-elements-of-great-website-design", "what-is-front-end-development"],
+  "10-strategies-to-improve-digital-marketing-roi-in-2025": ["how-marketers-are-spending-in-2026", "7-digital-marketing-trends-in-2026", "digital-marketing-roi-measuring-success-2026"],
+  "what-is-authenticity-in-social-media": ["why-engagement-matters-more-than-followers", "how-to-build-a-strong-brand-community-2025", "social-media-marketing-strategies"],
+  "7-best-practices-for-designing-mobile-first": ["why-responsive-web-design-is-essential", "how-responsive-websites-improve-customer-engagement", "ultimate-guide-ui-design"],
+  "reasons-your-business-needs-mobile-app-development": ["how-can-a-mobile-app-help-grow-a-business", "why-invest-in-ai-app-development-in-2026", "why-custom-mobile-app-development-is-better-for-business"],
+  "what-ai-means-for-seo-in-2026": ["how-does-ai-impact-seo-strategies", "how-is-ai-transforming-local-seo", "understanding-generative-engine-optimization-geo"],
+  "kpis-that-matter-in-social-media-marketing": ["digital-marketing-roi-measuring-success-2026", "why-engagement-matters-more-than-followers", "how-to-measure-roi"],
+  "5-elements-of-great-website-design": ["how-ui-ux-design-boosts-customer-engagement", "how-responsive-websites-improve-customer-engagement", "7-best-practices-for-designing-mobile-first"],
+  "how-to-use-customer-reviews-to-power-local-seo": ["10-local-seo-factors-2025", "what-is-seo", "google-core-update-april-2026"],
+  "top-10-ai-tools-for-data-analysis": ["how-to-integrate-ai-into-a-mobile-app", "ai-ml-apps-driving-innovation-digital-platforms", "top-5-mobile-app-development-trends-2026"],
+  "how-to-design-ui-for-a-mobile-app": ["ultimate-guide-ui-design", "why-ui-ux-design-is-crucial", "how-to-build-an-augmented-reality-app-in-2025"],
+  "what-is-inclusive-web-design": ["important-web-development-trends", "what-features-make-a-mobile-app-user-friendly", "how-to-implement-dark-mode-in-web-design"],
+  "understanding-generative-engine-optimization-geo": ["seo-vs-geo-what-matters-in-2026", "artificial-intelligence-transforming-search-optimization", "what-ai-means-for-seo-in-2026"],
+  "how-to-build-a-strong-brand-community-2025": ["why-engagement-matters-more-than-followers", "what-is-authenticity-in-social-media", "how-branding-in-digital-marketing-boosts-business"],
+  "how-ai-is-changing-seo": ["how-does-ai-impact-seo-strategies", "artificial-intelligence-transforming-search-optimization", "why-websites-dont-appear-in-ai-answers"],
+  "what-is-front-end-development": ["what-is-motion-design-in-web-development", "what-is-front-end-development-and-why-it-matters", "understand-how-ui-ux-design-affects-cro"],
+  "instagram-advertising-guide": ["best-instagram-advertising-strategy-guide", "meta-expands-threads-ads-to-all-users-globally", "ultimate-guide-linkedin-advertising"],
+  "why-bytes-platform-is-the-right-ai-partner-for-your-business": ["how-ai-is-reshaping-development", "what-businesses-will-survive-ai", "ai-ml-apps-driving-innovation-digital-platforms"],
+  "google-search-console-indexing-delay-update": ["how-does-google-search-console-work", "ai-search-console-update", "google-september-2026-spam-update"],
+  "ai-search-console-update": ["google-search-console-indexing-delay-update", "how-does-google-search-console-work", "ai-search-visibility"],
+  "how-pwas-are-changing-the-game-for-businesses": ["all-you-need-to-know-about-web-app-development", "8-top-web-development-trends-in-2026", "why-custom-mobile-app-development-is-better-for-business"],
+  "building-effective-marketing-strategies": ["how-to-create-digital-marketing-campaigns", "biggest-marketing-problem-2026-guide", "best-instagram-advertising-strategy-guide"],
+  "cloud-storage-vs-local-storage-security": ["why-is-data-backup-important", "7-cyber-security-solutions-for-businesses-2025", "why-website-security-matters-for-small-businesses"],
+  "predictions-future-ai-search-2026": ["how-to-optimize-for-voice-seo-search-in-2026", "how-to-integrate-ai-into-a-mobile-app", "understanding-generative-engine-optimization-geo"],
+  "best-instagram-advertising-strategy-guide": ["instagram-advertising-guide", "how-paid-advertising-works", "ultimate-guide-linkedin-advertising"],
+  "why-you-need-more-than-ai-to-still-win-at-seo": ["why-llm-only-pages-arent-the-answer-to-modern-ai-search", "ai-cant-replace-humans-in-seo", "the-rise-of-black-hat-llm-seo-tactics"],
+  "how-to-build-an-augmented-reality-app-in-2025": ["top-5-mobile-app-development-trends-2026", "top-mobile-app-development-trends-2025", "how-to-integrate-ai-into-a-mobile-app"],
+  "understand-how-ui-ux-design-affects-cro": ["what-is-front-end-development", "what-are-the-7-cs-of-website-design-in-2026", "what-is-a-landing-page"],
+  "ai-in-app-development-statistics-2026": ["top-mobile-app-development-trends-2025", "why-invest-in-ai-app-development-in-2026", "all-you-need-to-know-about-web-app-development"],
+  "how-to-implement-dark-mode-in-web-design": ["how-ui-ux-design-boosts-customer-engagement", "what-is-inclusive-web-design", "ultimate-guide-ui-design"],
+  "ai-cant-replace-humans-in-seo": ["why-you-need-more-than-ai-to-still-win-at-seo", "why-llm-only-pages-arent-the-answer-to-modern-ai-search", "what-is-ai-website-benchmarking"],
+  "digital-marketing-roi-measuring-success-2026": ["how-to-measure-roi", "kpis-that-matter-in-social-media-marketing", "10-strategies-to-improve-digital-marketing-roi-in-2025"],
+  "how-to-make-your-website-ai-agent-ready": ["what-is-api-first-development-2026-guide", "website-development-roadmap-in-2026-guide", "8-top-web-development-trends-in-2026"],
+  "wix-vs-bigcommerce-detailed-comparison": ["best-wordpress-plugins-small-business-websites-2026", "why-choose-bytes-platform-web-development-services", "why-custom-mobile-app-development-is-better-for-business"],
+  "why-websites-dont-appear-in-ai-answers": ["seo-vs-geo-what-matters-in-2026", "why-llm-only-pages-arent-the-answer-to-modern-ai-search", "8-seo-trends-for-2026"],
+  "ultimate-guide-ui-design": ["how-to-design-ui-for-a-mobile-app", "how-ui-ux-design-boosts-customer-engagement", "why-ui-ux-design-is-crucial"],
+  "all-you-need-to-know-about-web-app-development": ["how-pwas-are-changing-the-game-for-businesses", "top-5-mobile-app-development-trends-2026", "ai-in-app-development-statistics-2026"],
+  "local-seo-for-small-businesses": ["local-seo-vs-national-seo", "how-to-implement-seo-strategies", "10-local-seo-factors-2025"],
+  "ultimate-guide-linkedin-advertising": ["kpis-that-matter-in-social-media-marketing", "best-instagram-advertising-strategy-guide", "how-paid-advertising-works"],
+  "why-llm-only-pages-arent-the-answer-to-modern-ai-search": ["why-websites-dont-appear-in-ai-answers", "why-you-need-more-than-ai-to-still-win-at-seo", "the-rise-of-black-hat-llm-seo-tactics"],
+  "meta-expands-threads-ads-to-all-users-globally": ["instagram-advertising-guide", "best-instagram-advertising-strategy-guide", "ultimate-guide-linkedin-advertising"],
+  "best-wordpress-plugins-small-business-websites-2026": ["how-do-i-secure-my-website-from-hackers", "wix-vs-bigcommerce-detailed-comparison", "website-development-roadmap-in-2026-guide"],
+  "what-is-ai-website-benchmarking": ["how-ai-is-reshaping-development", "artificial-intelligence-transforming-search-optimization", "how-do-seo-audits-help-websites-rank-higher"],
+  "8-top-web-development-trends-in-2026": ["how-ai-is-reshaping-development", "important-web-development-trends", "7-digital-marketing-trends-in-2026"],
+  "top-5-mobile-app-development-trends-2026": ["top-mobile-app-development-trends-2025", "all-you-need-to-know-about-web-app-development", "how-to-build-an-augmented-reality-app-in-2025"],
+  "8-seo-trends-for-2026": ["ai-search-visibility", "google-core-update-april-2026", "google-september-2026-spam-update"],
+  "7-digital-marketing-trends-in-2026": ["8-top-digital-marketing-trends-2026", "10-strategies-to-improve-digital-marketing-roi-in-2025", "how-marketers-are-spending-in-2026"],
+  "how-ai-is-reshaping-development": ["8-top-web-development-trends-in-2026", "ai-ml-apps-driving-innovation-digital-platforms", "what-is-ai-website-benchmarking"],
+  "the-rise-of-black-hat-llm-seo-tactics": ["what-is-black-hat-seo", "white-hat-seo-vs-black-hat-seo", "what-is-white-hat-seo"],
+  "ai-ml-apps-driving-innovation-digital-platforms": ["how-ai-is-reshaping-development", "why-invest-in-ai-app-development-in-2026", "top-5-mobile-app-development-trends-2026"],
+  "how-marketers-are-spending-in-2026": ["10-strategies-to-improve-digital-marketing-roi-in-2025", "7-digital-marketing-trends-in-2026", "how-to-improve-marketing-campaign-efficiency"],
+  "how-to-optimize-for-voice-seo-search-in-2026": ["seo-vs-geo-what-matters-in-2026", "predictions-future-ai-search-2026", "how-is-ai-transforming-local-seo"],
+  "why-invest-in-ai-app-development-in-2026": ["reasons-your-business-needs-mobile-app-development", "ai-in-app-development-statistics-2026", "ai-ml-apps-driving-innovation-digital-platforms"],
+  "what-is-instagram-business-seo": ["how-to-conduct-a-social-media-audit", "why-engagement-matters-more-than-followers", "social-media-marketing-strategies"],
+  "what-is-a-landing-page": ["5-elements-of-great-website-design", "understand-how-ui-ux-design-affects-cro", "kpis-that-matter-in-social-media-marketing"],
+  "seo-vs-geo-what-matters-in-2026": ["understanding-generative-engine-optimization-geo", "why-websites-dont-appear-in-ai-answers", "how-to-optimize-for-voice-seo-search-in-2026"],
+  "why-website-speed-matters-more-than-ever-in-2026": ["ways-to-improve-your-website-page-load-speed-in-2025", "what-technical-seo-includes", "what-are-core-web-vitals"],
+  "how-to-integrate-ai-into-a-mobile-app": ["top-10-ai-tools-for-data-analysis", "how-to-build-an-augmented-reality-app-in-2025", "reasons-your-business-needs-mobile-app-development"],
+  "why-engagement-matters-more-than-followers": ["what-is-authenticity-in-social-media", "how-to-build-a-strong-brand-community-2025", "what-is-instagram-business-seo"],
+  "what-is-black-hat-seo": ["what-is-grey-hat-seo", "what-is-white-hat-seo", "white-hat-seo-vs-black-hat-seo"],
+  "what-is-grey-hat-seo": ["what-is-black-hat-seo", "what-is-white-hat-seo", "white-hat-seo-vs-black-hat-seo"],
+  "what-is-white-hat-seo": ["white-hat-seo-vs-black-hat-seo", "what-is-black-hat-seo", "what-is-grey-hat-seo"],
+  "why-choose-flutter-for-mobile-app-development-in-2026": ["how-to-build-an-app-without-coding-guide", "how-to-choose-right-development-framework", "bytes-platform-services-for-small-businesses"],
+  "how-does-ai-impact-seo-strategies": ["how-ai-is-changing-seo", "artificial-intelligence-transforming-search-optimization", "what-ai-means-for-seo-in-2026"],
+  "how-can-a-mobile-app-help-grow-a-business": ["reasons-your-business-needs-mobile-app-development", "how-pwas-are-changing-the-game-for-businesses", "top-5-mobile-app-development-trends-2026"],
+  "how-do-i-secure-my-website-from-hackers": ["why-website-security-matters-for-small-businesses", "how-to-ensure-security-during-project-development", "7-cyber-security-solutions-for-businesses-2025"],
+  "why-should-businesses-use-chatbot-services": ["what-are-the-benefits-of-ai-in-customer-service", "how-ai-chatbots-improve-customer-service", "how-chatbots-help-businesses"],
+  "google-core-update-march-2026-seo-impact-recovery": ["google-september-2026-spam-update", "google-core-update-april-2026", "8-seo-trends-for-2026"],
+  "what-is-e-e-a-t": ["google-core-update-april-2026", "google-core-update-march-2026-seo-impact-recovery", "8-seo-trends-for-2026"],
+  "website-development-roadmap-in-2026-guide": ["what-are-the-7-cs-of-website-design-in-2026", "8-top-web-development-trends-in-2026", "how-to-make-your-website-ai-agent-ready"],
+  "how-to-build-an-app-without-coding-guide": ["how-to-design-ui-for-a-mobile-app", "top-mobile-app-development-trends-2025", "how-to-build-an-augmented-reality-app-in-2025"],
+  "biggest-marketing-problem-2026-guide": ["building-effective-marketing-strategies", "how-to-create-digital-marketing-campaigns", "8-top-digital-marketing-trends-2026"],
+  "google-core-update-april-2026": ["what-is-e-e-a-t", "8-seo-trends-for-2026", "google-core-update-march-2026-seo-impact-recovery"],
+  "8-top-digital-marketing-trends-2026": ["7-digital-marketing-trends-in-2026", "10-strategies-to-improve-digital-marketing-roi-in-2025", "social-media-marketing-strategies"],
+  "what-are-the-7-cs-of-website-design-in-2026": ["website-development-roadmap-in-2026-guide", "how-to-make-your-website-ai-agent-ready", "understand-how-ui-ux-design-affects-cro"],
+  "what-is-api-first-development-2026-guide": ["how-to-make-your-website-ai-agent-ready", "how-to-choose-right-development-framework", "8-top-web-development-trends-in-2026"],
+  "ai-search-visibility": ["8-seo-trends-for-2026", "google-september-2026-spam-update", "seo-vs-ppc"],
+  "what-is-marketing-automation": ["what-is-agentic-ai", "seo-vs-ppc", "how-to-improve-marketing-campaign-efficiency"],
+  "what-is-agentic-ai": ["what-is-marketing-automation", "what-is-generative-ai", "why-is-data-backup-important"],
+  "seo-vs-ppc": ["what-is-marketing-automation", "ai-search-visibility", "what-are-core-web-vitals"],
+  "why-is-data-backup-important": ["cloud-storage-vs-local-storage-security", "7-cyber-security-solutions-for-businesses-2025", "why-website-security-matters-for-small-businesses"],
+  "what-are-core-web-vitals": ["why-website-speed-matters-more-than-ever-in-2026", "8-seo-trends-for-2026", "why-responsive-web-design-is-essential"],
+  "google-september-2026-spam-update": ["google-core-update-march-2026-seo-impact-recovery", "ai-search-visibility", "8-seo-trends-for-2026"],
+};
+
+/** Old or mistyped addresses that links inside existing posts still point at. */
+export const linkFixes: Record<string, string> = {
+  "/why-should-businesses-use-chatbot-services": "/blogs/why-should-businesses-use-chatbot-services",
+  "/ai-ml-apps-driving-innovation-digital-platforms": "/blogs/ai-ml-apps-driving-innovation-digital-platforms",
+  "/how-ai-chatbots-improve-customer-service": "/blogs/how-ai-chatbots-improve-customer-service",
+  "/how-to-make-your-website-ai-agent-ready": "/blogs/how-to-make-your-website-ai-agent-ready",
+  "/what-businesses-will-survive-ai": "/blogs/what-businesses-will-survive-ai",
+  "/how-does-a-crm-work": "/blogs/how-does-a-crm-work",
+  "/what-is-crm": "/blogs/what-is-crm",
+  "/what-is-omnichannel-marketing": "/blogs/what-is-omnichannel-marketing",
+  "/blog/is-seo-or-ppc-better-for-generating-leads": "/blogs/seo-vs-ppc",
+  "/blogs/google-core-update-march-2026": "/blogs/google-core-update-march-2026-seo-impact-recovery",
+  "/blogs/ai-future-of-search": "/blogs/how-does-ai-impact-seo-strategies",
+  "/blogs/ethical-seo-strategies": "/blogs/what-is-white-hat-seo",
+  "/blogs/ai-search-console-update-25-powerful-boost-seo-reports": "/blogs/ai-search-console-update",
+};

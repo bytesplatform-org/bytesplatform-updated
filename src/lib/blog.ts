@@ -1,4 +1,5 @@
 import staticPosts from "@/data/staticPosts.json";
+import { relatedPosts } from "@/data/internalLinks";
 import type { PortableBlock, Post, PostSummary } from "./blogFormat";
 
 export * from "./blogFormat";
@@ -96,11 +97,17 @@ export async function getPost(slug: string): Promise<Post | null> {
   return { ...fromStatic(local), detailImage: local.detailImage, seo: local.seo, body: { kind: "markdown", text: local.content } };
 }
 
-/** Up to `count` other posts, same category first. */
+/**
+ * Up to `count` other posts: the closest matches by content from
+ * src/data/internalLinks.ts, then the newest in the same category.
+ */
 export async function getRelatedPosts(post: PostSummary, count = 3): Promise<PostSummary[]> {
   const all = (await getAllPosts()).filter((other) => other.slug !== post.slug);
+  const bySlug = new Map(all.map((other) => [other.slug, other]));
+  const picked = (relatedPosts[post.slug] ?? []).flatMap((slug) => bySlug.get(slug) ?? []);
   const same = all.filter((other) => other.category === post.category);
-  return [...same, ...all.filter((other) => other.category !== post.category)].slice(0, count);
+  const rest = all.filter((other) => other.category !== post.category);
+  return [...new Set([...picked, ...same, ...rest])].slice(0, count);
 }
 
 /** Rough reading time from word count, for the post header. */

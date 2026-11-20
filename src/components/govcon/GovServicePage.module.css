@@ -538,3 +538,15 @@
   .tile:hover,
   .related li:hover { transform: none; }
 }
+
+/* Internal links woven into the summary and answers. */
+.inlineLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--bp-accent);
+  text-underline-offset: 0.2em;
+  transition: color 300ms ease;
+}
+
+.inlineLink:hover { color: var(--bp-accent); }

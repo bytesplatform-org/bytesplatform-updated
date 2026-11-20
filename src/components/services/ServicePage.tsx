@@ -8,6 +8,8 @@ import ActionPill from "@/components/ui/ActionPill";
 import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
 import SiteFooter from "@/components/sections/SiteFooter";
 import type { ServiceContent } from "@/data/serviceContent";
+import LinkedText from "@/components/ui/LinkedText";
+import type { PageExplore } from "@/lib/linkText";
 import { fontsReady, prefersReducedMotion } from "@/lib/animation/prefs";
 import { mountScroll } from "@/lib/animation/scroll";
 import styles from "./ServicePage.module.css";
@@ -33,6 +35,7 @@ function Words({ text, tail }: { text: string; tail?: ReactNode }) {
 
 const period = <span className="hero-period">.</span>;
 
+
 const pad = (n: number) => String(n).padStart(2, "0");
 
 function SectionLabel({ index, children }: { index: number; children: string }) {
@@ -48,8 +51,10 @@ function SectionLabel({ index, children }: { index: number; children: string }) 
 /**
  * Shared by the service and product pages.
  * `indexed` adds the About page's numbered section labels and rows.
+ * `explore` carries the page's internal links: anchors in the copy, related
+ * pages and a reading list, shown above the closing call to action.
  */
-export default function ServicePage({ content, indexed = false }: { content: ServiceContent; indexed?: boolean }) {
+export default function ServicePage({ content, indexed = false, explore }: { content: ServiceContent; indexed?: boolean; explore?: PageExplore }) {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => mountScroll({ smooth: !prefersReducedMotion() }), []);
@@ -141,6 +146,9 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
   let sectionCount = 0;
   const label = (text?: string) => (indexed && text ? <SectionLabel index={++sectionCount}>{text}</SectionLabel> : null);
   const number = (index: number) => (indexed ? <span className={styles.index}>{pad(index + 1)}</span> : null);
+  const copy = (field: string, text: string) => <LinkedText text={text} links={explore?.links[field]} className={styles.inlineLink} />;
+  const related = explore?.related ?? [];
+  const reading = explore?.reading ?? [];
 
   return (
     <>
@@ -158,7 +166,7 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
             ))}
           </h1>
           <div className={styles.heroFoot}>
-            <p data-hero-fade className={styles.heroIntro}>{hero.intro}</p>
+            <p data-hero-fade className={styles.heroIntro}>{copy("hero.intro", hero.intro)}</p>
             <div data-hero-fade><GoogleSourceButton /></div>
           </div>
         </section>
@@ -178,7 +186,7 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
           {label(labels?.offer)}
           <div className={styles.sectionHead}>
             <h2 data-lines className={styles.h2}><Words text={offer.heading} /></h2>
-            {offer.body && <p data-reveal className={styles.body}>{offer.body}</p>}
+            {offer.body && <p data-reveal className={styles.body}>{copy("offer.body", offer.body)}</p>}
           </div>
           <ul className={styles.rows}>
             {offer.items.map((item, index) => (
@@ -186,7 +194,7 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
                 {number(index)}
                 <h3 className={styles.rowTitle}>{item.title}</h3>
                 <div className={styles.rowText}>
-                  <p>{item.body}</p>
+                  <p>{copy(`offer.items.${index}`, item.body)}</p>
                   {item.tags && (
                     <ul className={styles.tags}>
                       {item.tags.map((tag) => <li key={tag}>{tag}</li>)}
@@ -204,14 +212,14 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
             {label(labels?.highlights)}
             <div className={styles.sectionHead}>
               <h2 data-lines className={styles.h2}><Words text={highlights.heading} /></h2>
-              {highlights.body && <p data-reveal className={styles.body}>{highlights.body}</p>}
+              {highlights.body && <p data-reveal className={styles.body}>{copy("highlights.body", highlights.body)}</p>}
             </div>
             <div className={styles.cards}>
               {highlights.items.map((item, index) => (
                 <article data-reveal key={item.title} className={`${styles.card} ${index === 0 ? styles.cardAccent : ""}`}>
                   {indexed && <span className={`${styles.index} ${styles.cardIndex}`}>{pad(index + 1)}</span>}
                   <h3 className={styles.cardTitle}>{item.title}</h3>
-                  <p className={styles.cardBody}>{item.body}</p>
+                  <p className={styles.cardBody}>{copy(`highlights.items.${index}`, item.body)}</p>
                   {item.points && (
                     <ul className={styles.cardPoints}>
                       {item.points.map((point) => <li key={point}>{point}</li>)}
@@ -229,7 +237,7 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
             <div className={styles.splitAside}>
               {label(labels?.process)}
               <h2 data-lines className={styles.h2}><Words text={process.heading} /></h2>
-              {process.body && <p data-reveal className={styles.body}>{process.body}</p>}
+              {process.body && <p data-reveal className={styles.body}>{copy("process.body", process.body)}</p>}
             </div>
             <ol data-steps className={styles.steps}>
               <span data-rail aria-hidden className={styles.rail} />
@@ -237,7 +245,7 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
                 <li data-reveal key={step.title} className={styles.step}>
                   {number(index)}
                   <h3>{step.title}</h3>
-                  <p>{step.body}</p>
+                  <p>{copy(`process.steps.${index}`, step.body)}</p>
                 </li>
               ))}
             </ol>
@@ -266,24 +274,59 @@ export default function ServicePage({ content, indexed = false }: { content: Ser
             <h2 data-lines className={styles.h2}><Words text="You ask. We answer." /></h2>
           </div>
           <div className={styles.faqs}>
-            {faqs.map((faq) => (
+            {faqs.map((faq, index) => (
               <details data-reveal key={faq.q} className={styles.faq}>
                 <summary>
                   {faq.q}
                   <span aria-hidden className={styles.faqIcon} />
                 </summary>
-                <p>{faq.a}</p>
+                <p>{copy(`faqs.${index}`, faq.a)}</p>
               </details>
             ))}
           </div>
         </section>
+
+        {/* --------------------------------------------------------- explore */}
+        {(related.length > 0 || reading.length > 0) && (
+          <section className={`${styles.section} ${styles.split}`}>
+            <div className={styles.splitAside}>
+              <h2 data-lines className={styles.h2}><Words text="Keep exploring" /></h2>
+            </div>
+            <div className={styles.explore}>
+              {related.length > 0 && (
+                <nav data-reveal aria-label="Related services">
+                  <p className="hero-meta">Related services</p>
+                  <ul className={styles.exploreList}>
+                    {related.map((item) => (
+                      <li key={item.href}>
+                        <a href={item.href}>{item.label}<span aria-hidden>→</span></a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+              {reading.length > 0 && (
+                <nav data-reveal aria-label="From the blog">
+                  <p className="hero-meta">From the blog</p>
+                  <ul className={`${styles.exploreList} ${styles.exploreReading}`}>
+                    {reading.map((item) => (
+                      <li key={item.href}>
+                        <a href={item.href}>{item.title}<span aria-hidden>→</span></a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* ------------------------------------------------------------- cta */}
         <section className={styles.cta}>
           <h2 data-lines className={styles.ctaTitle}>
             <Words text={cta.heading} tail={<span className="hero-period">?</span>} />
           </h2>
-          <p data-reveal className={styles.body}>{cta.body}</p>
+          <p data-reveal className={styles.body}>{copy("cta.body", cta.body)}</p>
           <div data-reveal>
             <ActionPill href="/contact" label={action} />
           </div>

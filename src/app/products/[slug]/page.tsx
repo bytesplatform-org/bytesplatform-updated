@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ServicePage from "@/components/services/ServicePage";
+import { getPageExplore } from "@/lib/internalLinks";
 import { productContent } from "@/data/productContent";
 import { productLinks, type ProductSlug } from "@/data/products";
 
@@ -29,5 +30,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const content = find((await params).slug);
   if (!content) notFound();
-  return <ServicePage content={content} indexed />;
+  return <ServicePage content={content} indexed explore={await getPageExplore(`/products/${content.slug}`)} />;
 }

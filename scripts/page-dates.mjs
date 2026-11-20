@@ -33,6 +33,7 @@ registerHooks({
 const { serviceContent } = await import(join(ROOT, "src/data/serviceContent.ts"));
 const { productContent } = await import(join(ROOT, "src/data/productContent.ts"));
 const { governmentServices, governmentServiceShared, govServicePath } = await import(join(ROOT, "src/data/governmentServices.ts"));
+const { pageLinks, pageReading, relatedPages } = await import(join(ROOT, "src/data/internalLinks.ts"));
 
 // Files that hold each page's own content. Shared parts (nav, footer, animation code,
 // styles) are left out on purpose, so a design tweak doesn't mark every page as edited.
@@ -89,12 +90,20 @@ for (const [path, files] of Object.entries(PAGE_FILES)) {
     })
     .join("\0");
 }
+// The internal links a page shows (src/data/internalLinks.ts), or null when it has none,
+// so adding a link to one page doesn't move the date of every other.
+const linksOf = (path) => {
+  const links = [pageLinks[path], relatedPages[path], pageReading[path]];
+  return links.some(Boolean) ? links : null;
+};
+const withLinks = (path, content) => JSON.stringify(linksOf(path) ? [content, linksOf(path)] : content);
 // Services and products share one template, so each one is tracked by its own content entry.
-for (const [slug, content] of Object.entries(serviceContent)) contents[`/services/${slug}`] = JSON.stringify(content);
-for (const [slug, content] of Object.entries(productContent)) contents[`/products/${slug}`] = JSON.stringify(content);
+for (const [slug, content] of Object.entries(serviceContent)) contents[`/services/${slug}`] = withLinks(`/services/${slug}`, content);
+for (const [slug, content] of Object.entries(productContent)) contents[`/products/${slug}`] = withLinks(`/products/${slug}`, content);
 // Government service pages show their own entry plus a block of text they all share.
 for (const service of governmentServices) {
-  contents[govServicePath(service.slug)] = JSON.stringify([service, governmentServiceShared]);
+  const path = govServicePath(service.slug);
+  contents[path] = withLinks(path, [service, governmentServiceShared]);
 }
 
 const setIndex = process.argv.indexOf("--set");

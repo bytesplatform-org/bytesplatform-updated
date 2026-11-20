@@ -1,5 +1,7 @@
 import { Fragment, type ReactNode } from "react";
 import { createSlugger, markdownHeadingText, type PortableBlock, type PortableSpan, type Post } from "@/lib/blogFormat";
+import { fixHref } from "@/lib/internalLinks";
+import { splitLinks, type InlineLink } from "@/lib/linkText";
 import styles from "./Blog.module.css";
 
 /**
@@ -8,21 +10,32 @@ import styles from "./Blog.module.css";
  * the dataset uses) and the older posts' plain text with **bold** runs.
  * Headings get ids from createSlugger, matching postHeadings, so the
  * contents list can link to them.
+ *
+ * `links` (from src/data/internalLinks.ts) are woven in where each anchor
+ * first appears in body text; headings and existing links are left alone.
  */
-export default function PostBody({ body }: { body: Post["body"] }) {
+export default function PostBody({ body, links = [] }: { body: Post["body"]; links?: InlineLink[] }) {
+  const pending = [...links];
   return (
     <div className={styles.prose}>
-      {body.kind === "portable" ? renderPortable(body.blocks) : renderMarkdown(body.text)}
+      {body.kind === "portable" ? renderPortable(body.blocks, pending) : renderMarkdown(body.text, pending)}
     </div>
   );
 }
 
+function linked(text: string, pending: InlineLink[]): ReactNode {
+  const parts = splitLinks(text, pending);
+  if (parts.length === 1 && typeof parts[0] === "string") return parts[0];
+  return parts.map((part, index) => (typeof part === "string" ? part : <a key={index} href={part.href}>{part.text}</a>));
+}
+
 /* ------------------------------------------------------------ portable text */
 
-function renderSpans(block: PortableBlock): ReactNode {
-  const links = new Map(block.markDefs?.filter((def) => def._type === "link").map((def) => [def._key, def.href]) ?? []);
+function renderSpans(block: PortableBlock, pending: InlineLink[]): ReactNode {
+  const links = new Map(block.markDefs?.filter((def) => def._type === "link").map((def) => [def._key, fixHref(def.href ?? "#")]) ?? []);
   return (block.children ?? []).map((span: PortableSpan, index) => {
-    let node: ReactNode = span.text;
+    const isLink = span.marks?.some((mark) => links.has(mark));
+    let node: ReactNode = isLink ? span.text : linked(span.text, pending);
     for (const mark of span.marks ?? []) {
       if (mark === "strong") node = <strong>{node}</strong>;
       else if (mark === "em") node = <em>{node}</em>;
@@ -36,7 +49,7 @@ function renderSpans(block: PortableBlock): ReactNode {
   });
 }
 
-function renderPortable(blocks: PortableBlock[]) {
+function renderPortable(blocks: PortableBlock[], pending: InlineLink[]) {
   const out: ReactNode[] = [];
   const slug = createSlugger();
   let list: { type: "bullet" | "number"; items: ReactNode[] } | null = null;
@@ -54,13 +67,15 @@ function renderPortable(blocks: PortableBlock[]) {
     if (block.listItem) {
       if (list && list.type !== block.listItem) flush();
       list ??= { type: block.listItem, items: [] };
-      list.items.push(<li key={key}>{renderSpans(block)}</li>);
+      list.items.push(<li key={key}>{renderSpans(block, pending)}</li>);
       return;
     }
     flush();
     const text = block.children.map((child) => child.text).join("").trim();
     if (!text) return;
-    const content = renderSpans(block);
+    const heading = /^h[1-6]$/.test(block.style ?? "");
+    // Headings are never linked: an empty list leaves their text as it is.
+    const content = renderSpans(block, heading ? [] : pending);
     if (block.style === "h2") out.push(<h2 key={key} id={slug(text)}>{content}</h2>);
     else if (block.style === "h3") out.push(<h3 key={key} id={slug(text)}>{content}</h3>);
     else if (block.style === "h4") out.push(<h4 key={key} id={slug(text)}>{content}</h4>);
@@ -72,9 +87,11 @@ function renderPortable(blocks: PortableBlock[]) {
 
 /* ----------------------------------------------------------------- markdown */
 
-function renderInline(text: string): ReactNode[] {
+function renderInline(text: string, pending: InlineLink[] = []): ReactNode[] {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
-    part.startsWith("**") && part.endsWith("**") ? <strong key={index}>{part.slice(2, -2)}</strong> : part,
+    part.startsWith("**") && part.endsWith("**")
+      ? <strong key={index}>{linked(part.slice(2, -2), pending)}</strong>
+      : <Fragment key={index}>{linked(part, pending)}</Fragment>,
   );
 }
 
@@ -83,17 +100,17 @@ function renderInline(text: string): ReactNode[] {
  * not after a blank one), "- " / "• " lines group into a list, and other runs
  * of lines become paragraphs.
  */
-function renderMarkdown(text: string) {
+function renderMarkdown(text: string, pending: InlineLink[]) {
   const out: ReactNode[] = [];
   const slug = createSlugger();
   let paragraph: string[] = [];
   let items: string[] = [];
   const flushParagraph = () => {
-    if (paragraph.length) out.push(<p key={out.length}>{renderInline(paragraph.join(" "))}</p>);
+    if (paragraph.length) out.push(<p key={out.length}>{renderInline(paragraph.join(" "), pending)}</p>);
     paragraph = [];
   };
   const flushList = () => {
-    if (items.length) out.push(<ul key={out.length}>{items.map((item, index) => <li key={index}>{renderInline(item)}</li>)}</ul>);
+    if (items.length) out.push(<ul key={out.length}>{items.map((item, index) => <li key={index}>{renderInline(item, pending)}</li>)}</ul>);
     items = [];
   };
 

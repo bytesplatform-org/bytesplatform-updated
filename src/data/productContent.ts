@@ -160,9 +160,9 @@ export const productContent: Record<ProductSlug, ServiceContent> = {
   "bytesgov": {
     slug: "bytesgov",
     meta: {
-      title: "Construction Management Software for Contractors | BytesGov",
+      title: "Government Contracting Software: SAM.gov to Award | BytesGov",
       description:
-        "BytesGov is construction management software for contractors: job costing, estimating, subcontractor scheduling and billing. Request a walkthrough today.",
+        "Government contracting software that finds SAM.gov bids, scores your win odds, builds FAR/DFARS compliance matrices and drafts proposals. Book a consultation.",
     },
     hero: {
       title: ["BytesGov"],

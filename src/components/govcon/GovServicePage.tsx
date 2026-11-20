@@ -6,9 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNav from "@/components/hero/HeroNav";
 import SiteFooter from "@/components/sections/SiteFooter";
 import ActionPill from "@/components/ui/ActionPill";
+import LinkedText from "@/components/ui/LinkedText";
 import { mountFooterLift } from "@/lib/animation/footerLift";
 import { prefersReducedMotion } from "@/lib/animation/prefs";
 import { mountReveal } from "@/lib/govcon/reveal";
+import type { InlineLink } from "@/lib/linkText";
 import { governmentServiceShared as shared, govServicePath, type GovernmentService } from "@/data/governmentServices";
 import { audienceKeys, type AudienceKey } from "@/data/govcon";
 import ServiceIcon, { type IconName } from "./ServiceIcons";
@@ -58,7 +60,8 @@ function Head({ index, title }: { index: number; title: string }) {
  * the three middle blocks are shared. Blocks fade up into view, and the
  * "How it works" line fills as you scroll; reduced motion shows everything still.
  */
-export default function GovServicePage({ service, related }: { service: GovernmentService; related: GovernmentService[] }) {
+/** `links` are the page's in-copy internal links by field ("summary", "faqs.0"), from src/data/internalLinks.ts. */
+export default function GovServicePage({ service, related, links = {} }: { service: GovernmentService; related: GovernmentService[]; links?: Record<string, InlineLink[]> }) {
   const root = useRef<HTMLDivElement>(null);
   const { audience, query } = useAudience();
   const callHref = `${GOV}${query}#call`;
@@ -109,7 +112,7 @@ export default function GovServicePage({ service, related }: { service: Governme
                 <span className={styles.naics}>NAICS {service.naics.join(" · ")}</span>
               </p>
               <h1 data-hero-in className={styles.title}>{service.title}<span className="hero-period">.</span></h1>
-              <p data-hero-in className={styles.lead}>{service.summary}</p>
+              <p data-hero-in className={styles.lead}><LinkedText text={service.summary} links={links.summary} className={styles.inlineLink} /></p>
               <div data-hero-in className={styles.actions}>
                 <ActionPill href={callHref} label="Book a capability call" />
                 <a className={styles.secondary} href={`${GOV}${query}#services`}>All services</a>
@@ -222,10 +225,10 @@ export default function GovServicePage({ service, related }: { service: Governme
           <section className={`${styles.section} ${styles.narrow}`}>
             <Head index={++section} title="Questions" />
             <div>
-              {service.faqs.map((faq) => (
+              {service.faqs.map((faq, index) => (
                 <details data-reveal key={faq.q} className={styles.faq}>
                   <summary>{faq.q}<span aria-hidden className={styles.faqIcon} /></summary>
-                  <p>{faq.a}</p>
+                  <p><LinkedText text={faq.a} links={links[`faqs.${index}`]} className={styles.inlineLink} /></p>
                 </details>
               ))}
             </div>

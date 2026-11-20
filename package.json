@@ -14,6 +14,7 @@
     "start": "next start",
     "sitemap:dates": "node scripts/page-dates.mjs",
     "sitemap:check": "node scripts/page-dates.mjs --check",
+    "links:check": "node scripts/internal-links.mjs",
     "prepare": "git config core.hooksPath .githooks || true",
     "typecheck": "tsc --noEmit --noUnusedLocals --noUnusedParameters"
   },

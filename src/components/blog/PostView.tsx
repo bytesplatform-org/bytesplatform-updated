@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import ActionPill from "@/components/ui/ActionPill";
+import { postLinks } from "@/data/internalLinks";
 import GoogleSourceButton from "@/components/ui/GoogleSourceButton";
 import heroFoot from "@/components/ui/HeroFoot.module.css";
 import { categoryLabel, formatDate, imageUrl, postHeadings, readingMinutes, type Post, type PostSummary } from "@/lib/blog";
@@ -75,7 +76,7 @@ export default function PostView({ post, related }: { post: Post; related: PostS
             </div>
           </div>
         </aside>
-        <PostBody body={post.body} />
+        <PostBody body={post.body} links={postLinks[post.slug]} />
       </div>
 
       {related.length > 0 && (
